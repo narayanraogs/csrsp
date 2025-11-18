@@ -2,6 +2,7 @@ package main
 
 import (
 	"embed"
+	"flag"
 	"io/fs"
 	"log"
 	"net/http"
@@ -14,6 +15,9 @@ var Version string
 var embeddedFiles embed.FS
 
 func main() {
+	listenAddr := flag.String("listen", ":8080", "The address and port to listen on.")
+	flag.Parse()
+
 	log.Printf("Starting server version: %s", Version)
 
 	// Get the subtree of the embedded files, so we can serve it from the root.
@@ -24,8 +28,8 @@ func main() {
 
 	http.Handle("/", http.FileServer(http.FS(fs)))
 
-	log.Println("Listening on :8080")
-	err = http.ListenAndServe(":8080", nil)
+	log.Printf("Listening on %s", *listenAddr)
+	err = http.ListenAndServe(*listenAddr, nil)
 	if err != nil {
 		log.Fatal(err)
 	}
