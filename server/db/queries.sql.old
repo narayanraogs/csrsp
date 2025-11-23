@@ -1,0 +1,268 @@
+-- name: GetDASDetails :one
+SELECT * FROM DASDetails
+WHERE DASID = ?;
+
+-- name: GetDASIDByName :one
+SELECT DASID FROM DASDetails
+WHERE DASName = ?;
+
+-- name: GetAcquiredFrameType :one
+SELECT FrameType FROM FrameTypes 
+WHERE ProcessedOrAcquired = 'Acquired' 
+ORDER BY FrameTypeID ASC
+LIMIT 1;
+
+-- name: GetFrameLength :one
+SELECT FrameLength FROM Frames
+WHERE FrameID = ?;
+
+-- name: CountDASPaths :one
+SELECT count(*) FROM DASPath
+WHERE AcqMode = ?;
+
+-- name: ListDASPathsByAcqMode :many
+SELECT * FROM DASPath
+WHERE AcqMode = ?;
+
+-- name: ListFrameIdentifiersByType :many
+SELECT FrameIdentifier FROM Frames
+WHERE FrameType = ? 
+ORDER BY FrameID ASC;
+
+-- name: ListArchivableFrameTypes :many
+SELECT FrameType FROM FrameTypes
+WHERE ToBeArchived = 1;
+
+-- name: ListFramesByType :many
+SELECT * FROM Frames
+WHERE FrameType = ?;
+
+-- name: IsFrameTypeAcquired :one
+SELECT EXISTS(
+  SELECT 1 FROM FrameTypes WHERE FrameType = ? AND ProcessedOrAcquired = 'Acquired'
+);
+
+-- name: IsFrameTypeArchivable :one
+SELECT EXISTS(
+  SELECT 1 FROM FrameTypes WHERE FrameType = ? AND ToBeArchived = 1
+);
+
+-- name: IsFrameTypeWritable :one
+SELECT EXISTS(
+  SELECT 1 FROM FrameTypes WHERE FrameType = ? AND ToBeWritten = 1
+);
+
+-- name: GetBerLoggingDetails :many
+SELECT * FROM BERLogging
+WHERE AcqMode = ?;
+
+-- name: GetUniqueDASIDsForBER :many
+SELECT DISTINCT DASID FROM BERLogging
+WHERE AcqMode = ?;
+
+-- name: GetParameterDetails :one
+SELECT * FROM ParameterDetails
+WHERE ParamID = ?;
+
+-- name: GetParameterIDByName :one
+SELECT ParamID FROM ParameterDetails
+WHERE FrameType = ? AND ParameterName = ?;
+
+-- name: GetBitDetails :many
+SELECT * FROM BitDetails
+WHERE ParamID = ?;
+
+-- name: GetFSCDetails :one
+SELECT * FROM FSCType
+WHERE ParamID = ?;
+
+-- name: GetCRCDetails :one
+SELECT * FROM CRCType
+WHERE ParamID = ?;
+
+-- name: GetIncrementDetails :one
+SELECT * FROM IncrementType
+WHERE ParamID = ?;
+
+-- name: GetRadixType :one
+SELECT * FROM RadixType
+WHERE ParamID = ?;
+
+-- name: GetAnalogType :one
+SELECT * FROM AnalogType
+WHERE ParamID = ?;
+
+-- name: ListParamIDsByFrameType :many
+SELECT ParamID FROM ParameterDetails
+WHERE FrameType = ?
+ORDER BY StartWord, StartBit ASC;
+
+-- name: ListParamNamesByFrameType :many
+SELECT ParameterName FROM ParameterDetails
+WHERE FrameType = ?
+ORDER BY StartWord, StartBit ASC;
+
+-- name: GetAuxDataLength :one
+SELECT AuxDataLength FROM Frames
+WHERE FrameID = ?;
+
+-- name: GetStatusMap :many
+SELECT * FROM StatusType
+WHERE ParamID = ?;
+
+-- name: GetFrameIdentifier :one
+SELECT FrameIdentifier FROM Frames
+WHERE FrameID = ?;
+
+-- name: GetFrameFileName :one
+SELECT FrameFileName FROM Frames
+WHERE FrameID = ?;
+
+-- name: ListDataAcqModes :many
+SELECT AcqMode FROM AcquisitionMode WHERE AcqType = 'Acquisition';
+
+-- name: ListBERAcqModes :many
+SELECT AcqMode FROM AcquisitionMode WHERE AcqType = 'BER';
+
+-- name: ListAuxFrameTypes :many
+SELECT FrameType FROM FrameTypes WHERE AuxOrVideo = 'Aux' OR AuxOrVideo = 'Both';
+
+-- name: ListConfigNamesByAcqMode :many
+SELECT ConfigName FROM Configuration WHERE AcqMode = ?;
+
+-- name: ListAllConfigNames :many
+SELECT ConfigName FROM Configuration;
+
+-- name: ListAllDAS :many
+SELECT * FROM DASDetails;
+
+-- name: GetFrameIDByIdentifier :one
+SELECT FrameID FROM Frames WHERE FrameType = ? AND FrameIdentifier = ?;
+
+-- name: ListPayloadNames :many
+SELECT PayloadName FROM Payloads;
+
+-- name: ListDistinctSatNamesFromAcquisitions :many
+SELECT DISTINCT SatName FROM Acquisitions;
+
+-- name: ListTestPhases :many
+SELECT TestPhase FROM TestPhases;
+
+-- name: ListTestPhasesBySatName :many
+SELECT DISTINCT TestPhase FROM Acquisitions WHERE SatName = ? ORDER BY AcquisitionID DESC;
+
+-- name: ListVideoFrameTypes :many
+SELECT FrameType FROM FrameTypes WHERE AuxOrVideo = 'Video' OR AuxOrVideo = 'Both';
+
+-- name: ListAllFrameTypes :many
+SELECT FrameType FROM FrameTypes WHERE AuxOrVideo != 'None' OR ProcessedOrAcquired = 'Acquired';
+
+-- name: GetProfileIDByName :one
+SELECT ProfileID FROM ResultProfiles WHERE ProfileName = ?;
+
+-- name: GetFrameLengthByIdentifier :one
+SELECT FrameLength FROM Frames WHERE FrameType = ? AND FrameIdentifier = ?;
+
+-- name: GetSelectedTestPhase :one
+SELECT TestPhase FROM TestPhases WHERE Selected = 1;
+
+-- name: ListSARFrameTypes :many
+SELECT FrameType FROM FrameTypes WHERE AuxOrVideo = 'Payload';
+
+-- name: ListSARProcessingIDs :many
+SELECT ProcessID FROM SARVideoDataProcessing;
+
+-- name: GetAuxVideoTypeForFrameType :one
+SELECT AuxOrVideo FROM FrameTypes WHERE FrameType = ?;
+
+-- name: ListIntermediateAuxFrameTypes :many
+SELECT FrameType FROM FrameTypes WHERE isIntermediateReport = 1 AND (AuxOrVideo = 'Aux' OR AuxOrVideo = 'Both');
+
+-- name: ListIntermediateVideoFrameTypes :many
+SELECT FrameType FROM FrameTypes WHERE isIntermediateReport = 1 AND (AuxOrVideo = 'Video' OR AuxOrVideo = 'Both');
+
+-- Queries from AccessorFunctionsConfiguration.go
+
+-- name: ListUniqueDASAndDPUIDs :many
+SELECT DISTINCT DASID, DPUNumber FROM DASPath;
+
+-- name: ListUniqueDASIDsByAcqMode :many
+SELECT DISTINCT DASID FROM DASPath WHERE AcqMode = ?;
+
+-- name: GetDASComponentDetailsByID :one
+SELECT * FROM DASComponentDetails WHERE ComponentID = ?;
+
+-- name: GetDASComponentDetailsByCode :one
+SELECT * FROM DASComponentDetails WHERE ComponentCode = ? AND Enabled = 1;
+
+-- name: ListEnabledDASComponents :many
+SELECT * FROM DASComponentDetails WHERE Enabled = 1;
+
+-- name: ListDependentDASComponents :many
+SELECT * FROM DASComponentDetails WHERE ParentCompName IS NOT NULL;
+
+-- Queries from AccessorFunctionsDataTransfer.go
+
+-- name: GetFrame :one
+SELECT * FROM Frames WHERE FrameID = ?;
+
+-- name: FilterSavedFiles :many
+SELECT * FROM SavedFiles
+WHERE AcquisitionID = ? AND SystemName = ? AND FrameID IN (sqlc.slice(frame_ids));
+
+-- name: FilterSavedFilesByFrameIDs :many
+SELECT * FROM SavedFiles
+WHERE FrameID IN (sqlc.slice(frame_ids))
+ORDER BY AcquisitionID DESC;
+
+-- name: ListAcquisitionsByIDsAndTestPhase :many
+SELECT * FROM Acquisitions
+WHERE AcquisitionID IN (sqlc.slice(acquisition_ids)) AND SystemName IN (sqlc.slice(system_names)) AND TestPhase = ?
+ORDER BY AcquisitionID DESC;
+
+-- name: ListDownloadableFrameIDs :many
+SELECT FrameID FROM DataDownloadPermissions WHERE UserID = ?;
+
+-- name: ListAllFrameIDs :many
+SELECT FrameID FROM Frames ORDER BY FrameID ASC;
+
+-- Queries from AccessorFunctionsForOffline.go
+
+-- name: ListLatestAcquisitions :many
+SELECT * FROM Acquisitions ORDER BY AcquisitionID DESC LIMIT ?;
+
+-- name: GetAcquisitionBySystemAndID :one
+SELECT * FROM Acquisitions WHERE AcquisitionID = ? AND SystemName = ?;
+
+-- name: ListAcquisitionsBySatAndTestPhase :many
+SELECT * FROM Acquisitions WHERE SatName = ? AND TestPhase = ? ORDER BY AcquisitionID DESC;
+
+-- name: ListAcquisitionsBySatAndConfig :many
+SELECT * FROM Acquisitions WHERE SatName = ? AND ConfigName = ? ORDER BY AcquisitionID DESC;
+
+-- name: ListArchivedFilesForAcquisition :many
+SELECT f.FrameType, sf.FilePath, sf.FrameID
+FROM SavedFiles sf
+JOIN Frames f ON sf.FrameID = f.FrameID
+WHERE sf.AcquisitionID = ? AND sf.SystemName = ?;
+
+-- name: ListAllOpticalDetails :many
+SELECT
+    f.FrameID,
+    f.FrameType,
+    f.FrameIdentifier,
+    vdp.StartByte,
+    vdp.NoOfLinesPerFrame,
+    vdp.NoOfPixelsPerLine,
+    vdp.NoOfBitsPerPixelPayload,
+    vl.UpperLimit,
+    vl.LowerLimit,
+    vl.Difference,
+    vl.SDLimit
+FROM FrameTypes ft
+JOIN Frames f ON ft.FrameType = f.FrameType
+LEFT JOIN VideoDataProcessing vdp ON f.FrameID = vdp.FrameID
+LEFT JOIN VideoLimits vl ON f.FrameIdentifier = vl.DeviceName
+WHERE ft.AuxOrVideo = 'Video';
+
+
