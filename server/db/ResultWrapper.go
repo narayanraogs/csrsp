@@ -2,8 +2,8 @@ package db
 
 import (
 	"context"
-	"csrspServer/db/sqlc"
-	"csrspServer/utils/slice"
+	"csrsp/server/db/sqlc"
+	"csrsp/server/utils/slice"
 	"database/sql"
 	"fmt"
 	"slices"

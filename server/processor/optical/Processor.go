@@ -2,9 +2,9 @@
 package optical
 
 import (
-	"csrspServer/db"
-	"csrspServer/db/sqlc"
-	"csrspServer/session"
+	"csrsp/server/db"
+	"csrsp/server/db/sqlc"
+	"csrsp/server/session"
 	"fmt"
 	"log/slog"
 	"math"

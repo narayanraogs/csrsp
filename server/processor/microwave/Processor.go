@@ -1,7 +1,7 @@
 package microwave
 
 import (
-	"csrspServer/session"
+	"csrsp/server/session"
 	"fmt"
 	"runtime"
 	"strings"

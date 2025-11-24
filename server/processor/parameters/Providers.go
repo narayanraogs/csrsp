@@ -2,8 +2,8 @@
 package parameters
 
 import (
-	"csrspServer/db"
-	"csrspServer/utils/binary"
+	"csrsp/server/db"
+	"csrsp/server/utils/binary"
 	"fmt"
 	"log/slog"
 	"math"

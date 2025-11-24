@@ -2,7 +2,7 @@ package db
 
 import (
 	"context"
-	"csrspServer/db/sqlc"
+	"csrsp/server/db/sqlc"
 	"slices"
 )
 

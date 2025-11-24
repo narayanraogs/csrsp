@@ -2,9 +2,9 @@
 package parameters
 
 import (
-	"csrspServer/db"
-	"csrspServer/session"
-	"csrspServer/utils/binary"
+	"csrsp/server/db"
+	"csrsp/server/session"
+	"csrsp/server/utils/binary"
 	"encoding/hex"
 	"fmt"
 	"log/slog"

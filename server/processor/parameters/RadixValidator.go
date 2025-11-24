@@ -2,9 +2,9 @@
 package parameters
 
 import (
-	"csrspServer/db"
-	"csrspServer/session"
-	"csrspServer/utils/slice"
+	"csrsp/server/db"
+	"csrsp/server/session"
+	"csrsp/server/utils/slice"
 	"log/slog"
 	"runtime/debug"
 	"strconv"

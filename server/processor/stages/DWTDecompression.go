@@ -2,9 +2,9 @@ package stages
 
 import (
 	"context"
-	"csrspServer/dwt"
-	"csrspServer/pipeline"
-	"csrspServer/utils/binary"
+	"csrsp/server/dwt"
+	"csrsp/server/pipeline"
+	"csrsp/server/utils/binary"
 	"fmt"
 )
 

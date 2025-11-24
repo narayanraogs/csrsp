@@ -3,7 +3,7 @@ package stages
 import (
 	"bytes"
 	"context"
-	"csrspServer/pipeline"
+	"csrsp/server/pipeline"
 	"fmt"
 	"image"
 	"image/color"

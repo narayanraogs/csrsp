@@ -2,7 +2,7 @@ package stages
 
 import (
 	"context"
-	"csrspServer/pipeline"
+	"csrsp/server/pipeline"
 	"log/slog"
 	"runtime"
 	"time"
@@ -363,7 +363,8 @@ var decode = func(block []byte, frameNo int, blockNo int, config RSDecodingConfi
 	}
 
 	if config.TelemetryChan != nil {
-		if flag == 1 { // Correctable
+		switch flag {
+		case 1: // Correctable
 			slog.Warn("RS Correctable Errors", slog.Int("FrameNo", frameNo), slog.Int("BlockNo", blockNo), "FrameType", config.FrameType, "FrameIdentifier", config.FrameIdentifier, slog.Int("errors", cnt))
 			config.TelemetryChan <- pipeline.TelemetryEvent{
 				StageName: "RSDecoding",
@@ -378,7 +379,7 @@ var decode = func(block []byte, frameNo int, blockNo int, config RSDecodingConfi
 					IsUncorrectable: false,
 				},
 			}
-		} else if flag == 2 { // Uncorrectable
+		case 2: // Uncorrectable
 			slog.Error("RS uncorrectable error", slog.Int("Line", frameNo), slog.Int("Block", blockNo), "Frame Type", config.FrameType, "FrameIdentifer", config.FrameIdentifier)
 			config.TelemetryChan <- pipeline.TelemetryEvent{
 				StageName: "RSDecoding",

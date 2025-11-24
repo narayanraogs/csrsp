@@ -2,8 +2,8 @@
 package parameters
 
 import (
-	"csrspServer/db"
-	"csrspServer/session"
+	"csrsp/server/db"
+	"csrsp/server/session"
 	"fmt"
 	"log/slog"
 	"runtime/debug"

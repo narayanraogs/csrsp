@@ -2,8 +2,8 @@ package stages
 
 import (
 	"context"
-	"csrspServer/pipeline"
-	"csrspServer/utils/binary"
+	"csrsp/server/pipeline"
+	"csrsp/server/utils/binary"
 	"fmt"
 	"runtime"
 )

@@ -1,7 +1,7 @@
 // Package parameters handles the validation of header parameters.
 package parameters
 
-import "csrspServer/session"
+import "csrsp/server/session"
 
 // Validator defines the interface for any parameter validation logic.
 type Validator interface {

@@ -2,7 +2,7 @@ package db
 
 import (
 	"context"
-	"csrspServer/db/sqlc"
+	"csrsp/server/db/sqlc"
 )
 
 // Gets the max number of bands in the given frame type

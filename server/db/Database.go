@@ -2,7 +2,7 @@
 package db
 
 import (
-	"csrspServer/db/sqlc"
+	"csrsp/server/db/sqlc"
 	"database/sql"
 )
 

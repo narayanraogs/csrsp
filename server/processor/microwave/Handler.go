@@ -1,9 +1,9 @@
 package microwave
 
 import (
-	"csrspServer/db"
-	"csrspServer/processor/parameters"
-	"csrspServer/session"
+	"csrsp/server/db"
+	"csrsp/server/processor/parameters"
+	"csrsp/server/session"
 	"log/slog"
 	"runtime/debug"
 	"strings"

@@ -1,8 +1,8 @@
 package microwave
 
 import (
-	"csrspServer/session"
-	"csrspServer/utils/binary"
+	"csrsp/server/session"
+	"csrsp/server/utils/binary"
 	"log/slog"
 	"math"
 	"math/cmplx"
