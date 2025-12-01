@@ -1,0 +1,20 @@
+syntax = "proto3";
+
+package Communication;
+
+go_package = "csrsp/server/communication";
+
+message ClientID{
+    string id = 1;
+}
+
+message ServerStatus {
+    string timestamp = 1;
+    double memory = 2;
+    double cpu = 3;
+}
+
+service Communication{
+    rpc GetServerStatus (ClientID) returns (stream ServerStatus);
+
+}
