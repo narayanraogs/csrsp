@@ -2,7 +2,7 @@ syntax = "proto3";
 
 package Communication;
 
-go_package = "csrsp/server/communication";
+option go_package = "csrsp/server/communication";
 
 message ClientID{
     string id = 1;
@@ -14,7 +14,11 @@ message ServerStatus {
     double cpu = 3;
 }
 
+message IsWhitelistedResponse {
+    bool whitelisted = 1;
+}
+
 service Communication{
     rpc GetServerStatus (ClientID) returns (stream ServerStatus);
-
+    rpc IsWhitelisted(ClientID) returns (IsWhitelistedResponse);
 }

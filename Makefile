@@ -22,9 +22,22 @@ BINARY_NAME:= csrsp-server
 
 # --- Build Targets ---
 
-.PHONY: all build clean client-build server-build
+.PHONY: all build clean client-build server-build proto
 
 all: build
+
+# Target to compile and copy protofiles
+proto:
+	@echo ">>> Generating Proto buffers..."
+	mkdir -p $(SERVER_DIR)/communication
+	mkdir -p $(CLIENT_DIR)/lib/communication
+	protoc --proto_path=interface \
+		--go_out=$(SERVER_DIR) --go_opt=module=csrsp/server \
+		--go-grpc_out=$(SERVER_DIR) --go-grpc_opt=module=csrsp/server \
+		interface/*.proto
+	protoc --proto_path=interface \
+		--dart_out=grpc:$(CLIENT_DIR)/lib/communication \
+		interface/*.proto
 
 # Main build target
 build: client-build server-build

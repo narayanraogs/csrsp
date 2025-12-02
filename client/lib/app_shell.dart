@@ -7,6 +7,9 @@ import 'package:client/widgets/app_drawer.dart';
 import 'package:client/widgets/status_bar.dart';
 import 'package:flutter/material.dart';
 
+import 'package:grpc/grpc_web.dart';
+import 'package:client/communication/communication.pbgrpc.dart';
+
 class AppShell extends StatefulWidget {
   const AppShell({super.key});
 
@@ -27,52 +30,95 @@ class _AppShellState extends State<AppShell> {
   String _testPhase = "Integration Testing";
 
   // State for the status bar
-  bool _isConnected = true;
+  bool _isConnected = false;
   double _memoryUsage = 0.0;
   double _cpuUsage = 0.0;
-  Timer? _timer;
+
+  // gRPC
+  GrpcWebClientChannel? _channel;
+  CommunicationClient? _client;
 
   @override
   void initState() {
     super.initState();
-    _simulateIpWhitelistCheck();
+    _checkIpWhitelist();
     _startStatusUpdates();
   }
 
   @override
   void dispose() {
-    _timer?.cancel();
+    _channel?.shutdown();
     super.dispose();
   }
 
-  void _simulateIpWhitelistCheck() {
-    // Simulate a network call to check if the IP is whitelisted
-    Future.delayed(const Duration(seconds: 2), () {
-      // 20% chance of being whitelisted for demonstration
-      if (Random().nextDouble() < 0.2) {
+  Future<void> _checkIpWhitelist() async {
+    // Initialize gRPC channel and client if not already done
+    if (_channel == null) {
+      _channel = GrpcWebClientChannel.xhr(Uri.parse('http://localhost:8080'));
+      _client = CommunicationClient(_channel!);
+    }
+
+    try {
+      final request = ClientID()
+        ..id = "flutter-client-${Random().nextInt(1000)}";
+      final response = await _client!.isWhitelisted(request);
+
+      if (mounted) {
         setState(() {
-          _isLoggedIn = true;
-          _isLoading = false;
-        });
-      } else {
-        setState(() {
+          _isLoggedIn = response.whitelisted;
           _isLoading = false;
         });
       }
-    });
+    } catch (e) {
+      debugPrint("Whitelist Check Error: $e");
+      if (mounted) {
+        setState(() {
+          _isLoading = false;
+          // Optionally show an error message or keep _isLoggedIn as false
+        });
+      }
+    }
   }
 
   void _startStatusUpdates() {
-    // Start a timer to simulate live data updates for the status bar
-    _timer = Timer.periodic(const Duration(seconds: 2), (timer) {
+    // Initialize gRPC channel and client
+    // Note: For local development with Flutter Web, localhost:8080 works.
+    _channel = GrpcWebClientChannel.xhr(Uri.parse('http://localhost:8080'));
+    _client = CommunicationClient(_channel!);
+
+    final request = ClientID()..id = "flutter-client-${Random().nextInt(1000)}";
+
+    try {
+      final stream = _client!.getServerStatus(request);
+      stream.listen(
+        (status) {
+          setState(() {
+            _memoryUsage = status.memory;
+            _cpuUsage = status.cpu;
+            _isConnected = true;
+            debugPrint("RPC Status: $status");
+          });
+        },
+        onError: (error) {
+          debugPrint("RPC Error: $error");
+          setState(() {
+            _isConnected = false;
+          });
+          // Retry logic could go here
+        },
+        onDone: () {
+          debugPrint("RPC Stream Closed");
+          setState(() {
+            _isConnected = false;
+          });
+        },
+      );
+    } catch (e) {
+      debugPrint("Caught error: $e");
       setState(() {
-        _memoryUsage = 128.0 + Random().nextDouble() * 50;
-        _cpuUsage = 5.0 + Random().nextDouble() * 15;
-        if (_isLoggedIn && Random().nextDouble() < 0.1) {
-          _isConnected = false;
-        }
+        _isConnected = false;
       });
-    });
+    }
   }
 
   void _onItemSelected(Widget content) {
@@ -125,7 +171,8 @@ class _AppShellState extends State<AppShell> {
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(
           content: Text(
-              _isConnected ? 'Reconnected successfully!' : 'Reconnect failed.'),
+            _isConnected ? 'Reconnected successfully!' : 'Reconnect failed.',
+          ),
           backgroundColor: _isConnected ? Colors.green : Colors.red,
         ),
       );

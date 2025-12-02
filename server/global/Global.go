@@ -29,7 +29,6 @@ type Config struct {
 	SystemName            string
 	LocalSystemName       string
 	SatName               string
-	JwtSecret             string
 	NumberOfFramesInBlock int64
 
 	// Network & Ports

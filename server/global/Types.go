@@ -37,7 +37,6 @@ type MainParams struct {
 	ProcessingSequencePath string   `json:"processingSequencePath"`
 	WhiteListedIPs         []string `json:"whiteListedIPs"`
 	ResultNamesPath        string   `json:"resultNamesPath"`
-	JwtSecret              string   `json:"jwtSecret"`
 }
 
 // NetworkInfo contains information about other connected systems.

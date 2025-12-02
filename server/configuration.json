@@ -1,0 +1,63 @@
+{
+    "mainParameters": {
+        "satName": "TestSat",
+        "rootPath": "/home/csrspdev/data",
+        "acqPath": "/home/csrspdev/data/acq",
+        "tempPath": "/home/csrspdev/data/temp",
+        "archPath": "/home/csrspdev/data/archive",
+        "dbServerIP": "127.0.0.1",
+        "outputLevel": "INFO",
+        "dbName": "csrsp_db",
+        "dbUser": "csrsp_user",
+        "dbPassword": "password",
+        "systemName": "CSRSP_Server",
+        "logFileDirectory": "/home/csrspdev/logs",
+        "assetPath": "/home/csrspdev/assets",
+        "webPath": "/home/csrspdev/web",
+        "devOpsPath": "/home/csrspdev/devops",
+        "processingSequencePath": "/home/csrspdev/config/sequence.json",
+        "whiteListedIPs": [
+            "127.0.0.1",
+            "::1"
+        ],
+        "resultNamesPath": "/home/csrspdev/config/results.json",
+        "jwtSecret": "supersecretkey"
+    },
+    "acquisitionParameters": {
+        "numberOfFramesInBlock": 100
+    },
+    "dasLockStatus": {
+        "componentCode": 1,
+        "offset": 0,
+        "value": 1
+    },
+    "dasPorts": {
+        "monitor": 9001,
+        "control": 9002,
+        "acq": {
+            "hdr": 9003,
+            "ttcp": 9004,
+            "pdps": 9005,
+            "cdp": 9006
+        }
+    },
+    "lbtParameters": {
+        "startWord": 0,
+        "crcWords": 2,
+        "lbtLocalPath": "/home/csrspdev/lbt"
+    },
+    "globalHDRParameters": {
+        "compCode": "HDR",
+        "totalLengthInWords": 1024,
+        "configLengthInWords": 128,
+        "bytesPerWord": 4,
+        "headerLengthInWords": 32,
+        "excludedWords": [],
+        "retryLimit": 3,
+        "retryGapInMillis": 100,
+        "componentDelay": 10
+    },
+    "networkInfo": {
+        "pccList": []
+    }
+}
