@@ -9,6 +9,8 @@ import 'package:flutter/material.dart';
 
 import 'package:grpc/grpc_web.dart';
 import 'package:client/communication/communication.pbgrpc.dart';
+import 'package:client/state/global_state.dart';
+import 'package:provider/provider.dart';
 
 class AppShell extends StatefulWidget {
   const AppShell({super.key});
@@ -42,7 +44,31 @@ class _AppShellState extends State<AppShell> {
   void initState() {
     super.initState();
     _checkIpWhitelist();
+    _fetchServerDetails();
     _startStatusUpdates();
+  }
+
+  Future<void> _fetchServerDetails() async {
+    // Initialize gRPC channel and client if not already done
+    if (_channel == null) {
+      final serverUrl = context.read<GlobalState>().serverUrl;
+      _channel = GrpcWebClientChannel.xhr(Uri.parse(serverUrl));
+      _client = CommunicationClient(_channel!);
+    }
+
+    try {
+      final request = ClientID()..id = context.read<GlobalState>().clientId;
+      final response = await _client!.getServerDetails(request);
+
+      if (mounted) {
+        setState(() {
+          _satelliteName = response.satelliteName;
+          _testPhase = response.testPhase;
+        });
+      }
+    } catch (e) {
+      debugPrint("Server Details Fetch Error: $e");
+    }
   }
 
   @override
@@ -54,13 +80,13 @@ class _AppShellState extends State<AppShell> {
   Future<void> _checkIpWhitelist() async {
     // Initialize gRPC channel and client if not already done
     if (_channel == null) {
-      _channel = GrpcWebClientChannel.xhr(Uri.parse('http://localhost:8080'));
+      final serverUrl = context.read<GlobalState>().serverUrl;
+      _channel = GrpcWebClientChannel.xhr(Uri.parse(serverUrl));
       _client = CommunicationClient(_channel!);
     }
 
     try {
-      final request = ClientID()
-        ..id = "flutter-client-${Random().nextInt(1000)}";
+      final request = ClientID()..id = context.read<GlobalState>().clientId;
       final response = await _client!.isWhitelisted(request);
 
       if (mounted) {
@@ -81,12 +107,14 @@ class _AppShellState extends State<AppShell> {
   }
 
   void _startStatusUpdates() {
-    // Initialize gRPC channel and client
-    // Note: For local development with Flutter Web, localhost:8080 works.
-    _channel = GrpcWebClientChannel.xhr(Uri.parse('http://localhost:8080'));
-    _client = CommunicationClient(_channel!);
+    // Initialize gRPC channel and client if not already done
+    if (_channel == null) {
+      final serverUrl = context.read<GlobalState>().serverUrl;
+      _channel = GrpcWebClientChannel.xhr(Uri.parse(serverUrl));
+      _client = CommunicationClient(_channel!);
+    }
 
-    final request = ClientID()..id = "flutter-client-${Random().nextInt(1000)}";
+    final request = ClientID()..id = context.read<GlobalState>().clientId;
 
     try {
       final stream = _client!.getServerStatus(request);

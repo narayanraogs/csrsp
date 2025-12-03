@@ -18,7 +18,13 @@ message IsWhitelistedResponse {
     bool whitelisted = 1;
 }
 
+message ServerDetails {
+    string satelliteName = 1;
+    string testPhase = 2;
+}
+
 service Communication{
     rpc GetServerStatus (ClientID) returns (stream ServerStatus);
     rpc IsWhitelisted(ClientID) returns (IsWhitelistedResponse);
+    rpc GetServerDetails(ClientID) returns (ServerDetails);
 }

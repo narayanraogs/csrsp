@@ -48,6 +48,13 @@ class CommunicationClient extends $grpc.Client {
     return $createUnaryCall(_$isWhitelisted, request, options: options);
   }
 
+  $grpc.ResponseFuture<$0.ServerDetails> getServerDetails(
+    $0.ClientID request, {
+    $grpc.CallOptions? options,
+  }) {
+    return $createUnaryCall(_$getServerDetails, request, options: options);
+  }
+
   // method descriptors
 
   static final _$getServerStatus =
@@ -60,6 +67,11 @@ class CommunicationClient extends $grpc.Client {
           '/Communication.Communication/IsWhitelisted',
           ($0.ClientID value) => value.writeToBuffer(),
           $0.IsWhitelistedResponse.fromBuffer);
+  static final _$getServerDetails =
+      $grpc.ClientMethod<$0.ClientID, $0.ServerDetails>(
+          '/Communication.Communication/GetServerDetails',
+          ($0.ClientID value) => value.writeToBuffer(),
+          $0.ServerDetails.fromBuffer);
 }
 
 @$pb.GrpcServiceName('Communication.Communication')
@@ -81,6 +93,13 @@ abstract class CommunicationServiceBase extends $grpc.Service {
         false,
         ($core.List<$core.int> value) => $0.ClientID.fromBuffer(value),
         ($0.IsWhitelistedResponse value) => value.writeToBuffer()));
+    $addMethod($grpc.ServiceMethod<$0.ClientID, $0.ServerDetails>(
+        'GetServerDetails',
+        getServerDetails_Pre,
+        false,
+        false,
+        ($core.List<$core.int> value) => $0.ClientID.fromBuffer(value),
+        ($0.ServerDetails value) => value.writeToBuffer()));
   }
 
   $async.Stream<$0.ServerStatus> getServerStatus_Pre(
@@ -97,5 +116,13 @@ abstract class CommunicationServiceBase extends $grpc.Service {
   }
 
   $async.Future<$0.IsWhitelistedResponse> isWhitelisted(
+      $grpc.ServiceCall call, $0.ClientID request);
+
+  $async.Future<$0.ServerDetails> getServerDetails_Pre(
+      $grpc.ServiceCall $call, $async.Future<$0.ClientID> $request) async {
+    return getServerDetails($call, await $request);
+  }
+
+  $async.Future<$0.ServerDetails> getServerDetails(
       $grpc.ServiceCall call, $0.ClientID request);
 }

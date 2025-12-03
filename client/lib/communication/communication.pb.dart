@@ -202,6 +202,72 @@ class IsWhitelistedResponse extends $pb.GeneratedMessage {
   void clearWhitelisted() => $_clearField(1);
 }
 
+class ServerDetails extends $pb.GeneratedMessage {
+  factory ServerDetails({
+    $core.String? satelliteName,
+    $core.String? testPhase,
+  }) {
+    final result = create();
+    if (satelliteName != null) result.satelliteName = satelliteName;
+    if (testPhase != null) result.testPhase = testPhase;
+    return result;
+  }
+
+  ServerDetails._();
+
+  factory ServerDetails.fromBuffer($core.List<$core.int> data,
+          [$pb.ExtensionRegistry registry = $pb.ExtensionRegistry.EMPTY]) =>
+      create()..mergeFromBuffer(data, registry);
+  factory ServerDetails.fromJson($core.String json,
+          [$pb.ExtensionRegistry registry = $pb.ExtensionRegistry.EMPTY]) =>
+      create()..mergeFromJson(json, registry);
+
+  static final $pb.BuilderInfo _i = $pb.BuilderInfo(
+      _omitMessageNames ? '' : 'ServerDetails',
+      package: const $pb.PackageName(_omitMessageNames ? '' : 'Communication'),
+      createEmptyInstance: create)
+    ..aOS(1, _omitFieldNames ? '' : 'satelliteName', protoName: 'satelliteName')
+    ..aOS(2, _omitFieldNames ? '' : 'testPhase', protoName: 'testPhase')
+    ..hasRequiredFields = false;
+
+  @$core.Deprecated('See https://github.com/google/protobuf.dart/issues/998.')
+  ServerDetails clone() => deepCopy();
+  @$core.Deprecated('See https://github.com/google/protobuf.dart/issues/998.')
+  ServerDetails copyWith(void Function(ServerDetails) updates) =>
+      super.copyWith((message) => updates(message as ServerDetails))
+          as ServerDetails;
+
+  @$core.override
+  $pb.BuilderInfo get info_ => _i;
+
+  @$core.pragma('dart2js:noInline')
+  static ServerDetails create() => ServerDetails._();
+  @$core.override
+  ServerDetails createEmptyInstance() => create();
+  @$core.pragma('dart2js:noInline')
+  static ServerDetails getDefault() => _defaultInstance ??=
+      $pb.GeneratedMessage.$_defaultFor<ServerDetails>(create);
+  static ServerDetails? _defaultInstance;
+
+  @$pb.TagNumber(1)
+  $core.String get satelliteName => $_getSZ(0);
+  @$pb.TagNumber(1)
+  set satelliteName($core.String value) => $_setString(0, value);
+  @$pb.TagNumber(1)
+  $core.bool hasSatelliteName() => $_has(0);
+  @$pb.TagNumber(1)
+  void clearSatelliteName() => $_clearField(1);
+
+  @$pb.TagNumber(2)
+  $core.String get testPhase => $_getSZ(1);
+  @$pb.TagNumber(2)
+  set testPhase($core.String value) => $_setString(1, value);
+  @$pb.TagNumber(2)
+  $core.bool hasTestPhase() => $_has(1);
+  @$pb.TagNumber(2)
+  void clearTestPhase() => $_clearField(2);
+}
+
 const $core.bool _omitFieldNames =
     $core.bool.fromEnvironment('protobuf.omit_field_names');
 const $core.bool _omitMessageNames =

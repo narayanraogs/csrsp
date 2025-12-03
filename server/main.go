@@ -3,6 +3,7 @@ package main
 import (
 	"embed"
 	"flag"
+	"fmt"
 	"io/fs"
 	"log"
 	"net/http"
@@ -14,6 +15,11 @@ import (
 	pb "csrsp/server/communication"
 	"csrsp/server/global"
 	"csrsp/server/rpc"
+	"io"
+	"log/slog"
+	"os"
+	"path/filepath"
+	"time"
 )
 
 // Version will be set at build time using ldflags.
@@ -22,19 +28,52 @@ var Version string
 //go:embed all:web
 var embeddedFiles embed.FS
 
+func setupLogger() {
+	logDir := global.App.LogFileDirectory
+	if err := os.MkdirAll(logDir, 0755); err != nil {
+		log.Fatalf("Failed to create log directory: %v", err)
+	}
+
+	timestamp := time.Now().Format("2006-01-02_15-04-05")
+	logFilePath := filepath.Join(logDir, fmt.Sprintf("server_%s.json", timestamp))
+
+	file, err := os.OpenFile(logFilePath, os.O_CREATE|os.O_WRONLY|os.O_APPEND, 0666)
+	if err != nil {
+		log.Fatalf("Failed to open log file: %v", err)
+	}
+
+	// Write to both file and stdout
+	multiWriter := io.MultiWriter(os.Stdout, file)
+
+	// Create a JSON handler for structured logging
+	handler := slog.NewJSONHandler(multiWriter, &slog.HandlerOptions{
+		Level: slog.LevelInfo,
+	})
+
+	logger := slog.New(handler)
+	slog.SetDefault(logger)
+
+	// Redirect standard log output to slog
+	log.SetOutput(multiWriter)
+	log.SetFlags(0) // Remove standard log flags as slog handles timestamps
+}
+
 func main() {
 	listenAddr := flag.String("listen", ":8080", "The address and port to listen on.")
 	configPath := flag.String("config", "configuration.json", "Path to the configuration file.")
 	flag.Parse()
 
-	log.Printf("Starting server version: %s", Version)
-
-	// Load configuration
+	// Load configuration first to get log directory
 	cfg, err := global.LoadConfig(*configPath)
 	if err != nil {
 		log.Fatalf("Failed to load configuration: %v", err)
 	}
 	global.Init(cfg)
+
+	// Setup logging immediately after config load
+	setupLogger()
+
+	slog.Info("Starting server", "version", Version)
 
 	// Initialize gRPC server
 	grpcServer := grpc.NewServer()
@@ -68,7 +107,7 @@ func main() {
 		AllowCredentials: true,
 	})
 
-	log.Printf("Listening on %s", *listenAddr)
+	slog.Info("Listening", "address", *listenAddr)
 	err = http.ListenAndServe(*listenAddr, c.Handler(handler))
 	if err != nil {
 		log.Fatal(err)

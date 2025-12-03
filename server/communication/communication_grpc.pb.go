@@ -19,8 +19,9 @@ import (
 const _ = grpc.SupportPackageIsVersion9
 
 const (
-	Communication_GetServerStatus_FullMethodName = "/Communication.Communication/GetServerStatus"
-	Communication_IsWhitelisted_FullMethodName   = "/Communication.Communication/IsWhitelisted"
+	Communication_GetServerStatus_FullMethodName  = "/Communication.Communication/GetServerStatus"
+	Communication_IsWhitelisted_FullMethodName    = "/Communication.Communication/IsWhitelisted"
+	Communication_GetServerDetails_FullMethodName = "/Communication.Communication/GetServerDetails"
 )
 
 // CommunicationClient is the client API for Communication service.
@@ -29,6 +30,7 @@ const (
 type CommunicationClient interface {
 	GetServerStatus(ctx context.Context, in *ClientID, opts ...grpc.CallOption) (grpc.ServerStreamingClient[ServerStatus], error)
 	IsWhitelisted(ctx context.Context, in *ClientID, opts ...grpc.CallOption) (*IsWhitelistedResponse, error)
+	GetServerDetails(ctx context.Context, in *ClientID, opts ...grpc.CallOption) (*ServerDetails, error)
 }
 
 type communicationClient struct {
@@ -68,12 +70,23 @@ func (c *communicationClient) IsWhitelisted(ctx context.Context, in *ClientID, o
 	return out, nil
 }
 
+func (c *communicationClient) GetServerDetails(ctx context.Context, in *ClientID, opts ...grpc.CallOption) (*ServerDetails, error) {
+	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
+	out := new(ServerDetails)
+	err := c.cc.Invoke(ctx, Communication_GetServerDetails_FullMethodName, in, out, cOpts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 // CommunicationServer is the server API for Communication service.
 // All implementations must embed UnimplementedCommunicationServer
 // for forward compatibility.
 type CommunicationServer interface {
 	GetServerStatus(*ClientID, grpc.ServerStreamingServer[ServerStatus]) error
 	IsWhitelisted(context.Context, *ClientID) (*IsWhitelistedResponse, error)
+	GetServerDetails(context.Context, *ClientID) (*ServerDetails, error)
 	mustEmbedUnimplementedCommunicationServer()
 }
 
@@ -89,6 +102,9 @@ func (UnimplementedCommunicationServer) GetServerStatus(*ClientID, grpc.ServerSt
 }
 func (UnimplementedCommunicationServer) IsWhitelisted(context.Context, *ClientID) (*IsWhitelistedResponse, error) {
 	return nil, status.Error(codes.Unimplemented, "method IsWhitelisted not implemented")
+}
+func (UnimplementedCommunicationServer) GetServerDetails(context.Context, *ClientID) (*ServerDetails, error) {
+	return nil, status.Error(codes.Unimplemented, "method GetServerDetails not implemented")
 }
 func (UnimplementedCommunicationServer) mustEmbedUnimplementedCommunicationServer() {}
 func (UnimplementedCommunicationServer) testEmbeddedByValue()                       {}
@@ -140,6 +156,24 @@ func _Communication_IsWhitelisted_Handler(srv interface{}, ctx context.Context, 
 	return interceptor(ctx, in, info, handler)
 }
 
+func _Communication_GetServerDetails_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(ClientID)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(CommunicationServer).GetServerDetails(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: Communication_GetServerDetails_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(CommunicationServer).GetServerDetails(ctx, req.(*ClientID))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
 // Communication_ServiceDesc is the grpc.ServiceDesc for Communication service.
 // It's only intended for direct use with grpc.RegisterService,
 // and not to be introspected or modified (even as a copy)
@@ -150,6 +184,10 @@ var Communication_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "IsWhitelisted",
 			Handler:    _Communication_IsWhitelisted_Handler,
+		},
+		{
+			MethodName: "GetServerDetails",
+			Handler:    _Communication_GetServerDetails_Handler,
 		},
 	},
 	Streams: []grpc.StreamDesc{

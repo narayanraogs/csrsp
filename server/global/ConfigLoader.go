@@ -4,6 +4,7 @@ import (
 	"encoding/json"
 	"fmt"
 	"os"
+	"path/filepath"
 )
 
 // LoadConfig reads the configuration from the specified path and returns a Config struct.
@@ -18,19 +19,33 @@ func LoadConfig(path string) (Config, error) {
 		return Config{}, fmt.Errorf("failed to unmarshal config: %w", err)
 	}
 
+	// 1. Validate RootPath is absolute
+	rootPath := config.MainParameters.RootPath
+	if !filepath.IsAbs(rootPath) {
+		return Config{}, fmt.Errorf("RootPath must be absolute: %s", rootPath)
+	}
+
+	// Helper to resolve paths
+	resolvePath := func(target string) string {
+		if filepath.IsAbs(target) {
+			return target
+		}
+		return filepath.Join(rootPath, target)
+	}
+
 	// Map Configuration to Config
 	cfg := Config{
 		// Paths
-		RootPath:               config.MainParameters.RootPath,
-		AcqPath:                config.MainParameters.AcqPath,
-		TempPath:               config.MainParameters.TempPath,
-		ArchPath:               config.MainParameters.ArchPath,
-		LogFileDirectory:       config.MainParameters.LogFileDirectory,
-		AssetPath:              config.MainParameters.AssetPath,
-		WebPath:                config.MainParameters.WebPath,
-		DevOpsPath:             config.MainParameters.DevOpsPath,
-		ProcessingSequencePath: config.MainParameters.ProcessingSequencePath,
-		ResultNamesPath:        config.MainParameters.ResultNamesPath,
+		RootPath:               rootPath,
+		AcqPath:                resolvePath(config.MainParameters.AcqPath),
+		TempPath:               resolvePath(config.MainParameters.TempPath),
+		ArchPath:               resolvePath(config.MainParameters.ArchPath),
+		LogFileDirectory:       resolvePath(config.MainParameters.LogFileDirectory),
+		AssetPath:              resolvePath(config.MainParameters.AssetPath),
+		WebPath:                resolvePath(config.MainParameters.WebPath),
+		DevOpsPath:             resolvePath(config.MainParameters.DevOpsPath),
+		ProcessingSequencePath: resolvePath(config.MainParameters.ProcessingSequencePath),
+		ResultNamesPath:        resolvePath(config.MainParameters.ResultNamesPath),
 
 		// Database Credentials
 		DBServerIP: config.MainParameters.DBServerIP,

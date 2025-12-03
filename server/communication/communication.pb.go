@@ -169,6 +169,58 @@ func (x *IsWhitelistedResponse) GetWhitelisted() bool {
 	return false
 }
 
+type ServerDetails struct {
+	state         protoimpl.MessageState `protogen:"open.v1"`
+	SatelliteName string                 `protobuf:"bytes,1,opt,name=satelliteName,proto3" json:"satelliteName,omitempty"`
+	TestPhase     string                 `protobuf:"bytes,2,opt,name=testPhase,proto3" json:"testPhase,omitempty"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *ServerDetails) Reset() {
+	*x = ServerDetails{}
+	mi := &file_communication_proto_msgTypes[3]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *ServerDetails) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*ServerDetails) ProtoMessage() {}
+
+func (x *ServerDetails) ProtoReflect() protoreflect.Message {
+	mi := &file_communication_proto_msgTypes[3]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use ServerDetails.ProtoReflect.Descriptor instead.
+func (*ServerDetails) Descriptor() ([]byte, []int) {
+	return file_communication_proto_rawDescGZIP(), []int{3}
+}
+
+func (x *ServerDetails) GetSatelliteName() string {
+	if x != nil {
+		return x.SatelliteName
+	}
+	return ""
+}
+
+func (x *ServerDetails) GetTestPhase() string {
+	if x != nil {
+		return x.TestPhase
+	}
+	return ""
+}
+
 var File_communication_proto protoreflect.FileDescriptor
 
 const file_communication_proto_rawDesc = "" +
@@ -181,10 +233,14 @@ const file_communication_proto_rawDesc = "" +
 	"\x06memory\x18\x02 \x01(\x01R\x06memory\x12\x10\n" +
 	"\x03cpu\x18\x03 \x01(\x01R\x03cpu\"9\n" +
 	"\x15IsWhitelistedResponse\x12 \n" +
-	"\vwhitelisted\x18\x01 \x01(\bR\vwhitelisted2\xaa\x01\n" +
+	"\vwhitelisted\x18\x01 \x01(\bR\vwhitelisted\"S\n" +
+	"\rServerDetails\x12$\n" +
+	"\rsatelliteName\x18\x01 \x01(\tR\rsatelliteName\x12\x1c\n" +
+	"\ttestPhase\x18\x02 \x01(\tR\ttestPhase2\xf5\x01\n" +
 	"\rCommunication\x12I\n" +
 	"\x0fGetServerStatus\x12\x17.Communication.ClientID\x1a\x1b.Communication.ServerStatus0\x01\x12N\n" +
-	"\rIsWhitelisted\x12\x17.Communication.ClientID\x1a$.Communication.IsWhitelistedResponseB\x1cZ\x1acsrsp/server/communicationb\x06proto3"
+	"\rIsWhitelisted\x12\x17.Communication.ClientID\x1a$.Communication.IsWhitelistedResponse\x12I\n" +
+	"\x10GetServerDetails\x12\x17.Communication.ClientID\x1a\x1c.Communication.ServerDetailsB\x1cZ\x1acsrsp/server/communicationb\x06proto3"
 
 var (
 	file_communication_proto_rawDescOnce sync.Once
@@ -198,19 +254,22 @@ func file_communication_proto_rawDescGZIP() []byte {
 	return file_communication_proto_rawDescData
 }
 
-var file_communication_proto_msgTypes = make([]protoimpl.MessageInfo, 3)
+var file_communication_proto_msgTypes = make([]protoimpl.MessageInfo, 4)
 var file_communication_proto_goTypes = []any{
 	(*ClientID)(nil),              // 0: Communication.ClientID
 	(*ServerStatus)(nil),          // 1: Communication.ServerStatus
 	(*IsWhitelistedResponse)(nil), // 2: Communication.IsWhitelistedResponse
+	(*ServerDetails)(nil),         // 3: Communication.ServerDetails
 }
 var file_communication_proto_depIdxs = []int32{
 	0, // 0: Communication.Communication.GetServerStatus:input_type -> Communication.ClientID
 	0, // 1: Communication.Communication.IsWhitelisted:input_type -> Communication.ClientID
-	1, // 2: Communication.Communication.GetServerStatus:output_type -> Communication.ServerStatus
-	2, // 3: Communication.Communication.IsWhitelisted:output_type -> Communication.IsWhitelistedResponse
-	2, // [2:4] is the sub-list for method output_type
-	0, // [0:2] is the sub-list for method input_type
+	0, // 2: Communication.Communication.GetServerDetails:input_type -> Communication.ClientID
+	1, // 3: Communication.Communication.GetServerStatus:output_type -> Communication.ServerStatus
+	2, // 4: Communication.Communication.IsWhitelisted:output_type -> Communication.IsWhitelistedResponse
+	3, // 5: Communication.Communication.GetServerDetails:output_type -> Communication.ServerDetails
+	3, // [3:6] is the sub-list for method output_type
+	0, // [0:3] is the sub-list for method input_type
 	0, // [0:0] is the sub-list for extension type_name
 	0, // [0:0] is the sub-list for extension extendee
 	0, // [0:0] is the sub-list for field type_name
@@ -227,7 +286,7 @@ func file_communication_proto_init() {
 			GoPackagePath: reflect.TypeOf(x{}).PkgPath(),
 			RawDescriptor: unsafe.Slice(unsafe.StringData(file_communication_proto_rawDesc), len(file_communication_proto_rawDesc)),
 			NumEnums:      0,
-			NumMessages:   3,
+			NumMessages:   4,
 			NumExtensions: 0,
 			NumServices:   1,
 		},

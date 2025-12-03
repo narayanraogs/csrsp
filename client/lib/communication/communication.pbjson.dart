@@ -54,3 +54,17 @@ const IsWhitelistedResponse$json = {
 final $typed_data.Uint8List isWhitelistedResponseDescriptor = $convert.base64Decode(
     'ChVJc1doaXRlbGlzdGVkUmVzcG9uc2USIAoLd2hpdGVsaXN0ZWQYASABKAhSC3doaXRlbGlzdG'
     'Vk');
+
+@$core.Deprecated('Use serverDetailsDescriptor instead')
+const ServerDetails$json = {
+  '1': 'ServerDetails',
+  '2': [
+    {'1': 'satelliteName', '3': 1, '4': 1, '5': 9, '10': 'satelliteName'},
+    {'1': 'testPhase', '3': 2, '4': 1, '5': 9, '10': 'testPhase'},
+  ],
+};
+
+/// Descriptor for `ServerDetails`. Decode as a `google.protobuf.DescriptorProto`.
+final $typed_data.Uint8List serverDetailsDescriptor = $convert.base64Decode(
+    'Cg1TZXJ2ZXJEZXRhaWxzEiQKDXNhdGVsbGl0ZU5hbWUYASABKAlSDXNhdGVsbGl0ZU5hbWUSHA'
+    'oJdGVzdFBoYXNlGAIgASgJUgl0ZXN0UGhhc2U=');

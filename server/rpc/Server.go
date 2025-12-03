@@ -1,11 +1,13 @@
 package rpc
 
 import (
+	"context"
 	"fmt"
 	"log"
 	"time"
 
 	pb "csrsp/server/communication"
+	"csrsp/server/global"
 
 	"github.com/shirou/gopsutil/v3/cpu"
 	"github.com/shirou/gopsutil/v3/mem"
@@ -48,7 +50,7 @@ func (s *CommunicationServer) GetServerStatus(req *pb.ClientID, stream pb.Commun
 
 			status := &pb.ServerStatus{
 				Timestamp: t.Format(time.RFC3339),
-				Memory:    v.UsedPercent,
+				Memory:    float64(v.Used) / 1024 / 1024,
 				Cpu:       cpuUsage,
 			}
 			if err := stream.Send(status); err != nil {
@@ -56,4 +58,12 @@ func (s *CommunicationServer) GetServerStatus(req *pb.ClientID, stream pb.Commun
 			}
 		}
 	}
+}
+
+func (s *CommunicationServer) GetServerDetails(ctx context.Context, req *pb.ClientID) (*pb.ServerDetails, error) {
+	log.Printf("Server details requested by client: %s", req.Id)
+	return &pb.ServerDetails{
+		SatelliteName: global.App.SatName,
+		TestPhase:     "Software Testing",
+	}, nil
 }
