@@ -20,8 +20,7 @@
             "127.0.0.1",
             "::1"
         ],
-        "resultNamesPath": "../config/results.json",
-        "jwtSecret": "supersecretkey"
+        "resultNamesPath": "../config/results.json"
     },
     "acquisitionParameters": {
         "numberOfFramesInBlock": 100

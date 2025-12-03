@@ -13,6 +13,7 @@ import (
 	"google.golang.org/grpc"
 
 	pb "csrsp/server/communication"
+	"csrsp/server/db"
 	"csrsp/server/global"
 	"csrsp/server/rpc"
 	"io"
@@ -74,6 +75,16 @@ func main() {
 	setupLogger()
 
 	slog.Info("Starting server", "version", Version)
+
+	var ips = make([]string, 0)
+	for _, pcc := range global.App.PCCList {
+		ips = append(ips, pcc.IPAddress)
+	}
+	err = db.Init(global.App.DBUser, global.App.DBPassword, global.App.DBName, ips)
+	if err != nil {
+		slog.Error("Unable to connect to Database", "IPs", ips, "User", global.App.DBUser, "Name", global.App.DBName)
+		os.Exit(1)
+	}
 
 	// Initialize gRPC server
 	grpcServer := grpc.NewServer()
