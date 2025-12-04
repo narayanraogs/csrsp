@@ -7,6 +7,7 @@ import 'package:client/pages/file_based_processing_page.dart';
 import 'package:client/pages/home_page.dart';
 import 'package:client/pages/offline_processing_page.dart';
 import 'package:client/pages/result_profiles_page.dart';
+import 'package:client/pages/trend_analysis_page.dart';
 import 'package:flutter/material.dart';
 
 class AppDrawer extends StatelessWidget {
@@ -53,6 +54,11 @@ class AppDrawer extends StatelessWidget {
             icon: Icons.bar_chart,
             text: 'Result Profiles',
             onTap: () => onItemSelected(const ResultProfilesView()),
+          ),
+          _createDrawerItem(
+            icon: Icons.trending_up,
+            text: 'Trend Analysis',
+            onTap: () => onItemSelected(const TrendAnalysisView()),
           ),
           _createDrawerItem(
             icon: Icons.analytics,

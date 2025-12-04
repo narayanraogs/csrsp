@@ -7,8 +7,8 @@
         "archPath": "archive",
         "dbServerIP": "127.0.0.1",
         "outputLevel": "INFO",
-        "dbName": "csrsp_db",
-        "dbUser": "csrsp_user",
+        "dbName": "oceansat3a",
+        "dbUser": "root",
         "dbPassword": "password",
         "systemName": "CSRSP_Server",
         "logFileDirectory": "../logs",
@@ -57,6 +57,14 @@
         "componentDelay": 10
     },
     "networkInfo": {
-        "pccList": []
+        "pccList": [
+            {
+                "systemName": "CSRSP_Server",
+                "ipAddress": "127.0.0.1",
+                "archPath": "/home/csrspdev/data",
+                "userName": "csrspdev",
+                "password": "payloadCheckout"
+            }
+        ]
     }
 }
