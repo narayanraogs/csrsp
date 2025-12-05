@@ -19,9 +19,11 @@ import (
 const _ = grpc.SupportPackageIsVersion9
 
 const (
-	Communication_GetServerStatus_FullMethodName  = "/Communication.Communication/GetServerStatus"
-	Communication_IsWhitelisted_FullMethodName    = "/Communication.Communication/IsWhitelisted"
-	Communication_GetServerDetails_FullMethodName = "/Communication.Communication/GetServerDetails"
+	Communication_GetServerStatus_FullMethodName          = "/Communication.Communication/GetServerStatus"
+	Communication_IsWhitelisted_FullMethodName            = "/Communication.Communication/IsWhitelisted"
+	Communication_GetServerDetails_FullMethodName         = "/Communication.Communication/GetServerDetails"
+	Communication_Login_FullMethodName                    = "/Communication.Communication/Login"
+	Communication_GetAcquisitionParameters_FullMethodName = "/Communication.Communication/GetAcquisitionParameters"
 )
 
 // CommunicationClient is the client API for Communication service.
@@ -31,6 +33,8 @@ type CommunicationClient interface {
 	GetServerStatus(ctx context.Context, in *ClientID, opts ...grpc.CallOption) (grpc.ServerStreamingClient[ServerStatus], error)
 	IsWhitelisted(ctx context.Context, in *ClientID, opts ...grpc.CallOption) (*IsWhitelistedResponse, error)
 	GetServerDetails(ctx context.Context, in *ClientID, opts ...grpc.CallOption) (*ServerDetails, error)
+	Login(ctx context.Context, in *LoginRequest, opts ...grpc.CallOption) (*LoginResponse, error)
+	GetAcquisitionParameters(ctx context.Context, in *ClientID, opts ...grpc.CallOption) (*AcquisitionParameters, error)
 }
 
 type communicationClient struct {
@@ -80,6 +84,26 @@ func (c *communicationClient) GetServerDetails(ctx context.Context, in *ClientID
 	return out, nil
 }
 
+func (c *communicationClient) Login(ctx context.Context, in *LoginRequest, opts ...grpc.CallOption) (*LoginResponse, error) {
+	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
+	out := new(LoginResponse)
+	err := c.cc.Invoke(ctx, Communication_Login_FullMethodName, in, out, cOpts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *communicationClient) GetAcquisitionParameters(ctx context.Context, in *ClientID, opts ...grpc.CallOption) (*AcquisitionParameters, error) {
+	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
+	out := new(AcquisitionParameters)
+	err := c.cc.Invoke(ctx, Communication_GetAcquisitionParameters_FullMethodName, in, out, cOpts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 // CommunicationServer is the server API for Communication service.
 // All implementations must embed UnimplementedCommunicationServer
 // for forward compatibility.
@@ -87,6 +111,8 @@ type CommunicationServer interface {
 	GetServerStatus(*ClientID, grpc.ServerStreamingServer[ServerStatus]) error
 	IsWhitelisted(context.Context, *ClientID) (*IsWhitelistedResponse, error)
 	GetServerDetails(context.Context, *ClientID) (*ServerDetails, error)
+	Login(context.Context, *LoginRequest) (*LoginResponse, error)
+	GetAcquisitionParameters(context.Context, *ClientID) (*AcquisitionParameters, error)
 	mustEmbedUnimplementedCommunicationServer()
 }
 
@@ -105,6 +131,12 @@ func (UnimplementedCommunicationServer) IsWhitelisted(context.Context, *ClientID
 }
 func (UnimplementedCommunicationServer) GetServerDetails(context.Context, *ClientID) (*ServerDetails, error) {
 	return nil, status.Error(codes.Unimplemented, "method GetServerDetails not implemented")
+}
+func (UnimplementedCommunicationServer) Login(context.Context, *LoginRequest) (*LoginResponse, error) {
+	return nil, status.Error(codes.Unimplemented, "method Login not implemented")
+}
+func (UnimplementedCommunicationServer) GetAcquisitionParameters(context.Context, *ClientID) (*AcquisitionParameters, error) {
+	return nil, status.Error(codes.Unimplemented, "method GetAcquisitionParameters not implemented")
 }
 func (UnimplementedCommunicationServer) mustEmbedUnimplementedCommunicationServer() {}
 func (UnimplementedCommunicationServer) testEmbeddedByValue()                       {}
@@ -174,6 +206,42 @@ func _Communication_GetServerDetails_Handler(srv interface{}, ctx context.Contex
 	return interceptor(ctx, in, info, handler)
 }
 
+func _Communication_Login_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(LoginRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(CommunicationServer).Login(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: Communication_Login_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(CommunicationServer).Login(ctx, req.(*LoginRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _Communication_GetAcquisitionParameters_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(ClientID)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(CommunicationServer).GetAcquisitionParameters(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: Communication_GetAcquisitionParameters_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(CommunicationServer).GetAcquisitionParameters(ctx, req.(*ClientID))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
 // Communication_ServiceDesc is the grpc.ServiceDesc for Communication service.
 // It's only intended for direct use with grpc.RegisterService,
 // and not to be introspected or modified (even as a copy)
@@ -188,6 +256,14 @@ var Communication_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "GetServerDetails",
 			Handler:    _Communication_GetServerDetails_Handler,
+		},
+		{
+			MethodName: "Login",
+			Handler:    _Communication_Login_Handler,
+		},
+		{
+			MethodName: "GetAcquisitionParameters",
+			Handler:    _Communication_GetAcquisitionParameters_Handler,
 		},
 	},
 	Streams: []grpc.StreamDesc{

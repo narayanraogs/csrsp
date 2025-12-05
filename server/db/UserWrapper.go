@@ -12,7 +12,7 @@ func GetAvailableFramesForDownload(userID int) ([]int32, error) {
 	return global.GetFrameIDsForDownload(context.Background(), int32(userID))
 }
 
-func GetPrevileges(userName string, password string) ([]string, error) {
+func GetPrivileges(userName string, password string) ([]string, error) {
 	user, err := global.GetUserDetails(context.Background(), userName)
 	if err != nil {
 		return nil, err

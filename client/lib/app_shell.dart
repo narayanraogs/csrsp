@@ -156,29 +156,55 @@ class _AppShellState extends State<AppShell> {
     Navigator.of(context).pop(); // Close the drawer
   }
 
-  void _onLogin(String username, String password) {
-    // Simulate a login attempt
+  Future<void> _onLogin(String username, String password) async {
+    // Initialize gRPC channel and client if not already done
+    if (_channel == null) {
+      final serverUrl = context.read<GlobalState>().serverUrl;
+      _channel = GrpcWebClientChannel.xhr(Uri.parse(serverUrl));
+      _client = CommunicationClient(_channel!);
+    }
+
     ScaffoldMessenger.of(context).showSnackBar(
       const SnackBar(
         content: Text('Validating credentials...'),
         duration: Duration(seconds: 1),
       ),
     );
-    Future.delayed(const Duration(seconds: 1), () {
-      // Simple validation for demonstration
-      if (username == 'admin' && password == 'password') {
-        setState(() {
-          _isLoggedIn = true;
-        });
-      } else {
+
+    try {
+      final request = LoginRequest()
+        ..username = username
+        ..password = password;
+
+      final response = await _client!.login(request);
+
+      if (mounted) {
+        if (response.success) {
+          setState(() {
+            _isLoggedIn = true;
+          });
+          // You might want to store permissions here if needed
+          debugPrint("Login successful. Permissions: ${response.permissions}");
+        } else {
+          ScaffoldMessenger.of(context).showSnackBar(
+            const SnackBar(
+              content: Text('Invalid username or password.'),
+              backgroundColor: Colors.red,
+            ),
+          );
+        }
+      }
+    } catch (e) {
+      debugPrint("Login Error: $e");
+      if (mounted) {
         ScaffoldMessenger.of(context).showSnackBar(
-          const SnackBar(
-            content: Text('Invalid username or password.'),
+          SnackBar(
+            content: Text('Login failed: $e'),
             backgroundColor: Colors.red,
           ),
         );
       }
-    });
+    }
   }
 
   void _reconnect() {

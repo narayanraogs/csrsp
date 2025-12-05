@@ -7,6 +7,7 @@ import (
 	"time"
 
 	pb "csrsp/server/communication"
+	"csrsp/server/db"
 	"csrsp/server/global"
 
 	"github.com/shirou/gopsutil/v3/cpu"
@@ -65,5 +66,21 @@ func (s *CommunicationServer) GetServerDetails(ctx context.Context, req *pb.Clie
 	return &pb.ServerDetails{
 		SatelliteName: global.App.SatName,
 		TestPhase:     "Software Testing",
+	}, nil
+}
+
+func (s *CommunicationServer) Login(ctx context.Context, req *pb.LoginRequest) (*pb.LoginResponse, error) {
+	log.Printf("Login request for user: %s", req.Username)
+	permissions, err := db.GetPrivileges(req.Username, req.Password)
+	if err != nil {
+		log.Printf("Login failed for user %s: %v", req.Username, err)
+		return &pb.LoginResponse{
+			Success: false,
+		}, nil
+	}
+
+	return &pb.LoginResponse{
+		Success:     true,
+		Permissions: permissions,
 	}, nil
 }

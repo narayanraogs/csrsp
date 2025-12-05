@@ -268,6 +268,339 @@ class ServerDetails extends $pb.GeneratedMessage {
   void clearTestPhase() => $_clearField(2);
 }
 
+class LoginRequest extends $pb.GeneratedMessage {
+  factory LoginRequest({
+    $core.String? username,
+    $core.String? password,
+  }) {
+    final result = create();
+    if (username != null) result.username = username;
+    if (password != null) result.password = password;
+    return result;
+  }
+
+  LoginRequest._();
+
+  factory LoginRequest.fromBuffer($core.List<$core.int> data,
+          [$pb.ExtensionRegistry registry = $pb.ExtensionRegistry.EMPTY]) =>
+      create()..mergeFromBuffer(data, registry);
+  factory LoginRequest.fromJson($core.String json,
+          [$pb.ExtensionRegistry registry = $pb.ExtensionRegistry.EMPTY]) =>
+      create()..mergeFromJson(json, registry);
+
+  static final $pb.BuilderInfo _i = $pb.BuilderInfo(
+      _omitMessageNames ? '' : 'LoginRequest',
+      package: const $pb.PackageName(_omitMessageNames ? '' : 'Communication'),
+      createEmptyInstance: create)
+    ..aOS(1, _omitFieldNames ? '' : 'username')
+    ..aOS(2, _omitFieldNames ? '' : 'password')
+    ..hasRequiredFields = false;
+
+  @$core.Deprecated('See https://github.com/google/protobuf.dart/issues/998.')
+  LoginRequest clone() => deepCopy();
+  @$core.Deprecated('See https://github.com/google/protobuf.dart/issues/998.')
+  LoginRequest copyWith(void Function(LoginRequest) updates) =>
+      super.copyWith((message) => updates(message as LoginRequest))
+          as LoginRequest;
+
+  @$core.override
+  $pb.BuilderInfo get info_ => _i;
+
+  @$core.pragma('dart2js:noInline')
+  static LoginRequest create() => LoginRequest._();
+  @$core.override
+  LoginRequest createEmptyInstance() => create();
+  @$core.pragma('dart2js:noInline')
+  static LoginRequest getDefault() => _defaultInstance ??=
+      $pb.GeneratedMessage.$_defaultFor<LoginRequest>(create);
+  static LoginRequest? _defaultInstance;
+
+  @$pb.TagNumber(1)
+  $core.String get username => $_getSZ(0);
+  @$pb.TagNumber(1)
+  set username($core.String value) => $_setString(0, value);
+  @$pb.TagNumber(1)
+  $core.bool hasUsername() => $_has(0);
+  @$pb.TagNumber(1)
+  void clearUsername() => $_clearField(1);
+
+  @$pb.TagNumber(2)
+  $core.String get password => $_getSZ(1);
+  @$pb.TagNumber(2)
+  set password($core.String value) => $_setString(1, value);
+  @$pb.TagNumber(2)
+  $core.bool hasPassword() => $_has(1);
+  @$pb.TagNumber(2)
+  void clearPassword() => $_clearField(2);
+}
+
+class LoginResponse extends $pb.GeneratedMessage {
+  factory LoginResponse({
+    $core.bool? success,
+    $core.Iterable<$core.String>? permissions,
+  }) {
+    final result = create();
+    if (success != null) result.success = success;
+    if (permissions != null) result.permissions.addAll(permissions);
+    return result;
+  }
+
+  LoginResponse._();
+
+  factory LoginResponse.fromBuffer($core.List<$core.int> data,
+          [$pb.ExtensionRegistry registry = $pb.ExtensionRegistry.EMPTY]) =>
+      create()..mergeFromBuffer(data, registry);
+  factory LoginResponse.fromJson($core.String json,
+          [$pb.ExtensionRegistry registry = $pb.ExtensionRegistry.EMPTY]) =>
+      create()..mergeFromJson(json, registry);
+
+  static final $pb.BuilderInfo _i = $pb.BuilderInfo(
+      _omitMessageNames ? '' : 'LoginResponse',
+      package: const $pb.PackageName(_omitMessageNames ? '' : 'Communication'),
+      createEmptyInstance: create)
+    ..aOB(1, _omitFieldNames ? '' : 'success')
+    ..pPS(2, _omitFieldNames ? '' : 'permissions')
+    ..hasRequiredFields = false;
+
+  @$core.Deprecated('See https://github.com/google/protobuf.dart/issues/998.')
+  LoginResponse clone() => deepCopy();
+  @$core.Deprecated('See https://github.com/google/protobuf.dart/issues/998.')
+  LoginResponse copyWith(void Function(LoginResponse) updates) =>
+      super.copyWith((message) => updates(message as LoginResponse))
+          as LoginResponse;
+
+  @$core.override
+  $pb.BuilderInfo get info_ => _i;
+
+  @$core.pragma('dart2js:noInline')
+  static LoginResponse create() => LoginResponse._();
+  @$core.override
+  LoginResponse createEmptyInstance() => create();
+  @$core.pragma('dart2js:noInline')
+  static LoginResponse getDefault() => _defaultInstance ??=
+      $pb.GeneratedMessage.$_defaultFor<LoginResponse>(create);
+  static LoginResponse? _defaultInstance;
+
+  @$pb.TagNumber(1)
+  $core.bool get success => $_getBF(0);
+  @$pb.TagNumber(1)
+  set success($core.bool value) => $_setBool(0, value);
+  @$pb.TagNumber(1)
+  $core.bool hasSuccess() => $_has(0);
+  @$pb.TagNumber(1)
+  void clearSuccess() => $_clearField(1);
+
+  @$pb.TagNumber(2)
+  $pb.PbList<$core.String> get permissions => $_getList(1);
+}
+
+class AcqDASMap extends $pb.GeneratedMessage {
+  factory AcqDASMap({
+    $core.String? acqMode,
+    $core.Iterable<AcqDasDetails>? dasDetails,
+  }) {
+    final result = create();
+    if (acqMode != null) result.acqMode = acqMode;
+    if (dasDetails != null) result.dasDetails.addAll(dasDetails);
+    return result;
+  }
+
+  AcqDASMap._();
+
+  factory AcqDASMap.fromBuffer($core.List<$core.int> data,
+          [$pb.ExtensionRegistry registry = $pb.ExtensionRegistry.EMPTY]) =>
+      create()..mergeFromBuffer(data, registry);
+  factory AcqDASMap.fromJson($core.String json,
+          [$pb.ExtensionRegistry registry = $pb.ExtensionRegistry.EMPTY]) =>
+      create()..mergeFromJson(json, registry);
+
+  static final $pb.BuilderInfo _i = $pb.BuilderInfo(
+      _omitMessageNames ? '' : 'AcqDASMap',
+      package: const $pb.PackageName(_omitMessageNames ? '' : 'Communication'),
+      createEmptyInstance: create)
+    ..aOS(1, _omitFieldNames ? '' : 'acqMode', protoName: 'acqMode')
+    ..pPM<AcqDasDetails>(2, _omitFieldNames ? '' : 'dasDetails',
+        protoName: 'dasDetails', subBuilder: AcqDasDetails.create)
+    ..hasRequiredFields = false;
+
+  @$core.Deprecated('See https://github.com/google/protobuf.dart/issues/998.')
+  AcqDASMap clone() => deepCopy();
+  @$core.Deprecated('See https://github.com/google/protobuf.dart/issues/998.')
+  AcqDASMap copyWith(void Function(AcqDASMap) updates) =>
+      super.copyWith((message) => updates(message as AcqDASMap)) as AcqDASMap;
+
+  @$core.override
+  $pb.BuilderInfo get info_ => _i;
+
+  @$core.pragma('dart2js:noInline')
+  static AcqDASMap create() => AcqDASMap._();
+  @$core.override
+  AcqDASMap createEmptyInstance() => create();
+  @$core.pragma('dart2js:noInline')
+  static AcqDASMap getDefault() =>
+      _defaultInstance ??= $pb.GeneratedMessage.$_defaultFor<AcqDASMap>(create);
+  static AcqDASMap? _defaultInstance;
+
+  @$pb.TagNumber(1)
+  $core.String get acqMode => $_getSZ(0);
+  @$pb.TagNumber(1)
+  set acqMode($core.String value) => $_setString(0, value);
+  @$pb.TagNumber(1)
+  $core.bool hasAcqMode() => $_has(0);
+  @$pb.TagNumber(1)
+  void clearAcqMode() => $_clearField(1);
+
+  @$pb.TagNumber(2)
+  $pb.PbList<AcqDasDetails> get dasDetails => $_getList(1);
+}
+
+class AcqDasDetails extends $pb.GeneratedMessage {
+  factory AcqDasDetails({
+    $core.String? dasName,
+    $core.int? dpuNumber,
+  }) {
+    final result = create();
+    if (dasName != null) result.dasName = dasName;
+    if (dpuNumber != null) result.dpuNumber = dpuNumber;
+    return result;
+  }
+
+  AcqDasDetails._();
+
+  factory AcqDasDetails.fromBuffer($core.List<$core.int> data,
+          [$pb.ExtensionRegistry registry = $pb.ExtensionRegistry.EMPTY]) =>
+      create()..mergeFromBuffer(data, registry);
+  factory AcqDasDetails.fromJson($core.String json,
+          [$pb.ExtensionRegistry registry = $pb.ExtensionRegistry.EMPTY]) =>
+      create()..mergeFromJson(json, registry);
+
+  static final $pb.BuilderInfo _i = $pb.BuilderInfo(
+      _omitMessageNames ? '' : 'AcqDasDetails',
+      package: const $pb.PackageName(_omitMessageNames ? '' : 'Communication'),
+      createEmptyInstance: create)
+    ..aOS(1, _omitFieldNames ? '' : 'dasName', protoName: 'dasName')
+    ..aI(2, _omitFieldNames ? '' : 'dpuNumber', protoName: 'dpuNumber')
+    ..hasRequiredFields = false;
+
+  @$core.Deprecated('See https://github.com/google/protobuf.dart/issues/998.')
+  AcqDasDetails clone() => deepCopy();
+  @$core.Deprecated('See https://github.com/google/protobuf.dart/issues/998.')
+  AcqDasDetails copyWith(void Function(AcqDasDetails) updates) =>
+      super.copyWith((message) => updates(message as AcqDasDetails))
+          as AcqDasDetails;
+
+  @$core.override
+  $pb.BuilderInfo get info_ => _i;
+
+  @$core.pragma('dart2js:noInline')
+  static AcqDasDetails create() => AcqDasDetails._();
+  @$core.override
+  AcqDasDetails createEmptyInstance() => create();
+  @$core.pragma('dart2js:noInline')
+  static AcqDasDetails getDefault() => _defaultInstance ??=
+      $pb.GeneratedMessage.$_defaultFor<AcqDasDetails>(create);
+  static AcqDasDetails? _defaultInstance;
+
+  @$pb.TagNumber(1)
+  $core.String get dasName => $_getSZ(0);
+  @$pb.TagNumber(1)
+  set dasName($core.String value) => $_setString(0, value);
+  @$pb.TagNumber(1)
+  $core.bool hasDasName() => $_has(0);
+  @$pb.TagNumber(1)
+  void clearDasName() => $_clearField(1);
+
+  @$pb.TagNumber(2)
+  $core.int get dpuNumber => $_getIZ(1);
+  @$pb.TagNumber(2)
+  set dpuNumber($core.int value) => $_setSignedInt32(1, value);
+  @$pb.TagNumber(2)
+  $core.bool hasDpuNumber() => $_has(1);
+  @$pb.TagNumber(2)
+  void clearDpuNumber() => $_clearField(2);
+}
+
+class AcquisitionParameters extends $pb.GeneratedMessage {
+  factory AcquisitionParameters({
+    $core.Iterable<$core.String>? acqModes,
+    $core.Iterable<$core.String>? payloads,
+    $core.Iterable<$core.String>? configNames,
+    $core.Iterable<$core.String>? acqTypes,
+    $core.Iterable<$core.String>? resultProfiles,
+    $core.Iterable<AcqDASMap>? dasMap,
+  }) {
+    final result = create();
+    if (acqModes != null) result.acqModes.addAll(acqModes);
+    if (payloads != null) result.payloads.addAll(payloads);
+    if (configNames != null) result.configNames.addAll(configNames);
+    if (acqTypes != null) result.acqTypes.addAll(acqTypes);
+    if (resultProfiles != null) result.resultProfiles.addAll(resultProfiles);
+    if (dasMap != null) result.dasMap.addAll(dasMap);
+    return result;
+  }
+
+  AcquisitionParameters._();
+
+  factory AcquisitionParameters.fromBuffer($core.List<$core.int> data,
+          [$pb.ExtensionRegistry registry = $pb.ExtensionRegistry.EMPTY]) =>
+      create()..mergeFromBuffer(data, registry);
+  factory AcquisitionParameters.fromJson($core.String json,
+          [$pb.ExtensionRegistry registry = $pb.ExtensionRegistry.EMPTY]) =>
+      create()..mergeFromJson(json, registry);
+
+  static final $pb.BuilderInfo _i = $pb.BuilderInfo(
+      _omitMessageNames ? '' : 'AcquisitionParameters',
+      package: const $pb.PackageName(_omitMessageNames ? '' : 'Communication'),
+      createEmptyInstance: create)
+    ..pPS(1, _omitFieldNames ? '' : 'acqModes', protoName: 'acqModes')
+    ..pPS(2, _omitFieldNames ? '' : 'payloads')
+    ..pPS(3, _omitFieldNames ? '' : 'configNames', protoName: 'configNames')
+    ..pPS(4, _omitFieldNames ? '' : 'acqTypes', protoName: 'acqTypes')
+    ..pPS(5, _omitFieldNames ? '' : 'resultProfiles',
+        protoName: 'resultProfiles')
+    ..pPM<AcqDASMap>(6, _omitFieldNames ? '' : 'dasMap',
+        protoName: 'dasMap', subBuilder: AcqDASMap.create)
+    ..hasRequiredFields = false;
+
+  @$core.Deprecated('See https://github.com/google/protobuf.dart/issues/998.')
+  AcquisitionParameters clone() => deepCopy();
+  @$core.Deprecated('See https://github.com/google/protobuf.dart/issues/998.')
+  AcquisitionParameters copyWith(
+          void Function(AcquisitionParameters) updates) =>
+      super.copyWith((message) => updates(message as AcquisitionParameters))
+          as AcquisitionParameters;
+
+  @$core.override
+  $pb.BuilderInfo get info_ => _i;
+
+  @$core.pragma('dart2js:noInline')
+  static AcquisitionParameters create() => AcquisitionParameters._();
+  @$core.override
+  AcquisitionParameters createEmptyInstance() => create();
+  @$core.pragma('dart2js:noInline')
+  static AcquisitionParameters getDefault() => _defaultInstance ??=
+      $pb.GeneratedMessage.$_defaultFor<AcquisitionParameters>(create);
+  static AcquisitionParameters? _defaultInstance;
+
+  @$pb.TagNumber(1)
+  $pb.PbList<$core.String> get acqModes => $_getList(0);
+
+  @$pb.TagNumber(2)
+  $pb.PbList<$core.String> get payloads => $_getList(1);
+
+  @$pb.TagNumber(3)
+  $pb.PbList<$core.String> get configNames => $_getList(2);
+
+  @$pb.TagNumber(4)
+  $pb.PbList<$core.String> get acqTypes => $_getList(3);
+
+  @$pb.TagNumber(5)
+  $pb.PbList<$core.String> get resultProfiles => $_getList(4);
+
+  @$pb.TagNumber(6)
+  $pb.PbList<AcqDASMap> get dasMap => $_getList(5);
+}
+
 const $core.bool _omitFieldNames =
     $core.bool.fromEnvironment('protobuf.omit_field_names');
 const $core.bool _omitMessageNames =

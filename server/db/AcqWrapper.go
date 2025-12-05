@@ -126,7 +126,8 @@ func ChangeRemarks(remark string, acqDate string, acqTime string) error {
 }
 
 // GetDASSystemsByAcquisitionMode retrieves all unique DAS systems for a given acq mode.
-func GetDASSystemsByAcquisitionMode(ctx context.Context, acqMode string) ([]sqlc.Dasdetail, error) {
+func GetDASSystemsByAcquisitionMode(acqMode string) ([]sqlc.Dasdetail, error) {
+	ctx := context.Background()
 	return global.GetDASSystemsByAcquisitionMode(ctx, acqMode)
 }
 

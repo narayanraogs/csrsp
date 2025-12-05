@@ -23,8 +23,39 @@ message ServerDetails {
     string testPhase = 2;
 }
 
+message LoginRequest {
+    string username = 1;
+    string password = 2;
+}
+
+message LoginResponse {
+    bool success = 1;
+    repeated string permissions = 2;
+}
+
+message AcqDASMap{
+    string acqMode = 1;
+    repeated AcqDasDetails dasDetails = 2;
+}
+
+message AcqDasDetails{
+    string dasName = 1;
+    int32 dpuNumber = 2;
+}
+
+message AcquisitionParameters{
+    repeated string acqModes = 1;
+    repeated string payloads = 2;
+    repeated string configNames = 3;
+    repeated string acqTypes = 4;
+    repeated string resultProfiles = 5;
+    repeated AcqDASMap dasMap = 6;
+}
+
 service Communication{
     rpc GetServerStatus (ClientID) returns (stream ServerStatus);
     rpc IsWhitelisted(ClientID) returns (IsWhitelistedResponse);
     rpc GetServerDetails(ClientID) returns (ServerDetails);
+    rpc Login(LoginRequest) returns (LoginResponse);
+    rpc GetAcquisitionParameters(ClientID) returns (AcquisitionParameters);
 }
