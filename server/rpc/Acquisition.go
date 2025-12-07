@@ -34,14 +34,21 @@ func (s *CommunicationServer) GetAcquisitionParameters(ctx context.Context, req 
 		var d communication.AcqDASMap
 		d.AcqMode = acqMode
 		d.DasDetails = make([]*communication.AcqDasDetails, 0)
-		dasDetail, err := db.GetDASSystemsByAcquisitionMode(acqMode)
+		dasPaths, err := db.GetAcquisitionChainDetails(acqMode)
 		if err != nil {
 			return nil, err
 		}
-		for _, das := range dasDetail {
+		for _, path := range dasPaths {
 			var dd communication.AcqDasDetails
-			dd.DasName = das.Dasname
-			//dd.DpuNumber = das.Dpunumber
+			dd.DpuNumber = path.Dpunumber
+
+			// Get DAS Name
+			dasInfo, err := db.GetDASDetails(int(path.Dasid))
+			if err != nil {
+				return nil, err
+			}
+			dd.DasName = dasInfo.Dasname
+
 			d.DasDetails = append(d.DasDetails, &dd)
 		}
 		acq.DasMap = append(acq.DasMap, &d)
