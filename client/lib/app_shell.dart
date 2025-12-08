@@ -92,6 +92,11 @@ class _AppShellState extends State<AppShell> {
       if (mounted) {
         setState(() {
           _isLoggedIn = response.whitelisted;
+
+          if (_isLoggedIn) {
+            context.read<GlobalState>().grantAllPermissions();
+          }
+
           _isLoading = false;
         });
       }
@@ -183,7 +188,8 @@ class _AppShellState extends State<AppShell> {
           setState(() {
             _isLoggedIn = true;
           });
-          // You might want to store permissions here if needed
+          // Store permissions
+          context.read<GlobalState>().setPermissions(response.permissions);
           debugPrint("Login successful. Permissions: ${response.permissions}");
         } else {
           ScaffoldMessenger.of(context).showSnackBar(

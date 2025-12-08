@@ -1,5 +1,4 @@
 import 'package:flutter/foundation.dart';
-import 'package:flutter/material.dart';
 import 'package:uuid/uuid.dart';
 
 class GlobalState extends ChangeNotifier {
@@ -33,25 +32,54 @@ class GlobalState extends ChangeNotifier {
     return 'http://localhost:8080';
   }
 
-  // Example state: A simple counter and a status message
-  int _counter = 0;
-  String _status = "Initial Status";
+  // Permissions State
+  List<String> _permissions = [];
+
+  // Permission Constants
+  static const String permAcquireData = 'ACQUIRE_DATA';
+  static const String permOfflineProcessing = 'OFFLINE_PROCESSING';
+  static const String permFileProcessing = 'FILE_PROCESSING';
+  static const String permResultProfiles = 'RESULT_PROFILES';
+  static const String permTrendAnalysis = 'TREND_ANALYSIS';
+  static const String permBerLogging = 'BER_LOGGING';
+  static const String permDataTransfer = 'DATA_TRANSFER';
+  static const String permDatabaseOptions = 'DATABASE_OPTIONS';
+  static const String permDeveloperOptions = 'DEVELOPER_OPTIONS';
+
+  static const List<String> _allPermissions = [
+    permAcquireData,
+    permOfflineProcessing,
+    permFileProcessing,
+    permResultProfiles,
+    permTrendAnalysis,
+    permBerLogging,
+    permDataTransfer,
+    permDatabaseOptions,
+    permDeveloperOptions,
+  ];
 
   // Getters to access state
   String get clientId => _clientId;
   String get serverUrl => _serverUrl;
-  int get counter => _counter;
-  String get status => _status;
+  List<String> get permissions => _permissions;
 
-  // Methods to modify state
-  void incrementCounter() {
-    _counter++;
-    // notifyListeners() tells Flutter to rebuild any widgets listening to this state
+  // Permission Management
+  void setPermissions(List<String> perms) {
+    _permissions = perms;
     notifyListeners();
   }
 
-  void updateStatus(String newStatus) {
-    _status = newStatus;
+  void grantAllPermissions() {
+    _permissions = List.from(_allPermissions);
     notifyListeners();
+  }
+
+  void clearPermissions() {
+    _permissions = [];
+    notifyListeners();
+  }
+
+  bool hasPermission(String permission) {
+    return _permissions.contains(permission);
   }
 }
