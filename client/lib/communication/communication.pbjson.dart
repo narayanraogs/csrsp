@@ -132,6 +132,57 @@ final $typed_data.Uint8List acqDasDetailsDescriptor = $convert.base64Decode(
     'Cg1BY3FEYXNEZXRhaWxzEhgKB2Rhc05hbWUYASABKAlSB2Rhc05hbWUSHAoJZHB1TnVtYmVyGA'
     'IgASgFUglkcHVOdW1iZXI=');
 
+@$core.Deprecated('Use dASStatusDescriptor instead')
+const DASStatus$json = {
+  '1': 'DASStatus',
+  '2': [
+    {
+      '1': 'dasStatus',
+      '3': 1,
+      '4': 3,
+      '5': 11,
+      '6': '.Communication.DASStatusResponse',
+      '10': 'dasStatus'
+    },
+  ],
+};
+
+/// Descriptor for `DASStatus`. Decode as a `google.protobuf.DescriptorProto`.
+final $typed_data.Uint8List dASStatusDescriptor = $convert.base64Decode(
+    'CglEQVNTdGF0dXMSPgoJZGFzU3RhdHVzGAEgAygLMiAuQ29tbXVuaWNhdGlvbi5EQVNTdGF0dX'
+    'NSZXNwb25zZVIJZGFzU3RhdHVz');
+
+@$core.Deprecated('Use dASStatusResponseDescriptor instead')
+const DASStatusResponse$json = {
+  '1': 'DASStatusResponse',
+  '2': [
+    {'1': 'dasName', '3': 1, '4': 1, '5': 9, '10': 'dasName'},
+    {'1': 'dpuNumber', '3': 2, '4': 1, '5': 5, '10': 'dpuNumber'},
+    {'1': 'status', '3': 3, '4': 1, '5': 9, '10': 'status'},
+    {'1': 'alarm', '3': 4, '4': 1, '5': 8, '10': 'alarm'},
+  ],
+};
+
+/// Descriptor for `DASStatusResponse`. Decode as a `google.protobuf.DescriptorProto`.
+final $typed_data.Uint8List dASStatusResponseDescriptor = $convert.base64Decode(
+    'ChFEQVNTdGF0dXNSZXNwb25zZRIYCgdkYXNOYW1lGAEgASgJUgdkYXNOYW1lEhwKCWRwdU51bW'
+    'JlchgCIAEoBVIJZHB1TnVtYmVyEhYKBnN0YXR1cxgDIAEoCVIGc3RhdHVzEhQKBWFsYXJtGAQg'
+    'ASgIUgVhbGFybQ==');
+
+@$core.Deprecated('Use dASStatusRequestDescriptor instead')
+const DASStatusRequest$json = {
+  '1': 'DASStatusRequest',
+  '2': [
+    {'1': 'id', '3': 1, '4': 1, '5': 9, '10': 'id'},
+    {'1': 'acqMode', '3': 2, '4': 1, '5': 9, '10': 'acqMode'},
+  ],
+};
+
+/// Descriptor for `DASStatusRequest`. Decode as a `google.protobuf.DescriptorProto`.
+final $typed_data.Uint8List dASStatusRequestDescriptor = $convert.base64Decode(
+    'ChBEQVNTdGF0dXNSZXF1ZXN0Eg4KAmlkGAEgASgJUgJpZBIYCgdhY3FNb2RlGAIgASgJUgdhY3'
+    'FNb2Rl');
+
 @$core.Deprecated('Use acquisitionParametersDescriptor instead')
 const AcquisitionParameters$json = {
   '1': 'AcquisitionParameters',

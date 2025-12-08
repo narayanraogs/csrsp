@@ -70,6 +70,15 @@ class CommunicationClient extends $grpc.Client {
         options: options);
   }
 
+  $grpc.ResponseStream<$0.DASStatus> getDASStatus(
+    $0.DASStatusRequest request, {
+    $grpc.CallOptions? options,
+  }) {
+    return $createStreamingCall(
+        _$getDASStatus, $async.Stream.fromIterable([request]),
+        options: options);
+  }
+
   // method descriptors
 
   static final _$getServerStatus =
@@ -96,6 +105,11 @@ class CommunicationClient extends $grpc.Client {
           '/Communication.Communication/GetAcquisitionParameters',
           ($0.ClientID value) => value.writeToBuffer(),
           $0.AcquisitionParameters.fromBuffer);
+  static final _$getDASStatus =
+      $grpc.ClientMethod<$0.DASStatusRequest, $0.DASStatus>(
+          '/Communication.Communication/GetDASStatus',
+          ($0.DASStatusRequest value) => value.writeToBuffer(),
+          $0.DASStatus.fromBuffer);
 }
 
 @$pb.GrpcServiceName('Communication.Communication')
@@ -138,6 +152,13 @@ abstract class CommunicationServiceBase extends $grpc.Service {
         false,
         ($core.List<$core.int> value) => $0.ClientID.fromBuffer(value),
         ($0.AcquisitionParameters value) => value.writeToBuffer()));
+    $addMethod($grpc.ServiceMethod<$0.DASStatusRequest, $0.DASStatus>(
+        'GetDASStatus',
+        getDASStatus_Pre,
+        false,
+        true,
+        ($core.List<$core.int> value) => $0.DASStatusRequest.fromBuffer(value),
+        ($0.DASStatus value) => value.writeToBuffer()));
   }
 
   $async.Stream<$0.ServerStatus> getServerStatus_Pre(
@@ -179,4 +200,12 @@ abstract class CommunicationServiceBase extends $grpc.Service {
 
   $async.Future<$0.AcquisitionParameters> getAcquisitionParameters(
       $grpc.ServiceCall call, $0.ClientID request);
+
+  $async.Stream<$0.DASStatus> getDASStatus_Pre($grpc.ServiceCall $call,
+      $async.Future<$0.DASStatusRequest> $request) async* {
+    yield* getDASStatus($call, await $request);
+  }
+
+  $async.Stream<$0.DASStatus> getDASStatus(
+      $grpc.ServiceCall call, $0.DASStatusRequest request);
 }

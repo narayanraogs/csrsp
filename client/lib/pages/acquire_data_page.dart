@@ -16,12 +16,17 @@ class _AcquireDataViewState extends State<AcquireDataView> {
   String? _error;
   AcquisitionParameters? _params;
 
+  // Stream State
+  Map<String, DASStatusResponse> _dasStatuses = {};
+  ResponseStream<DASStatus>? _statusStream;
+  GrpcWebClientChannel? _statusChannel;
+
   // Form State
   String? _selectedAcqMode;
   String? _selectedPayload;
   String? _selectedConfigName;
   String? _selectedResultProfile;
-  String _acqType = 'Frame'; // Default to Frame
+  String _acqType = 'UserDefined'; // Default to UserDefined
 
   final TextEditingController _frameCountController = TextEditingController(text:"50000");
   final TextEditingController _timeController = TextEditingController(text:"30");
@@ -35,10 +40,46 @@ class _AcquireDataViewState extends State<AcquireDataView> {
 
   @override
   void dispose() {
+    _statusStream?.cancel();
+    _statusChannel?.shutdown();
     _frameCountController.dispose();
     _timeController.dispose();
     _remarksController.dispose();
     super.dispose();
+  }
+
+  Future<void> _startStatusStream(String mode) async {
+    await _statusStream?.cancel();
+    await _statusChannel?.shutdown();
+    
+    // Clear old statuses when switching modes to avoid showing stale data for new mode
+    if (mounted) {
+        setState(() {
+            _dasStatuses.clear();
+        });
+    }
+
+    final serverUrl = context.read<GlobalState>().serverUrl;
+    _statusChannel = GrpcWebClientChannel.xhr(Uri.parse(serverUrl));
+    final client = CommunicationClient(_statusChannel!);
+
+    final request = DASStatusRequest()
+      ..id = context.read<GlobalState>().clientId
+      ..acqMode = mode;
+
+    _statusStream = client.getDASStatus(request);
+    _statusStream!.listen((data) {
+      if (mounted) {
+        setState(() {
+          for (var status in data.dasStatus) {
+            final key = "${status.dasName}_${status.dpuNumber}";
+            _dasStatuses[key] = status;
+          }
+        });
+      }
+    }, onError: (e) {
+      debugPrint("Status stream error: $e");
+    });
   }
 
   Future<void> _fetchParameters() async {
@@ -58,6 +99,7 @@ class _AcquireDataViewState extends State<AcquireDataView> {
           // Set defaults if available
           if (_params!.acqModes.isNotEmpty) {
             _selectedAcqMode = _params!.acqModes.first;
+            _startStatusStream(_selectedAcqMode!);
           }
           if (_params!.payloads.isNotEmpty) {
             _selectedPayload = _params!.payloads.first;
@@ -160,7 +202,12 @@ class _AcquireDataViewState extends State<AcquireDataView> {
                       label: 'Acquisition Mode',
                       value: _selectedAcqMode,
                       items: _params!.acqModes,
-                      onChanged: (val) => setState(() => _selectedAcqMode = val),
+                      onChanged: (val) {
+                        if (val != null) {
+                            setState(() => _selectedAcqMode = val);
+                            _startStatusStream(val);
+                        }
+                      },
                     ),
                     const SizedBox(height: 16),
                     _buildDropdown(
@@ -191,6 +238,12 @@ class _AcquireDataViewState extends State<AcquireDataView> {
                     const SizedBox(height: 8),
                     Column(
                       children: [
+                        RadioListTile<String>(
+                          title: const Text('User Defined'),
+                          value: 'UserDefined',
+                          groupValue: _acqType,
+                          onChanged: (val) => setState(() => _acqType = val!),
+                        ),
                         RadioListTile<String>(
                           title: const Text('Frame'),
                           value: 'Frame',
@@ -229,12 +282,6 @@ class _AcquireDataViewState extends State<AcquireDataView> {
                               keyboardType: TextInputType.number,
                             ),
                           ),
-                        RadioListTile<String>(
-                          title: const Text('User Defined'),
-                          value: 'UserDefined',
-                          groupValue: _acqType,
-                          onChanged: (val) => setState(() => _acqType = val!),
-                        ),
                       ],
                     ),
                     const SizedBox(height: 24),
@@ -361,27 +408,52 @@ class _AcquireDataViewState extends State<AcquireDataView> {
   }
 
   Widget _buildDasCard(AcqDasDetails detail) {
-    // Status is currently mocked as "Not Connected" (Red)
-    const statusColor = Colors.red;
-    const statusText = "Not Connected";
+    final key = "${detail.dasName}_${detail.dpuNumber}";
+    final status = _dasStatuses[key];
+
+    Color statusColor = Colors.grey;
+    String statusText = "Not Connected";
+
+    if (status != null) {
+      if (status.status == "NotConnected") {
+        statusColor = Colors.grey;
+        statusText = "Not Connected";
+      } else if (status.status == "NotLocked") {
+        if (status.alarm) {
+          statusColor = Colors.red;
+          statusText = "Not Locked (Alarm)";
+        } else {
+          statusColor = Colors.orange;
+          statusText = "Not Locked";
+        }
+      } else if (status.status == "Locked") {
+        if (status.alarm) {
+          statusColor = Colors.yellow[800]!; // Darker yellow for visibility
+          statusText = "Locked (Alarm)";
+        } else {
+          statusColor = Colors.green;
+          statusText = "Locked";
+        }
+      }
+    }
 
     return Card(
       margin: const EdgeInsets.only(bottom: 16),
       shape: RoundedRectangleBorder(
-        side: const BorderSide(color: statusColor, width: 2),
+        side: BorderSide(color: statusColor, width: 2),
         borderRadius: BorderRadius.circular(8),
       ),
       child: ListTile(
-        leading: const Icon(Icons.dns, size: 32, color: statusColor),
+        leading: Icon(Icons.dns, size: 32, color: statusColor),
         title: Text(
           detail.dasName,
           style: const TextStyle(fontWeight: FontWeight.bold),
         ),
         subtitle: Text('DPU: ${detail.dpuNumber}'),
         trailing: Chip(
-          label: const Text(
+          label: Text(
             statusText,
-            style: TextStyle(color: Colors.white),
+            style: const TextStyle(color: Colors.white),
           ),
           backgroundColor: statusColor,
         ),

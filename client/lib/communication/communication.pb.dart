@@ -520,6 +520,210 @@ class AcqDasDetails extends $pb.GeneratedMessage {
   void clearDpuNumber() => $_clearField(2);
 }
 
+class DASStatus extends $pb.GeneratedMessage {
+  factory DASStatus({
+    $core.Iterable<DASStatusResponse>? dasStatus,
+  }) {
+    final result = create();
+    if (dasStatus != null) result.dasStatus.addAll(dasStatus);
+    return result;
+  }
+
+  DASStatus._();
+
+  factory DASStatus.fromBuffer($core.List<$core.int> data,
+          [$pb.ExtensionRegistry registry = $pb.ExtensionRegistry.EMPTY]) =>
+      create()..mergeFromBuffer(data, registry);
+  factory DASStatus.fromJson($core.String json,
+          [$pb.ExtensionRegistry registry = $pb.ExtensionRegistry.EMPTY]) =>
+      create()..mergeFromJson(json, registry);
+
+  static final $pb.BuilderInfo _i = $pb.BuilderInfo(
+      _omitMessageNames ? '' : 'DASStatus',
+      package: const $pb.PackageName(_omitMessageNames ? '' : 'Communication'),
+      createEmptyInstance: create)
+    ..pPM<DASStatusResponse>(1, _omitFieldNames ? '' : 'dasStatus',
+        protoName: 'dasStatus', subBuilder: DASStatusResponse.create)
+    ..hasRequiredFields = false;
+
+  @$core.Deprecated('See https://github.com/google/protobuf.dart/issues/998.')
+  DASStatus clone() => deepCopy();
+  @$core.Deprecated('See https://github.com/google/protobuf.dart/issues/998.')
+  DASStatus copyWith(void Function(DASStatus) updates) =>
+      super.copyWith((message) => updates(message as DASStatus)) as DASStatus;
+
+  @$core.override
+  $pb.BuilderInfo get info_ => _i;
+
+  @$core.pragma('dart2js:noInline')
+  static DASStatus create() => DASStatus._();
+  @$core.override
+  DASStatus createEmptyInstance() => create();
+  @$core.pragma('dart2js:noInline')
+  static DASStatus getDefault() =>
+      _defaultInstance ??= $pb.GeneratedMessage.$_defaultFor<DASStatus>(create);
+  static DASStatus? _defaultInstance;
+
+  @$pb.TagNumber(1)
+  $pb.PbList<DASStatusResponse> get dasStatus => $_getList(0);
+}
+
+class DASStatusResponse extends $pb.GeneratedMessage {
+  factory DASStatusResponse({
+    $core.String? dasName,
+    $core.int? dpuNumber,
+    $core.String? status,
+    $core.bool? alarm,
+  }) {
+    final result = create();
+    if (dasName != null) result.dasName = dasName;
+    if (dpuNumber != null) result.dpuNumber = dpuNumber;
+    if (status != null) result.status = status;
+    if (alarm != null) result.alarm = alarm;
+    return result;
+  }
+
+  DASStatusResponse._();
+
+  factory DASStatusResponse.fromBuffer($core.List<$core.int> data,
+          [$pb.ExtensionRegistry registry = $pb.ExtensionRegistry.EMPTY]) =>
+      create()..mergeFromBuffer(data, registry);
+  factory DASStatusResponse.fromJson($core.String json,
+          [$pb.ExtensionRegistry registry = $pb.ExtensionRegistry.EMPTY]) =>
+      create()..mergeFromJson(json, registry);
+
+  static final $pb.BuilderInfo _i = $pb.BuilderInfo(
+      _omitMessageNames ? '' : 'DASStatusResponse',
+      package: const $pb.PackageName(_omitMessageNames ? '' : 'Communication'),
+      createEmptyInstance: create)
+    ..aOS(1, _omitFieldNames ? '' : 'dasName', protoName: 'dasName')
+    ..aI(2, _omitFieldNames ? '' : 'dpuNumber', protoName: 'dpuNumber')
+    ..aOS(3, _omitFieldNames ? '' : 'status')
+    ..aOB(4, _omitFieldNames ? '' : 'alarm')
+    ..hasRequiredFields = false;
+
+  @$core.Deprecated('See https://github.com/google/protobuf.dart/issues/998.')
+  DASStatusResponse clone() => deepCopy();
+  @$core.Deprecated('See https://github.com/google/protobuf.dart/issues/998.')
+  DASStatusResponse copyWith(void Function(DASStatusResponse) updates) =>
+      super.copyWith((message) => updates(message as DASStatusResponse))
+          as DASStatusResponse;
+
+  @$core.override
+  $pb.BuilderInfo get info_ => _i;
+
+  @$core.pragma('dart2js:noInline')
+  static DASStatusResponse create() => DASStatusResponse._();
+  @$core.override
+  DASStatusResponse createEmptyInstance() => create();
+  @$core.pragma('dart2js:noInline')
+  static DASStatusResponse getDefault() => _defaultInstance ??=
+      $pb.GeneratedMessage.$_defaultFor<DASStatusResponse>(create);
+  static DASStatusResponse? _defaultInstance;
+
+  @$pb.TagNumber(1)
+  $core.String get dasName => $_getSZ(0);
+  @$pb.TagNumber(1)
+  set dasName($core.String value) => $_setString(0, value);
+  @$pb.TagNumber(1)
+  $core.bool hasDasName() => $_has(0);
+  @$pb.TagNumber(1)
+  void clearDasName() => $_clearField(1);
+
+  @$pb.TagNumber(2)
+  $core.int get dpuNumber => $_getIZ(1);
+  @$pb.TagNumber(2)
+  set dpuNumber($core.int value) => $_setSignedInt32(1, value);
+  @$pb.TagNumber(2)
+  $core.bool hasDpuNumber() => $_has(1);
+  @$pb.TagNumber(2)
+  void clearDpuNumber() => $_clearField(2);
+
+  @$pb.TagNumber(3)
+  $core.String get status => $_getSZ(2);
+  @$pb.TagNumber(3)
+  set status($core.String value) => $_setString(2, value);
+  @$pb.TagNumber(3)
+  $core.bool hasStatus() => $_has(2);
+  @$pb.TagNumber(3)
+  void clearStatus() => $_clearField(3);
+
+  @$pb.TagNumber(4)
+  $core.bool get alarm => $_getBF(3);
+  @$pb.TagNumber(4)
+  set alarm($core.bool value) => $_setBool(3, value);
+  @$pb.TagNumber(4)
+  $core.bool hasAlarm() => $_has(3);
+  @$pb.TagNumber(4)
+  void clearAlarm() => $_clearField(4);
+}
+
+class DASStatusRequest extends $pb.GeneratedMessage {
+  factory DASStatusRequest({
+    $core.String? id,
+    $core.String? acqMode,
+  }) {
+    final result = create();
+    if (id != null) result.id = id;
+    if (acqMode != null) result.acqMode = acqMode;
+    return result;
+  }
+
+  DASStatusRequest._();
+
+  factory DASStatusRequest.fromBuffer($core.List<$core.int> data,
+          [$pb.ExtensionRegistry registry = $pb.ExtensionRegistry.EMPTY]) =>
+      create()..mergeFromBuffer(data, registry);
+  factory DASStatusRequest.fromJson($core.String json,
+          [$pb.ExtensionRegistry registry = $pb.ExtensionRegistry.EMPTY]) =>
+      create()..mergeFromJson(json, registry);
+
+  static final $pb.BuilderInfo _i = $pb.BuilderInfo(
+      _omitMessageNames ? '' : 'DASStatusRequest',
+      package: const $pb.PackageName(_omitMessageNames ? '' : 'Communication'),
+      createEmptyInstance: create)
+    ..aOS(1, _omitFieldNames ? '' : 'id')
+    ..aOS(2, _omitFieldNames ? '' : 'acqMode', protoName: 'acqMode')
+    ..hasRequiredFields = false;
+
+  @$core.Deprecated('See https://github.com/google/protobuf.dart/issues/998.')
+  DASStatusRequest clone() => deepCopy();
+  @$core.Deprecated('See https://github.com/google/protobuf.dart/issues/998.')
+  DASStatusRequest copyWith(void Function(DASStatusRequest) updates) =>
+      super.copyWith((message) => updates(message as DASStatusRequest))
+          as DASStatusRequest;
+
+  @$core.override
+  $pb.BuilderInfo get info_ => _i;
+
+  @$core.pragma('dart2js:noInline')
+  static DASStatusRequest create() => DASStatusRequest._();
+  @$core.override
+  DASStatusRequest createEmptyInstance() => create();
+  @$core.pragma('dart2js:noInline')
+  static DASStatusRequest getDefault() => _defaultInstance ??=
+      $pb.GeneratedMessage.$_defaultFor<DASStatusRequest>(create);
+  static DASStatusRequest? _defaultInstance;
+
+  @$pb.TagNumber(1)
+  $core.String get id => $_getSZ(0);
+  @$pb.TagNumber(1)
+  set id($core.String value) => $_setString(0, value);
+  @$pb.TagNumber(1)
+  $core.bool hasId() => $_has(0);
+  @$pb.TagNumber(1)
+  void clearId() => $_clearField(1);
+
+  @$pb.TagNumber(2)
+  $core.String get acqMode => $_getSZ(1);
+  @$pb.TagNumber(2)
+  set acqMode($core.String value) => $_setString(1, value);
+  @$pb.TagNumber(2)
+  $core.bool hasAcqMode() => $_has(1);
+  @$pb.TagNumber(2)
+  void clearAcqMode() => $_clearField(2);
+}
+
 class AcquisitionParameters extends $pb.GeneratedMessage {
   factory AcquisitionParameters({
     $core.Iterable<$core.String>? acqModes,

@@ -61,8 +61,10 @@ type AcquisitionParams struct {
 // DasLockStatus holds parameters for checking DAS lock status.
 type DasLockStatus struct {
 	ComponentCode int `json:"componentCode"`
-	Offset        int `json:"offset"`
-	Value         int `json:"value"`
+	LockOffset    int `json:"lockOffset"`
+	LockValue     int `json:"lockValue"`
+	AlarmOffset   int `json:"alarmOffset"`
+	AlarmValue    int `json:"alarmValue"`
 }
 
 // DasPorts specifies the network ports for various DAS services.

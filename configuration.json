@@ -27,8 +27,10 @@
     },
     "dasLockStatus": {
         "componentCode": 1,
-        "offset": 0,
-        "value": 1
+        "lockOffset": 0,
+        "lockValue": 1,
+        "alarmOffset": 0,
+        "alarmValue": 1
     },
     "dasPorts": {
         "monitor": 9001,

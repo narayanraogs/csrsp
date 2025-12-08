@@ -2,12 +2,17 @@ package rpc
 
 import (
 	"context"
-	"csrsp/server/communication"
+	pb "csrsp/server/communication"
+	"csrsp/server/das"
 	"csrsp/server/db"
+	"fmt"
+	"log"
+	"log/slog"
+	"time"
 )
 
-func (s *CommunicationServer) GetAcquisitionParameters(ctx context.Context, req *communication.ClientID) (*communication.AcquisitionParameters, error) {
-	var acq communication.AcquisitionParameters
+func (s *CommunicationServer) GetAcquisitionParameters(ctx context.Context, req *pb.ClientID) (*pb.AcquisitionParameters, error) {
+	var acq pb.AcquisitionParameters
 	acq.AcqTypes = []string{"Frame", "Time", "User Controlled"}
 	acqModes, err := db.GetAcquisitionModes("Acquisition")
 	if err != nil {
@@ -29,17 +34,17 @@ func (s *CommunicationServer) GetAcquisitionParameters(ctx context.Context, req 
 		return nil, err
 	}
 	acq.ResultProfiles = resultProfiles
-	acq.DasMap = make([]*communication.AcqDASMap, 0)
+	acq.DasMap = make([]*pb.AcqDASMap, 0)
 	for _, acqMode := range acqModes {
-		var d communication.AcqDASMap
+		var d pb.AcqDASMap
 		d.AcqMode = acqMode
-		d.DasDetails = make([]*communication.AcqDasDetails, 0)
+		d.DasDetails = make([]*pb.AcqDasDetails, 0)
 		dasPaths, err := db.GetAcquisitionChainDetails(acqMode)
 		if err != nil {
 			return nil, err
 		}
 		for _, path := range dasPaths {
-			var dd communication.AcqDasDetails
+			var dd pb.AcqDasDetails
 			dd.DpuNumber = path.Dpunumber
 
 			// Get DAS Name
@@ -55,4 +60,51 @@ func (s *CommunicationServer) GetAcquisitionParameters(ctx context.Context, req 
 	}
 
 	return &acq, nil
+}
+
+func (s *CommunicationServer) GetDASStatus(req *pb.DASStatusRequest, stream pb.Communication_GetDASStatusServer) error {
+	log.Printf("Starting das stream for client: %s", req.Id)
+
+	// Stream data every 5 seconds
+	ticker := time.NewTicker(5 * time.Second)
+	defer ticker.Stop()
+
+	// Helper function to fetch and send status
+	sendUpdate := func() error {
+		status, err := das.GetStatus(req.AcqMode)
+		if err != nil {
+			slog.Error("Unable to get DAS Status", "error", err.Error())
+			return nil // Don't break stream on calculation error, just skip sending
+		}
+
+		var dasStatus []*pb.DASStatusResponse
+		for _, s := range status {
+			dasStatus = append(dasStatus, &pb.DASStatusResponse{
+				DasName:   s.DasName,
+				DpuNumber: int32(s.DpuNumber),
+				Status:    s.Status,
+				Alarm:     s.Alarm,
+			})
+		}
+
+		return stream.Send(&pb.DASStatus{DasStatus: dasStatus})
+	}
+
+	// 1. Send immediate update
+	if err := sendUpdate(); err != nil {
+		return fmt.Errorf("failed to send initial status: %v", err)
+	}
+
+	// 2. Loop for periodic updates
+	for {
+		select {
+		case <-stream.Context().Done():
+			log.Printf("Client %s disconnected", req.Id)
+			return nil
+		case <-ticker.C:
+			if err := sendUpdate(); err != nil {
+				return fmt.Errorf("failed to send status: %v", err)
+			}
+		}
+	}
 }

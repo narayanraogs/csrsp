@@ -43,6 +43,23 @@ message AcqDasDetails{
     int32 dpuNumber = 2;
 }
 
+message DASStatus{
+    repeated DASStatusResponse dasStatus = 1;
+}
+
+message DASStatusResponse{
+    string dasName = 1;
+    int32 dpuNumber = 2;
+    string status = 3;
+    bool alarm = 4;
+}
+
+message DASStatusRequest{
+    string id = 1;
+    string acqMode = 2;
+}
+
+
 message AcquisitionParameters{
     repeated string acqModes = 1;
     repeated string payloads = 2;
@@ -58,4 +75,5 @@ service Communication{
     rpc GetServerDetails(ClientID) returns (ServerDetails);
     rpc Login(LoginRequest) returns (LoginResponse);
     rpc GetAcquisitionParameters(ClientID) returns (AcquisitionParameters);
+    rpc GetDASStatus(DASStatusRequest) returns (stream DASStatus);
 }
