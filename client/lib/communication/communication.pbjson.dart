@@ -210,3 +210,45 @@ final $typed_data.Uint8List acquisitionParametersDescriptor = $convert.base64Dec
     'ZXMSGgoIYWNxVHlwZXMYBCADKAlSCGFjcVR5cGVzEiYKDnJlc3VsdFByb2ZpbGVzGAUgAygJUg'
     '5yZXN1bHRQcm9maWxlcxIwCgZkYXNNYXAYBiADKAsyGC5Db21tdW5pY2F0aW9uLkFjcURBU01h'
     'cFIGZGFzTWFw');
+
+@$core.Deprecated('Use fileAcquisitionParametersDescriptor instead')
+const FileAcquisitionParameters$json = {
+  '1': 'FileAcquisitionParameters',
+  '2': [
+    {'1': 'frameTypes', '3': 1, '4': 3, '5': 9, '10': 'frameTypes'},
+    {'1': 'acqModes', '3': 2, '4': 3, '5': 9, '10': 'acqModes'},
+    {'1': 'payloads', '3': 3, '4': 3, '5': 9, '10': 'payloads'},
+    {'1': 'configNames', '3': 4, '4': 3, '5': 9, '10': 'configNames'},
+    {'1': 'resultProfiles', '3': 5, '4': 3, '5': 9, '10': 'resultProfiles'},
+    {
+      '1': 'frameTypeMap',
+      '3': 6,
+      '4': 3,
+      '5': 11,
+      '6': '.Communication.FrameTypeMap',
+      '10': 'frameTypeMap'
+    },
+  ],
+};
+
+/// Descriptor for `FileAcquisitionParameters`. Decode as a `google.protobuf.DescriptorProto`.
+final $typed_data.Uint8List fileAcquisitionParametersDescriptor = $convert.base64Decode(
+    'ChlGaWxlQWNxdWlzaXRpb25QYXJhbWV0ZXJzEh4KCmZyYW1lVHlwZXMYASADKAlSCmZyYW1lVH'
+    'lwZXMSGgoIYWNxTW9kZXMYAiADKAlSCGFjcU1vZGVzEhoKCHBheWxvYWRzGAMgAygJUghwYXls'
+    'b2FkcxIgCgtjb25maWdOYW1lcxgEIAMoCVILY29uZmlnTmFtZXMSJgoOcmVzdWx0UHJvZmlsZX'
+    'MYBSADKAlSDnJlc3VsdFByb2ZpbGVzEj8KDGZyYW1lVHlwZU1hcBgGIAMoCzIbLkNvbW11bmlj'
+    'YXRpb24uRnJhbWVUeXBlTWFwUgxmcmFtZVR5cGVNYXA=');
+
+@$core.Deprecated('Use frameTypeMapDescriptor instead')
+const FrameTypeMap$json = {
+  '1': 'FrameTypeMap',
+  '2': [
+    {'1': 'frameType', '3': 1, '4': 1, '5': 9, '10': 'frameType'},
+    {'1': 'frameIdentifiers', '3': 2, '4': 3, '5': 9, '10': 'frameIdentifiers'},
+  ],
+};
+
+/// Descriptor for `FrameTypeMap`. Decode as a `google.protobuf.DescriptorProto`.
+final $typed_data.Uint8List frameTypeMapDescriptor = $convert.base64Decode(
+    'CgxGcmFtZVR5cGVNYXASHAoJZnJhbWVUeXBlGAEgASgJUglmcmFtZVR5cGUSKgoQZnJhbWVJZG'
+    'VudGlmaWVycxgCIAMoCVIQZnJhbWVJZGVudGlmaWVycw==');

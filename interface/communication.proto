@@ -69,6 +69,20 @@ message AcquisitionParameters{
     repeated AcqDASMap dasMap = 6;
 }
 
+message FileAcquisitionParameters{
+    repeated string frameTypes = 1;
+    repeated string acqModes = 2;
+    repeated string payloads = 3;
+    repeated string configNames = 4;
+    repeated string resultProfiles = 5;
+    repeated FrameTypeMap frameTypeMap = 6;
+}
+
+message FrameTypeMap{
+    string frameType = 1;
+    repeated string frameIdentifiers = 2;
+}
+
 service Communication{
     rpc GetServerStatus (ClientID) returns (stream ServerStatus);
     rpc IsWhitelisted(ClientID) returns (IsWhitelistedResponse);
@@ -76,4 +90,5 @@ service Communication{
     rpc Login(LoginRequest) returns (LoginResponse);
     rpc GetAcquisitionParameters(ClientID) returns (AcquisitionParameters);
     rpc GetDASStatus(DASStatusRequest) returns (stream DASStatus);
+    rpc GetFileAcquisitionParameters(ClientID) returns (FileAcquisitionParameters);
 }

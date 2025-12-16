@@ -805,6 +805,149 @@ class AcquisitionParameters extends $pb.GeneratedMessage {
   $pb.PbList<AcqDASMap> get dasMap => $_getList(5);
 }
 
+class FileAcquisitionParameters extends $pb.GeneratedMessage {
+  factory FileAcquisitionParameters({
+    $core.Iterable<$core.String>? frameTypes,
+    $core.Iterable<$core.String>? acqModes,
+    $core.Iterable<$core.String>? payloads,
+    $core.Iterable<$core.String>? configNames,
+    $core.Iterable<$core.String>? resultProfiles,
+    $core.Iterable<FrameTypeMap>? frameTypeMap,
+  }) {
+    final result = create();
+    if (frameTypes != null) result.frameTypes.addAll(frameTypes);
+    if (acqModes != null) result.acqModes.addAll(acqModes);
+    if (payloads != null) result.payloads.addAll(payloads);
+    if (configNames != null) result.configNames.addAll(configNames);
+    if (resultProfiles != null) result.resultProfiles.addAll(resultProfiles);
+    if (frameTypeMap != null) result.frameTypeMap.addAll(frameTypeMap);
+    return result;
+  }
+
+  FileAcquisitionParameters._();
+
+  factory FileAcquisitionParameters.fromBuffer($core.List<$core.int> data,
+          [$pb.ExtensionRegistry registry = $pb.ExtensionRegistry.EMPTY]) =>
+      create()..mergeFromBuffer(data, registry);
+  factory FileAcquisitionParameters.fromJson($core.String json,
+          [$pb.ExtensionRegistry registry = $pb.ExtensionRegistry.EMPTY]) =>
+      create()..mergeFromJson(json, registry);
+
+  static final $pb.BuilderInfo _i = $pb.BuilderInfo(
+      _omitMessageNames ? '' : 'FileAcquisitionParameters',
+      package: const $pb.PackageName(_omitMessageNames ? '' : 'Communication'),
+      createEmptyInstance: create)
+    ..pPS(1, _omitFieldNames ? '' : 'frameTypes', protoName: 'frameTypes')
+    ..pPS(2, _omitFieldNames ? '' : 'acqModes', protoName: 'acqModes')
+    ..pPS(3, _omitFieldNames ? '' : 'payloads')
+    ..pPS(4, _omitFieldNames ? '' : 'configNames', protoName: 'configNames')
+    ..pPS(5, _omitFieldNames ? '' : 'resultProfiles',
+        protoName: 'resultProfiles')
+    ..pPM<FrameTypeMap>(6, _omitFieldNames ? '' : 'frameTypeMap',
+        protoName: 'frameTypeMap', subBuilder: FrameTypeMap.create)
+    ..hasRequiredFields = false;
+
+  @$core.Deprecated('See https://github.com/google/protobuf.dart/issues/998.')
+  FileAcquisitionParameters clone() => deepCopy();
+  @$core.Deprecated('See https://github.com/google/protobuf.dart/issues/998.')
+  FileAcquisitionParameters copyWith(
+          void Function(FileAcquisitionParameters) updates) =>
+      super.copyWith((message) => updates(message as FileAcquisitionParameters))
+          as FileAcquisitionParameters;
+
+  @$core.override
+  $pb.BuilderInfo get info_ => _i;
+
+  @$core.pragma('dart2js:noInline')
+  static FileAcquisitionParameters create() => FileAcquisitionParameters._();
+  @$core.override
+  FileAcquisitionParameters createEmptyInstance() => create();
+  @$core.pragma('dart2js:noInline')
+  static FileAcquisitionParameters getDefault() => _defaultInstance ??=
+      $pb.GeneratedMessage.$_defaultFor<FileAcquisitionParameters>(create);
+  static FileAcquisitionParameters? _defaultInstance;
+
+  @$pb.TagNumber(1)
+  $pb.PbList<$core.String> get frameTypes => $_getList(0);
+
+  @$pb.TagNumber(2)
+  $pb.PbList<$core.String> get acqModes => $_getList(1);
+
+  @$pb.TagNumber(3)
+  $pb.PbList<$core.String> get payloads => $_getList(2);
+
+  @$pb.TagNumber(4)
+  $pb.PbList<$core.String> get configNames => $_getList(3);
+
+  @$pb.TagNumber(5)
+  $pb.PbList<$core.String> get resultProfiles => $_getList(4);
+
+  @$pb.TagNumber(6)
+  $pb.PbList<FrameTypeMap> get frameTypeMap => $_getList(5);
+}
+
+class FrameTypeMap extends $pb.GeneratedMessage {
+  factory FrameTypeMap({
+    $core.String? frameType,
+    $core.Iterable<$core.String>? frameIdentifiers,
+  }) {
+    final result = create();
+    if (frameType != null) result.frameType = frameType;
+    if (frameIdentifiers != null)
+      result.frameIdentifiers.addAll(frameIdentifiers);
+    return result;
+  }
+
+  FrameTypeMap._();
+
+  factory FrameTypeMap.fromBuffer($core.List<$core.int> data,
+          [$pb.ExtensionRegistry registry = $pb.ExtensionRegistry.EMPTY]) =>
+      create()..mergeFromBuffer(data, registry);
+  factory FrameTypeMap.fromJson($core.String json,
+          [$pb.ExtensionRegistry registry = $pb.ExtensionRegistry.EMPTY]) =>
+      create()..mergeFromJson(json, registry);
+
+  static final $pb.BuilderInfo _i = $pb.BuilderInfo(
+      _omitMessageNames ? '' : 'FrameTypeMap',
+      package: const $pb.PackageName(_omitMessageNames ? '' : 'Communication'),
+      createEmptyInstance: create)
+    ..aOS(1, _omitFieldNames ? '' : 'frameType', protoName: 'frameType')
+    ..pPS(2, _omitFieldNames ? '' : 'frameIdentifiers',
+        protoName: 'frameIdentifiers')
+    ..hasRequiredFields = false;
+
+  @$core.Deprecated('See https://github.com/google/protobuf.dart/issues/998.')
+  FrameTypeMap clone() => deepCopy();
+  @$core.Deprecated('See https://github.com/google/protobuf.dart/issues/998.')
+  FrameTypeMap copyWith(void Function(FrameTypeMap) updates) =>
+      super.copyWith((message) => updates(message as FrameTypeMap))
+          as FrameTypeMap;
+
+  @$core.override
+  $pb.BuilderInfo get info_ => _i;
+
+  @$core.pragma('dart2js:noInline')
+  static FrameTypeMap create() => FrameTypeMap._();
+  @$core.override
+  FrameTypeMap createEmptyInstance() => create();
+  @$core.pragma('dart2js:noInline')
+  static FrameTypeMap getDefault() => _defaultInstance ??=
+      $pb.GeneratedMessage.$_defaultFor<FrameTypeMap>(create);
+  static FrameTypeMap? _defaultInstance;
+
+  @$pb.TagNumber(1)
+  $core.String get frameType => $_getSZ(0);
+  @$pb.TagNumber(1)
+  set frameType($core.String value) => $_setString(0, value);
+  @$pb.TagNumber(1)
+  $core.bool hasFrameType() => $_has(0);
+  @$pb.TagNumber(1)
+  void clearFrameType() => $_clearField(1);
+
+  @$pb.TagNumber(2)
+  $pb.PbList<$core.String> get frameIdentifiers => $_getList(1);
+}
+
 const $core.bool _omitFieldNames =
     $core.bool.fromEnvironment('protobuf.omit_field_names');
 const $core.bool _omitMessageNames =

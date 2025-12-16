@@ -108,3 +108,48 @@ func (s *CommunicationServer) GetDASStatus(req *pb.DASStatusRequest, stream pb.C
 		}
 	}
 }
+
+func (s *CommunicationServer) GetFileAcquisitionParameters(ctx context.Context, req *pb.ClientID) (*pb.FileAcquisitionParameters, error) {
+	var params pb.FileAcquisitionParameters
+	acqModes, err := db.GetAcquisitionModes("Acquisition")
+	if err != nil {
+		return nil, err
+	}
+	params.AcqModes = acqModes
+	configNames, err := db.GetAllConfigNames()
+	if err != nil {
+		return nil, err
+	}
+	params.ConfigNames = configNames
+	payloads, err := db.GetAllPayloadNames()
+	if err != nil {
+		return nil, err
+	}
+	params.Payloads = payloads
+	resultProfiles, err := db.GetAllResultProfiles()
+	if err != nil {
+		return nil, err
+	}
+	params.ResultProfiles = resultProfiles
+	frameTypes, err := db.GetAllFrameTypes()
+	if err != nil {
+		return nil, err
+	}
+	params.FrameTypes = frameTypes
+	params.FrameTypeMap = make([]*pb.FrameTypeMap, 0)
+	for _, frameType := range frameTypes {
+		fids := make([]string, 0)
+		frameIdentifiers, err := db.GetFrameTypeFrameIdentifiers(frameType)
+		if err != nil {
+			return nil, err
+		}
+		for _, fid := range frameIdentifiers {
+			fids = append(fids, fid.Frameidentifier)
+		}
+		params.FrameTypeMap = append(params.FrameTypeMap, &pb.FrameTypeMap{
+			FrameType:        frameType,
+			FrameIdentifiers: fids,
+		})
+	}
+	return &params, nil
+}

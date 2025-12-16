@@ -79,6 +79,15 @@ class CommunicationClient extends $grpc.Client {
         options: options);
   }
 
+  $grpc.ResponseFuture<$0.FileAcquisitionParameters>
+      getFileAcquisitionParameters(
+    $0.ClientID request, {
+    $grpc.CallOptions? options,
+  }) {
+    return $createUnaryCall(_$getFileAcquisitionParameters, request,
+        options: options);
+  }
+
   // method descriptors
 
   static final _$getServerStatus =
@@ -110,6 +119,11 @@ class CommunicationClient extends $grpc.Client {
           '/Communication.Communication/GetDASStatus',
           ($0.DASStatusRequest value) => value.writeToBuffer(),
           $0.DASStatus.fromBuffer);
+  static final _$getFileAcquisitionParameters =
+      $grpc.ClientMethod<$0.ClientID, $0.FileAcquisitionParameters>(
+          '/Communication.Communication/GetFileAcquisitionParameters',
+          ($0.ClientID value) => value.writeToBuffer(),
+          $0.FileAcquisitionParameters.fromBuffer);
 }
 
 @$pb.GrpcServiceName('Communication.Communication')
@@ -159,6 +173,13 @@ abstract class CommunicationServiceBase extends $grpc.Service {
         true,
         ($core.List<$core.int> value) => $0.DASStatusRequest.fromBuffer(value),
         ($0.DASStatus value) => value.writeToBuffer()));
+    $addMethod($grpc.ServiceMethod<$0.ClientID, $0.FileAcquisitionParameters>(
+        'GetFileAcquisitionParameters',
+        getFileAcquisitionParameters_Pre,
+        false,
+        false,
+        ($core.List<$core.int> value) => $0.ClientID.fromBuffer(value),
+        ($0.FileAcquisitionParameters value) => value.writeToBuffer()));
   }
 
   $async.Stream<$0.ServerStatus> getServerStatus_Pre(
@@ -208,4 +229,12 @@ abstract class CommunicationServiceBase extends $grpc.Service {
 
   $async.Stream<$0.DASStatus> getDASStatus(
       $grpc.ServiceCall call, $0.DASStatusRequest request);
+
+  $async.Future<$0.FileAcquisitionParameters> getFileAcquisitionParameters_Pre(
+      $grpc.ServiceCall $call, $async.Future<$0.ClientID> $request) async {
+    return getFileAcquisitionParameters($call, await $request);
+  }
+
+  $async.Future<$0.FileAcquisitionParameters> getFileAcquisitionParameters(
+      $grpc.ServiceCall call, $0.ClientID request);
 }
