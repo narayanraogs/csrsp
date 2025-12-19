@@ -8,6 +8,11 @@ message ClientID{
     string id = 1;
 }
 
+message Ack{
+    bool ok = 1;
+    string message = 2;
+}
+
 message ServerStatus {
     string timestamp = 1;
     double memory = 2;
@@ -83,6 +88,35 @@ message FrameTypeMap{
     repeated string frameIdentifiers = 2;
 }
 
+message TestPhases{
+    repeated string testPhases = 1;
+}
+
+message TestPhaseRequest{
+    string id = 1;
+    string testPhase = 2;
+}
+
+message DASIPAddresses{
+    repeated DASIPAddress dasIPAddresses = 1;
+}
+
+message DASIPAddress{
+    string name = 1;
+    string ipAddress = 2;
+}
+
+message AcqRemark{
+    string date = 1;
+    string time = 2;
+    string remark = 3;
+}
+
+message AcqRemarks{
+    repeated AcqRemark acqRemarks = 1;
+}
+
+
 service Communication{
     rpc GetServerStatus (ClientID) returns (stream ServerStatus);
     rpc IsWhitelisted(ClientID) returns (IsWhitelistedResponse);
@@ -91,4 +125,11 @@ service Communication{
     rpc GetAcquisitionParameters(ClientID) returns (AcquisitionParameters);
     rpc GetDASStatus(DASStatusRequest) returns (stream DASStatus);
     rpc GetFileAcquisitionParameters(ClientID) returns (FileAcquisitionParameters);
+    rpc GetAllTestPhases(ClientID) returns (TestPhases);
+    rpc AddTestPhase(TestPhaseRequest) returns (Ack);
+    rpc SelectTestPhase(TestPhaseRequest) returns (Ack);
+    rpc GetDASIPAddresses(ClientID) returns (DASIPAddresses);
+    rpc ChangeDASIPAddress(DASIPAddress) returns (Ack);
+    rpc GetAcqRemarks(ClientID) returns (AcqRemarks);
+    rpc ChangeAcqRemark(AcqRemark) returns (Ack);
 }

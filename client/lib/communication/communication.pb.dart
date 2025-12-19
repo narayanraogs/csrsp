@@ -69,6 +69,71 @@ class ClientID extends $pb.GeneratedMessage {
   void clearId() => $_clearField(1);
 }
 
+class Ack extends $pb.GeneratedMessage {
+  factory Ack({
+    $core.bool? ok,
+    $core.String? message,
+  }) {
+    final result = create();
+    if (ok != null) result.ok = ok;
+    if (message != null) result.message = message;
+    return result;
+  }
+
+  Ack._();
+
+  factory Ack.fromBuffer($core.List<$core.int> data,
+          [$pb.ExtensionRegistry registry = $pb.ExtensionRegistry.EMPTY]) =>
+      create()..mergeFromBuffer(data, registry);
+  factory Ack.fromJson($core.String json,
+          [$pb.ExtensionRegistry registry = $pb.ExtensionRegistry.EMPTY]) =>
+      create()..mergeFromJson(json, registry);
+
+  static final $pb.BuilderInfo _i = $pb.BuilderInfo(
+      _omitMessageNames ? '' : 'Ack',
+      package: const $pb.PackageName(_omitMessageNames ? '' : 'Communication'),
+      createEmptyInstance: create)
+    ..aOB(1, _omitFieldNames ? '' : 'ok')
+    ..aOS(2, _omitFieldNames ? '' : 'message')
+    ..hasRequiredFields = false;
+
+  @$core.Deprecated('See https://github.com/google/protobuf.dart/issues/998.')
+  Ack clone() => deepCopy();
+  @$core.Deprecated('See https://github.com/google/protobuf.dart/issues/998.')
+  Ack copyWith(void Function(Ack) updates) =>
+      super.copyWith((message) => updates(message as Ack)) as Ack;
+
+  @$core.override
+  $pb.BuilderInfo get info_ => _i;
+
+  @$core.pragma('dart2js:noInline')
+  static Ack create() => Ack._();
+  @$core.override
+  Ack createEmptyInstance() => create();
+  @$core.pragma('dart2js:noInline')
+  static Ack getDefault() =>
+      _defaultInstance ??= $pb.GeneratedMessage.$_defaultFor<Ack>(create);
+  static Ack? _defaultInstance;
+
+  @$pb.TagNumber(1)
+  $core.bool get ok => $_getBF(0);
+  @$pb.TagNumber(1)
+  set ok($core.bool value) => $_setBool(0, value);
+  @$pb.TagNumber(1)
+  $core.bool hasOk() => $_has(0);
+  @$pb.TagNumber(1)
+  void clearOk() => $_clearField(1);
+
+  @$pb.TagNumber(2)
+  $core.String get message => $_getSZ(1);
+  @$pb.TagNumber(2)
+  set message($core.String value) => $_setString(1, value);
+  @$pb.TagNumber(2)
+  $core.bool hasMessage() => $_has(1);
+  @$pb.TagNumber(2)
+  void clearMessage() => $_clearField(2);
+}
+
 class ServerStatus extends $pb.GeneratedMessage {
   factory ServerStatus({
     $core.String? timestamp,
@@ -946,6 +1011,359 @@ class FrameTypeMap extends $pb.GeneratedMessage {
 
   @$pb.TagNumber(2)
   $pb.PbList<$core.String> get frameIdentifiers => $_getList(1);
+}
+
+class TestPhases extends $pb.GeneratedMessage {
+  factory TestPhases({
+    $core.Iterable<$core.String>? testPhases,
+  }) {
+    final result = create();
+    if (testPhases != null) result.testPhases.addAll(testPhases);
+    return result;
+  }
+
+  TestPhases._();
+
+  factory TestPhases.fromBuffer($core.List<$core.int> data,
+          [$pb.ExtensionRegistry registry = $pb.ExtensionRegistry.EMPTY]) =>
+      create()..mergeFromBuffer(data, registry);
+  factory TestPhases.fromJson($core.String json,
+          [$pb.ExtensionRegistry registry = $pb.ExtensionRegistry.EMPTY]) =>
+      create()..mergeFromJson(json, registry);
+
+  static final $pb.BuilderInfo _i = $pb.BuilderInfo(
+      _omitMessageNames ? '' : 'TestPhases',
+      package: const $pb.PackageName(_omitMessageNames ? '' : 'Communication'),
+      createEmptyInstance: create)
+    ..pPS(1, _omitFieldNames ? '' : 'testPhases', protoName: 'testPhases')
+    ..hasRequiredFields = false;
+
+  @$core.Deprecated('See https://github.com/google/protobuf.dart/issues/998.')
+  TestPhases clone() => deepCopy();
+  @$core.Deprecated('See https://github.com/google/protobuf.dart/issues/998.')
+  TestPhases copyWith(void Function(TestPhases) updates) =>
+      super.copyWith((message) => updates(message as TestPhases)) as TestPhases;
+
+  @$core.override
+  $pb.BuilderInfo get info_ => _i;
+
+  @$core.pragma('dart2js:noInline')
+  static TestPhases create() => TestPhases._();
+  @$core.override
+  TestPhases createEmptyInstance() => create();
+  @$core.pragma('dart2js:noInline')
+  static TestPhases getDefault() => _defaultInstance ??=
+      $pb.GeneratedMessage.$_defaultFor<TestPhases>(create);
+  static TestPhases? _defaultInstance;
+
+  @$pb.TagNumber(1)
+  $pb.PbList<$core.String> get testPhases => $_getList(0);
+}
+
+class TestPhaseRequest extends $pb.GeneratedMessage {
+  factory TestPhaseRequest({
+    $core.String? id,
+    $core.String? testPhase,
+  }) {
+    final result = create();
+    if (id != null) result.id = id;
+    if (testPhase != null) result.testPhase = testPhase;
+    return result;
+  }
+
+  TestPhaseRequest._();
+
+  factory TestPhaseRequest.fromBuffer($core.List<$core.int> data,
+          [$pb.ExtensionRegistry registry = $pb.ExtensionRegistry.EMPTY]) =>
+      create()..mergeFromBuffer(data, registry);
+  factory TestPhaseRequest.fromJson($core.String json,
+          [$pb.ExtensionRegistry registry = $pb.ExtensionRegistry.EMPTY]) =>
+      create()..mergeFromJson(json, registry);
+
+  static final $pb.BuilderInfo _i = $pb.BuilderInfo(
+      _omitMessageNames ? '' : 'TestPhaseRequest',
+      package: const $pb.PackageName(_omitMessageNames ? '' : 'Communication'),
+      createEmptyInstance: create)
+    ..aOS(1, _omitFieldNames ? '' : 'id')
+    ..aOS(2, _omitFieldNames ? '' : 'testPhase', protoName: 'testPhase')
+    ..hasRequiredFields = false;
+
+  @$core.Deprecated('See https://github.com/google/protobuf.dart/issues/998.')
+  TestPhaseRequest clone() => deepCopy();
+  @$core.Deprecated('See https://github.com/google/protobuf.dart/issues/998.')
+  TestPhaseRequest copyWith(void Function(TestPhaseRequest) updates) =>
+      super.copyWith((message) => updates(message as TestPhaseRequest))
+          as TestPhaseRequest;
+
+  @$core.override
+  $pb.BuilderInfo get info_ => _i;
+
+  @$core.pragma('dart2js:noInline')
+  static TestPhaseRequest create() => TestPhaseRequest._();
+  @$core.override
+  TestPhaseRequest createEmptyInstance() => create();
+  @$core.pragma('dart2js:noInline')
+  static TestPhaseRequest getDefault() => _defaultInstance ??=
+      $pb.GeneratedMessage.$_defaultFor<TestPhaseRequest>(create);
+  static TestPhaseRequest? _defaultInstance;
+
+  @$pb.TagNumber(1)
+  $core.String get id => $_getSZ(0);
+  @$pb.TagNumber(1)
+  set id($core.String value) => $_setString(0, value);
+  @$pb.TagNumber(1)
+  $core.bool hasId() => $_has(0);
+  @$pb.TagNumber(1)
+  void clearId() => $_clearField(1);
+
+  @$pb.TagNumber(2)
+  $core.String get testPhase => $_getSZ(1);
+  @$pb.TagNumber(2)
+  set testPhase($core.String value) => $_setString(1, value);
+  @$pb.TagNumber(2)
+  $core.bool hasTestPhase() => $_has(1);
+  @$pb.TagNumber(2)
+  void clearTestPhase() => $_clearField(2);
+}
+
+class DASIPAddresses extends $pb.GeneratedMessage {
+  factory DASIPAddresses({
+    $core.Iterable<DASIPAddress>? dasIPAddresses,
+  }) {
+    final result = create();
+    if (dasIPAddresses != null) result.dasIPAddresses.addAll(dasIPAddresses);
+    return result;
+  }
+
+  DASIPAddresses._();
+
+  factory DASIPAddresses.fromBuffer($core.List<$core.int> data,
+          [$pb.ExtensionRegistry registry = $pb.ExtensionRegistry.EMPTY]) =>
+      create()..mergeFromBuffer(data, registry);
+  factory DASIPAddresses.fromJson($core.String json,
+          [$pb.ExtensionRegistry registry = $pb.ExtensionRegistry.EMPTY]) =>
+      create()..mergeFromJson(json, registry);
+
+  static final $pb.BuilderInfo _i = $pb.BuilderInfo(
+      _omitMessageNames ? '' : 'DASIPAddresses',
+      package: const $pb.PackageName(_omitMessageNames ? '' : 'Communication'),
+      createEmptyInstance: create)
+    ..pPM<DASIPAddress>(1, _omitFieldNames ? '' : 'dasIPAddresses',
+        protoName: 'dasIPAddresses', subBuilder: DASIPAddress.create)
+    ..hasRequiredFields = false;
+
+  @$core.Deprecated('See https://github.com/google/protobuf.dart/issues/998.')
+  DASIPAddresses clone() => deepCopy();
+  @$core.Deprecated('See https://github.com/google/protobuf.dart/issues/998.')
+  DASIPAddresses copyWith(void Function(DASIPAddresses) updates) =>
+      super.copyWith((message) => updates(message as DASIPAddresses))
+          as DASIPAddresses;
+
+  @$core.override
+  $pb.BuilderInfo get info_ => _i;
+
+  @$core.pragma('dart2js:noInline')
+  static DASIPAddresses create() => DASIPAddresses._();
+  @$core.override
+  DASIPAddresses createEmptyInstance() => create();
+  @$core.pragma('dart2js:noInline')
+  static DASIPAddresses getDefault() => _defaultInstance ??=
+      $pb.GeneratedMessage.$_defaultFor<DASIPAddresses>(create);
+  static DASIPAddresses? _defaultInstance;
+
+  @$pb.TagNumber(1)
+  $pb.PbList<DASIPAddress> get dasIPAddresses => $_getList(0);
+}
+
+class DASIPAddress extends $pb.GeneratedMessage {
+  factory DASIPAddress({
+    $core.String? name,
+    $core.String? ipAddress,
+  }) {
+    final result = create();
+    if (name != null) result.name = name;
+    if (ipAddress != null) result.ipAddress = ipAddress;
+    return result;
+  }
+
+  DASIPAddress._();
+
+  factory DASIPAddress.fromBuffer($core.List<$core.int> data,
+          [$pb.ExtensionRegistry registry = $pb.ExtensionRegistry.EMPTY]) =>
+      create()..mergeFromBuffer(data, registry);
+  factory DASIPAddress.fromJson($core.String json,
+          [$pb.ExtensionRegistry registry = $pb.ExtensionRegistry.EMPTY]) =>
+      create()..mergeFromJson(json, registry);
+
+  static final $pb.BuilderInfo _i = $pb.BuilderInfo(
+      _omitMessageNames ? '' : 'DASIPAddress',
+      package: const $pb.PackageName(_omitMessageNames ? '' : 'Communication'),
+      createEmptyInstance: create)
+    ..aOS(1, _omitFieldNames ? '' : 'name')
+    ..aOS(2, _omitFieldNames ? '' : 'ipAddress', protoName: 'ipAddress')
+    ..hasRequiredFields = false;
+
+  @$core.Deprecated('See https://github.com/google/protobuf.dart/issues/998.')
+  DASIPAddress clone() => deepCopy();
+  @$core.Deprecated('See https://github.com/google/protobuf.dart/issues/998.')
+  DASIPAddress copyWith(void Function(DASIPAddress) updates) =>
+      super.copyWith((message) => updates(message as DASIPAddress))
+          as DASIPAddress;
+
+  @$core.override
+  $pb.BuilderInfo get info_ => _i;
+
+  @$core.pragma('dart2js:noInline')
+  static DASIPAddress create() => DASIPAddress._();
+  @$core.override
+  DASIPAddress createEmptyInstance() => create();
+  @$core.pragma('dart2js:noInline')
+  static DASIPAddress getDefault() => _defaultInstance ??=
+      $pb.GeneratedMessage.$_defaultFor<DASIPAddress>(create);
+  static DASIPAddress? _defaultInstance;
+
+  @$pb.TagNumber(1)
+  $core.String get name => $_getSZ(0);
+  @$pb.TagNumber(1)
+  set name($core.String value) => $_setString(0, value);
+  @$pb.TagNumber(1)
+  $core.bool hasName() => $_has(0);
+  @$pb.TagNumber(1)
+  void clearName() => $_clearField(1);
+
+  @$pb.TagNumber(2)
+  $core.String get ipAddress => $_getSZ(1);
+  @$pb.TagNumber(2)
+  set ipAddress($core.String value) => $_setString(1, value);
+  @$pb.TagNumber(2)
+  $core.bool hasIpAddress() => $_has(1);
+  @$pb.TagNumber(2)
+  void clearIpAddress() => $_clearField(2);
+}
+
+class AcqRemark extends $pb.GeneratedMessage {
+  factory AcqRemark({
+    $core.String? date,
+    $core.String? time,
+    $core.String? remark,
+  }) {
+    final result = create();
+    if (date != null) result.date = date;
+    if (time != null) result.time = time;
+    if (remark != null) result.remark = remark;
+    return result;
+  }
+
+  AcqRemark._();
+
+  factory AcqRemark.fromBuffer($core.List<$core.int> data,
+          [$pb.ExtensionRegistry registry = $pb.ExtensionRegistry.EMPTY]) =>
+      create()..mergeFromBuffer(data, registry);
+  factory AcqRemark.fromJson($core.String json,
+          [$pb.ExtensionRegistry registry = $pb.ExtensionRegistry.EMPTY]) =>
+      create()..mergeFromJson(json, registry);
+
+  static final $pb.BuilderInfo _i = $pb.BuilderInfo(
+      _omitMessageNames ? '' : 'AcqRemark',
+      package: const $pb.PackageName(_omitMessageNames ? '' : 'Communication'),
+      createEmptyInstance: create)
+    ..aOS(1, _omitFieldNames ? '' : 'date')
+    ..aOS(2, _omitFieldNames ? '' : 'time')
+    ..aOS(3, _omitFieldNames ? '' : 'remark')
+    ..hasRequiredFields = false;
+
+  @$core.Deprecated('See https://github.com/google/protobuf.dart/issues/998.')
+  AcqRemark clone() => deepCopy();
+  @$core.Deprecated('See https://github.com/google/protobuf.dart/issues/998.')
+  AcqRemark copyWith(void Function(AcqRemark) updates) =>
+      super.copyWith((message) => updates(message as AcqRemark)) as AcqRemark;
+
+  @$core.override
+  $pb.BuilderInfo get info_ => _i;
+
+  @$core.pragma('dart2js:noInline')
+  static AcqRemark create() => AcqRemark._();
+  @$core.override
+  AcqRemark createEmptyInstance() => create();
+  @$core.pragma('dart2js:noInline')
+  static AcqRemark getDefault() =>
+      _defaultInstance ??= $pb.GeneratedMessage.$_defaultFor<AcqRemark>(create);
+  static AcqRemark? _defaultInstance;
+
+  @$pb.TagNumber(1)
+  $core.String get date => $_getSZ(0);
+  @$pb.TagNumber(1)
+  set date($core.String value) => $_setString(0, value);
+  @$pb.TagNumber(1)
+  $core.bool hasDate() => $_has(0);
+  @$pb.TagNumber(1)
+  void clearDate() => $_clearField(1);
+
+  @$pb.TagNumber(2)
+  $core.String get time => $_getSZ(1);
+  @$pb.TagNumber(2)
+  set time($core.String value) => $_setString(1, value);
+  @$pb.TagNumber(2)
+  $core.bool hasTime() => $_has(1);
+  @$pb.TagNumber(2)
+  void clearTime() => $_clearField(2);
+
+  @$pb.TagNumber(3)
+  $core.String get remark => $_getSZ(2);
+  @$pb.TagNumber(3)
+  set remark($core.String value) => $_setString(2, value);
+  @$pb.TagNumber(3)
+  $core.bool hasRemark() => $_has(2);
+  @$pb.TagNumber(3)
+  void clearRemark() => $_clearField(3);
+}
+
+class AcqRemarks extends $pb.GeneratedMessage {
+  factory AcqRemarks({
+    $core.Iterable<AcqRemark>? acqRemarks,
+  }) {
+    final result = create();
+    if (acqRemarks != null) result.acqRemarks.addAll(acqRemarks);
+    return result;
+  }
+
+  AcqRemarks._();
+
+  factory AcqRemarks.fromBuffer($core.List<$core.int> data,
+          [$pb.ExtensionRegistry registry = $pb.ExtensionRegistry.EMPTY]) =>
+      create()..mergeFromBuffer(data, registry);
+  factory AcqRemarks.fromJson($core.String json,
+          [$pb.ExtensionRegistry registry = $pb.ExtensionRegistry.EMPTY]) =>
+      create()..mergeFromJson(json, registry);
+
+  static final $pb.BuilderInfo _i = $pb.BuilderInfo(
+      _omitMessageNames ? '' : 'AcqRemarks',
+      package: const $pb.PackageName(_omitMessageNames ? '' : 'Communication'),
+      createEmptyInstance: create)
+    ..pPM<AcqRemark>(1, _omitFieldNames ? '' : 'acqRemarks',
+        protoName: 'acqRemarks', subBuilder: AcqRemark.create)
+    ..hasRequiredFields = false;
+
+  @$core.Deprecated('See https://github.com/google/protobuf.dart/issues/998.')
+  AcqRemarks clone() => deepCopy();
+  @$core.Deprecated('See https://github.com/google/protobuf.dart/issues/998.')
+  AcqRemarks copyWith(void Function(AcqRemarks) updates) =>
+      super.copyWith((message) => updates(message as AcqRemarks)) as AcqRemarks;
+
+  @$core.override
+  $pb.BuilderInfo get info_ => _i;
+
+  @$core.pragma('dart2js:noInline')
+  static AcqRemarks create() => AcqRemarks._();
+  @$core.override
+  AcqRemarks createEmptyInstance() => create();
+  @$core.pragma('dart2js:noInline')
+  static AcqRemarks getDefault() => _defaultInstance ??=
+      $pb.GeneratedMessage.$_defaultFor<AcqRemarks>(create);
+  static AcqRemarks? _defaultInstance;
+
+  @$pb.TagNumber(1)
+  $pb.PbList<AcqRemark> get acqRemarks => $_getList(0);
 }
 
 const $core.bool _omitFieldNames =

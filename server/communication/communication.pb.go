@@ -65,6 +65,58 @@ func (x *ClientID) GetId() string {
 	return ""
 }
 
+type Ack struct {
+	state         protoimpl.MessageState `protogen:"open.v1"`
+	Ok            bool                   `protobuf:"varint,1,opt,name=ok,proto3" json:"ok,omitempty"`
+	Message       string                 `protobuf:"bytes,2,opt,name=message,proto3" json:"message,omitempty"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *Ack) Reset() {
+	*x = Ack{}
+	mi := &file_communication_proto_msgTypes[1]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *Ack) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*Ack) ProtoMessage() {}
+
+func (x *Ack) ProtoReflect() protoreflect.Message {
+	mi := &file_communication_proto_msgTypes[1]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use Ack.ProtoReflect.Descriptor instead.
+func (*Ack) Descriptor() ([]byte, []int) {
+	return file_communication_proto_rawDescGZIP(), []int{1}
+}
+
+func (x *Ack) GetOk() bool {
+	if x != nil {
+		return x.Ok
+	}
+	return false
+}
+
+func (x *Ack) GetMessage() string {
+	if x != nil {
+		return x.Message
+	}
+	return ""
+}
+
 type ServerStatus struct {
 	state         protoimpl.MessageState `protogen:"open.v1"`
 	Timestamp     string                 `protobuf:"bytes,1,opt,name=timestamp,proto3" json:"timestamp,omitempty"`
@@ -76,7 +128,7 @@ type ServerStatus struct {
 
 func (x *ServerStatus) Reset() {
 	*x = ServerStatus{}
-	mi := &file_communication_proto_msgTypes[1]
+	mi := &file_communication_proto_msgTypes[2]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -88,7 +140,7 @@ func (x *ServerStatus) String() string {
 func (*ServerStatus) ProtoMessage() {}
 
 func (x *ServerStatus) ProtoReflect() protoreflect.Message {
-	mi := &file_communication_proto_msgTypes[1]
+	mi := &file_communication_proto_msgTypes[2]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -101,7 +153,7 @@ func (x *ServerStatus) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use ServerStatus.ProtoReflect.Descriptor instead.
 func (*ServerStatus) Descriptor() ([]byte, []int) {
-	return file_communication_proto_rawDescGZIP(), []int{1}
+	return file_communication_proto_rawDescGZIP(), []int{2}
 }
 
 func (x *ServerStatus) GetTimestamp() string {
@@ -134,7 +186,7 @@ type IsWhitelistedResponse struct {
 
 func (x *IsWhitelistedResponse) Reset() {
 	*x = IsWhitelistedResponse{}
-	mi := &file_communication_proto_msgTypes[2]
+	mi := &file_communication_proto_msgTypes[3]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -146,7 +198,7 @@ func (x *IsWhitelistedResponse) String() string {
 func (*IsWhitelistedResponse) ProtoMessage() {}
 
 func (x *IsWhitelistedResponse) ProtoReflect() protoreflect.Message {
-	mi := &file_communication_proto_msgTypes[2]
+	mi := &file_communication_proto_msgTypes[3]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -159,7 +211,7 @@ func (x *IsWhitelistedResponse) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use IsWhitelistedResponse.ProtoReflect.Descriptor instead.
 func (*IsWhitelistedResponse) Descriptor() ([]byte, []int) {
-	return file_communication_proto_rawDescGZIP(), []int{2}
+	return file_communication_proto_rawDescGZIP(), []int{3}
 }
 
 func (x *IsWhitelistedResponse) GetWhitelisted() bool {
@@ -179,7 +231,7 @@ type ServerDetails struct {
 
 func (x *ServerDetails) Reset() {
 	*x = ServerDetails{}
-	mi := &file_communication_proto_msgTypes[3]
+	mi := &file_communication_proto_msgTypes[4]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -191,7 +243,7 @@ func (x *ServerDetails) String() string {
 func (*ServerDetails) ProtoMessage() {}
 
 func (x *ServerDetails) ProtoReflect() protoreflect.Message {
-	mi := &file_communication_proto_msgTypes[3]
+	mi := &file_communication_proto_msgTypes[4]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -204,7 +256,7 @@ func (x *ServerDetails) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use ServerDetails.ProtoReflect.Descriptor instead.
 func (*ServerDetails) Descriptor() ([]byte, []int) {
-	return file_communication_proto_rawDescGZIP(), []int{3}
+	return file_communication_proto_rawDescGZIP(), []int{4}
 }
 
 func (x *ServerDetails) GetSatelliteName() string {
@@ -231,7 +283,7 @@ type LoginRequest struct {
 
 func (x *LoginRequest) Reset() {
 	*x = LoginRequest{}
-	mi := &file_communication_proto_msgTypes[4]
+	mi := &file_communication_proto_msgTypes[5]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -243,7 +295,7 @@ func (x *LoginRequest) String() string {
 func (*LoginRequest) ProtoMessage() {}
 
 func (x *LoginRequest) ProtoReflect() protoreflect.Message {
-	mi := &file_communication_proto_msgTypes[4]
+	mi := &file_communication_proto_msgTypes[5]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -256,7 +308,7 @@ func (x *LoginRequest) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use LoginRequest.ProtoReflect.Descriptor instead.
 func (*LoginRequest) Descriptor() ([]byte, []int) {
-	return file_communication_proto_rawDescGZIP(), []int{4}
+	return file_communication_proto_rawDescGZIP(), []int{5}
 }
 
 func (x *LoginRequest) GetUsername() string {
@@ -283,7 +335,7 @@ type LoginResponse struct {
 
 func (x *LoginResponse) Reset() {
 	*x = LoginResponse{}
-	mi := &file_communication_proto_msgTypes[5]
+	mi := &file_communication_proto_msgTypes[6]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -295,7 +347,7 @@ func (x *LoginResponse) String() string {
 func (*LoginResponse) ProtoMessage() {}
 
 func (x *LoginResponse) ProtoReflect() protoreflect.Message {
-	mi := &file_communication_proto_msgTypes[5]
+	mi := &file_communication_proto_msgTypes[6]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -308,7 +360,7 @@ func (x *LoginResponse) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use LoginResponse.ProtoReflect.Descriptor instead.
 func (*LoginResponse) Descriptor() ([]byte, []int) {
-	return file_communication_proto_rawDescGZIP(), []int{5}
+	return file_communication_proto_rawDescGZIP(), []int{6}
 }
 
 func (x *LoginResponse) GetSuccess() bool {
@@ -335,7 +387,7 @@ type AcqDASMap struct {
 
 func (x *AcqDASMap) Reset() {
 	*x = AcqDASMap{}
-	mi := &file_communication_proto_msgTypes[6]
+	mi := &file_communication_proto_msgTypes[7]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -347,7 +399,7 @@ func (x *AcqDASMap) String() string {
 func (*AcqDASMap) ProtoMessage() {}
 
 func (x *AcqDASMap) ProtoReflect() protoreflect.Message {
-	mi := &file_communication_proto_msgTypes[6]
+	mi := &file_communication_proto_msgTypes[7]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -360,7 +412,7 @@ func (x *AcqDASMap) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use AcqDASMap.ProtoReflect.Descriptor instead.
 func (*AcqDASMap) Descriptor() ([]byte, []int) {
-	return file_communication_proto_rawDescGZIP(), []int{6}
+	return file_communication_proto_rawDescGZIP(), []int{7}
 }
 
 func (x *AcqDASMap) GetAcqMode() string {
@@ -387,7 +439,7 @@ type AcqDasDetails struct {
 
 func (x *AcqDasDetails) Reset() {
 	*x = AcqDasDetails{}
-	mi := &file_communication_proto_msgTypes[7]
+	mi := &file_communication_proto_msgTypes[8]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -399,7 +451,7 @@ func (x *AcqDasDetails) String() string {
 func (*AcqDasDetails) ProtoMessage() {}
 
 func (x *AcqDasDetails) ProtoReflect() protoreflect.Message {
-	mi := &file_communication_proto_msgTypes[7]
+	mi := &file_communication_proto_msgTypes[8]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -412,7 +464,7 @@ func (x *AcqDasDetails) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use AcqDasDetails.ProtoReflect.Descriptor instead.
 func (*AcqDasDetails) Descriptor() ([]byte, []int) {
-	return file_communication_proto_rawDescGZIP(), []int{7}
+	return file_communication_proto_rawDescGZIP(), []int{8}
 }
 
 func (x *AcqDasDetails) GetDasName() string {
@@ -438,7 +490,7 @@ type DASStatus struct {
 
 func (x *DASStatus) Reset() {
 	*x = DASStatus{}
-	mi := &file_communication_proto_msgTypes[8]
+	mi := &file_communication_proto_msgTypes[9]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -450,7 +502,7 @@ func (x *DASStatus) String() string {
 func (*DASStatus) ProtoMessage() {}
 
 func (x *DASStatus) ProtoReflect() protoreflect.Message {
-	mi := &file_communication_proto_msgTypes[8]
+	mi := &file_communication_proto_msgTypes[9]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -463,7 +515,7 @@ func (x *DASStatus) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use DASStatus.ProtoReflect.Descriptor instead.
 func (*DASStatus) Descriptor() ([]byte, []int) {
-	return file_communication_proto_rawDescGZIP(), []int{8}
+	return file_communication_proto_rawDescGZIP(), []int{9}
 }
 
 func (x *DASStatus) GetDasStatus() []*DASStatusResponse {
@@ -485,7 +537,7 @@ type DASStatusResponse struct {
 
 func (x *DASStatusResponse) Reset() {
 	*x = DASStatusResponse{}
-	mi := &file_communication_proto_msgTypes[9]
+	mi := &file_communication_proto_msgTypes[10]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -497,7 +549,7 @@ func (x *DASStatusResponse) String() string {
 func (*DASStatusResponse) ProtoMessage() {}
 
 func (x *DASStatusResponse) ProtoReflect() protoreflect.Message {
-	mi := &file_communication_proto_msgTypes[9]
+	mi := &file_communication_proto_msgTypes[10]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -510,7 +562,7 @@ func (x *DASStatusResponse) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use DASStatusResponse.ProtoReflect.Descriptor instead.
 func (*DASStatusResponse) Descriptor() ([]byte, []int) {
-	return file_communication_proto_rawDescGZIP(), []int{9}
+	return file_communication_proto_rawDescGZIP(), []int{10}
 }
 
 func (x *DASStatusResponse) GetDasName() string {
@@ -551,7 +603,7 @@ type DASStatusRequest struct {
 
 func (x *DASStatusRequest) Reset() {
 	*x = DASStatusRequest{}
-	mi := &file_communication_proto_msgTypes[10]
+	mi := &file_communication_proto_msgTypes[11]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -563,7 +615,7 @@ func (x *DASStatusRequest) String() string {
 func (*DASStatusRequest) ProtoMessage() {}
 
 func (x *DASStatusRequest) ProtoReflect() protoreflect.Message {
-	mi := &file_communication_proto_msgTypes[10]
+	mi := &file_communication_proto_msgTypes[11]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -576,7 +628,7 @@ func (x *DASStatusRequest) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use DASStatusRequest.ProtoReflect.Descriptor instead.
 func (*DASStatusRequest) Descriptor() ([]byte, []int) {
-	return file_communication_proto_rawDescGZIP(), []int{10}
+	return file_communication_proto_rawDescGZIP(), []int{11}
 }
 
 func (x *DASStatusRequest) GetId() string {
@@ -607,7 +659,7 @@ type AcquisitionParameters struct {
 
 func (x *AcquisitionParameters) Reset() {
 	*x = AcquisitionParameters{}
-	mi := &file_communication_proto_msgTypes[11]
+	mi := &file_communication_proto_msgTypes[12]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -619,7 +671,7 @@ func (x *AcquisitionParameters) String() string {
 func (*AcquisitionParameters) ProtoMessage() {}
 
 func (x *AcquisitionParameters) ProtoReflect() protoreflect.Message {
-	mi := &file_communication_proto_msgTypes[11]
+	mi := &file_communication_proto_msgTypes[12]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -632,7 +684,7 @@ func (x *AcquisitionParameters) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use AcquisitionParameters.ProtoReflect.Descriptor instead.
 func (*AcquisitionParameters) Descriptor() ([]byte, []int) {
-	return file_communication_proto_rawDescGZIP(), []int{11}
+	return file_communication_proto_rawDescGZIP(), []int{12}
 }
 
 func (x *AcquisitionParameters) GetAcqModes() []string {
@@ -691,7 +743,7 @@ type FileAcquisitionParameters struct {
 
 func (x *FileAcquisitionParameters) Reset() {
 	*x = FileAcquisitionParameters{}
-	mi := &file_communication_proto_msgTypes[12]
+	mi := &file_communication_proto_msgTypes[13]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -703,7 +755,7 @@ func (x *FileAcquisitionParameters) String() string {
 func (*FileAcquisitionParameters) ProtoMessage() {}
 
 func (x *FileAcquisitionParameters) ProtoReflect() protoreflect.Message {
-	mi := &file_communication_proto_msgTypes[12]
+	mi := &file_communication_proto_msgTypes[13]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -716,7 +768,7 @@ func (x *FileAcquisitionParameters) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use FileAcquisitionParameters.ProtoReflect.Descriptor instead.
 func (*FileAcquisitionParameters) Descriptor() ([]byte, []int) {
-	return file_communication_proto_rawDescGZIP(), []int{12}
+	return file_communication_proto_rawDescGZIP(), []int{13}
 }
 
 func (x *FileAcquisitionParameters) GetFrameTypes() []string {
@@ -771,7 +823,7 @@ type FrameTypeMap struct {
 
 func (x *FrameTypeMap) Reset() {
 	*x = FrameTypeMap{}
-	mi := &file_communication_proto_msgTypes[13]
+	mi := &file_communication_proto_msgTypes[14]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -783,7 +835,7 @@ func (x *FrameTypeMap) String() string {
 func (*FrameTypeMap) ProtoMessage() {}
 
 func (x *FrameTypeMap) ProtoReflect() protoreflect.Message {
-	mi := &file_communication_proto_msgTypes[13]
+	mi := &file_communication_proto_msgTypes[14]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -796,7 +848,7 @@ func (x *FrameTypeMap) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use FrameTypeMap.ProtoReflect.Descriptor instead.
 func (*FrameTypeMap) Descriptor() ([]byte, []int) {
-	return file_communication_proto_rawDescGZIP(), []int{13}
+	return file_communication_proto_rawDescGZIP(), []int{14}
 }
 
 func (x *FrameTypeMap) GetFrameType() string {
@@ -813,13 +865,312 @@ func (x *FrameTypeMap) GetFrameIdentifiers() []string {
 	return nil
 }
 
+type TestPhases struct {
+	state         protoimpl.MessageState `protogen:"open.v1"`
+	TestPhases    []string               `protobuf:"bytes,1,rep,name=testPhases,proto3" json:"testPhases,omitempty"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *TestPhases) Reset() {
+	*x = TestPhases{}
+	mi := &file_communication_proto_msgTypes[15]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *TestPhases) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*TestPhases) ProtoMessage() {}
+
+func (x *TestPhases) ProtoReflect() protoreflect.Message {
+	mi := &file_communication_proto_msgTypes[15]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use TestPhases.ProtoReflect.Descriptor instead.
+func (*TestPhases) Descriptor() ([]byte, []int) {
+	return file_communication_proto_rawDescGZIP(), []int{15}
+}
+
+func (x *TestPhases) GetTestPhases() []string {
+	if x != nil {
+		return x.TestPhases
+	}
+	return nil
+}
+
+type TestPhaseRequest struct {
+	state         protoimpl.MessageState `protogen:"open.v1"`
+	Id            string                 `protobuf:"bytes,1,opt,name=id,proto3" json:"id,omitempty"`
+	TestPhase     string                 `protobuf:"bytes,2,opt,name=testPhase,proto3" json:"testPhase,omitempty"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *TestPhaseRequest) Reset() {
+	*x = TestPhaseRequest{}
+	mi := &file_communication_proto_msgTypes[16]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *TestPhaseRequest) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*TestPhaseRequest) ProtoMessage() {}
+
+func (x *TestPhaseRequest) ProtoReflect() protoreflect.Message {
+	mi := &file_communication_proto_msgTypes[16]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use TestPhaseRequest.ProtoReflect.Descriptor instead.
+func (*TestPhaseRequest) Descriptor() ([]byte, []int) {
+	return file_communication_proto_rawDescGZIP(), []int{16}
+}
+
+func (x *TestPhaseRequest) GetId() string {
+	if x != nil {
+		return x.Id
+	}
+	return ""
+}
+
+func (x *TestPhaseRequest) GetTestPhase() string {
+	if x != nil {
+		return x.TestPhase
+	}
+	return ""
+}
+
+type DASIPAddresses struct {
+	state          protoimpl.MessageState `protogen:"open.v1"`
+	DasIPAddresses []*DASIPAddress        `protobuf:"bytes,1,rep,name=dasIPAddresses,proto3" json:"dasIPAddresses,omitempty"`
+	unknownFields  protoimpl.UnknownFields
+	sizeCache      protoimpl.SizeCache
+}
+
+func (x *DASIPAddresses) Reset() {
+	*x = DASIPAddresses{}
+	mi := &file_communication_proto_msgTypes[17]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *DASIPAddresses) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*DASIPAddresses) ProtoMessage() {}
+
+func (x *DASIPAddresses) ProtoReflect() protoreflect.Message {
+	mi := &file_communication_proto_msgTypes[17]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use DASIPAddresses.ProtoReflect.Descriptor instead.
+func (*DASIPAddresses) Descriptor() ([]byte, []int) {
+	return file_communication_proto_rawDescGZIP(), []int{17}
+}
+
+func (x *DASIPAddresses) GetDasIPAddresses() []*DASIPAddress {
+	if x != nil {
+		return x.DasIPAddresses
+	}
+	return nil
+}
+
+type DASIPAddress struct {
+	state         protoimpl.MessageState `protogen:"open.v1"`
+	Name          string                 `protobuf:"bytes,1,opt,name=name,proto3" json:"name,omitempty"`
+	IpAddress     string                 `protobuf:"bytes,2,opt,name=ipAddress,proto3" json:"ipAddress,omitempty"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *DASIPAddress) Reset() {
+	*x = DASIPAddress{}
+	mi := &file_communication_proto_msgTypes[18]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *DASIPAddress) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*DASIPAddress) ProtoMessage() {}
+
+func (x *DASIPAddress) ProtoReflect() protoreflect.Message {
+	mi := &file_communication_proto_msgTypes[18]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use DASIPAddress.ProtoReflect.Descriptor instead.
+func (*DASIPAddress) Descriptor() ([]byte, []int) {
+	return file_communication_proto_rawDescGZIP(), []int{18}
+}
+
+func (x *DASIPAddress) GetName() string {
+	if x != nil {
+		return x.Name
+	}
+	return ""
+}
+
+func (x *DASIPAddress) GetIpAddress() string {
+	if x != nil {
+		return x.IpAddress
+	}
+	return ""
+}
+
+type AcqRemark struct {
+	state         protoimpl.MessageState `protogen:"open.v1"`
+	Date          string                 `protobuf:"bytes,1,opt,name=date,proto3" json:"date,omitempty"`
+	Time          string                 `protobuf:"bytes,2,opt,name=time,proto3" json:"time,omitempty"`
+	Remark        string                 `protobuf:"bytes,3,opt,name=remark,proto3" json:"remark,omitempty"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *AcqRemark) Reset() {
+	*x = AcqRemark{}
+	mi := &file_communication_proto_msgTypes[19]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *AcqRemark) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*AcqRemark) ProtoMessage() {}
+
+func (x *AcqRemark) ProtoReflect() protoreflect.Message {
+	mi := &file_communication_proto_msgTypes[19]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use AcqRemark.ProtoReflect.Descriptor instead.
+func (*AcqRemark) Descriptor() ([]byte, []int) {
+	return file_communication_proto_rawDescGZIP(), []int{19}
+}
+
+func (x *AcqRemark) GetDate() string {
+	if x != nil {
+		return x.Date
+	}
+	return ""
+}
+
+func (x *AcqRemark) GetTime() string {
+	if x != nil {
+		return x.Time
+	}
+	return ""
+}
+
+func (x *AcqRemark) GetRemark() string {
+	if x != nil {
+		return x.Remark
+	}
+	return ""
+}
+
+type AcqRemarks struct {
+	state         protoimpl.MessageState `protogen:"open.v1"`
+	AcqRemarks    []*AcqRemark           `protobuf:"bytes,1,rep,name=acqRemarks,proto3" json:"acqRemarks,omitempty"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *AcqRemarks) Reset() {
+	*x = AcqRemarks{}
+	mi := &file_communication_proto_msgTypes[20]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *AcqRemarks) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*AcqRemarks) ProtoMessage() {}
+
+func (x *AcqRemarks) ProtoReflect() protoreflect.Message {
+	mi := &file_communication_proto_msgTypes[20]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use AcqRemarks.ProtoReflect.Descriptor instead.
+func (*AcqRemarks) Descriptor() ([]byte, []int) {
+	return file_communication_proto_rawDescGZIP(), []int{20}
+}
+
+func (x *AcqRemarks) GetAcqRemarks() []*AcqRemark {
+	if x != nil {
+		return x.AcqRemarks
+	}
+	return nil
+}
+
 var File_communication_proto protoreflect.FileDescriptor
 
 const file_communication_proto_rawDesc = "" +
 	"\n" +
 	"\x13communication.proto\x12\rCommunication\"\x1a\n" +
 	"\bClientID\x12\x0e\n" +
-	"\x02id\x18\x01 \x01(\tR\x02id\"V\n" +
+	"\x02id\x18\x01 \x01(\tR\x02id\"/\n" +
+	"\x03Ack\x12\x0e\n" +
+	"\x02ok\x18\x01 \x01(\bR\x02ok\x12\x18\n" +
+	"\amessage\x18\x02 \x01(\tR\amessage\"V\n" +
 	"\fServerStatus\x12\x1c\n" +
 	"\ttimestamp\x18\x01 \x01(\tR\ttimestamp\x12\x16\n" +
 	"\x06memory\x18\x02 \x01(\x01R\x06memory\x12\x10\n" +
@@ -871,7 +1222,29 @@ const file_communication_proto_rawDesc = "" +
 	"\fframeTypeMap\x18\x06 \x03(\v2\x1b.Communication.FrameTypeMapR\fframeTypeMap\"X\n" +
 	"\fFrameTypeMap\x12\x1c\n" +
 	"\tframeType\x18\x01 \x01(\tR\tframeType\x12*\n" +
-	"\x10frameIdentifiers\x18\x02 \x03(\tR\x10frameIdentifiers2\xc4\x04\n" +
+	"\x10frameIdentifiers\x18\x02 \x03(\tR\x10frameIdentifiers\",\n" +
+	"\n" +
+	"TestPhases\x12\x1e\n" +
+	"\n" +
+	"testPhases\x18\x01 \x03(\tR\n" +
+	"testPhases\"@\n" +
+	"\x10TestPhaseRequest\x12\x0e\n" +
+	"\x02id\x18\x01 \x01(\tR\x02id\x12\x1c\n" +
+	"\ttestPhase\x18\x02 \x01(\tR\ttestPhase\"U\n" +
+	"\x0eDASIPAddresses\x12C\n" +
+	"\x0edasIPAddresses\x18\x01 \x03(\v2\x1b.Communication.DASIPAddressR\x0edasIPAddresses\"@\n" +
+	"\fDASIPAddress\x12\x12\n" +
+	"\x04name\x18\x01 \x01(\tR\x04name\x12\x1c\n" +
+	"\tipAddress\x18\x02 \x01(\tR\tipAddress\"K\n" +
+	"\tAcqRemark\x12\x12\n" +
+	"\x04date\x18\x01 \x01(\tR\x04date\x12\x12\n" +
+	"\x04time\x18\x02 \x01(\tR\x04time\x12\x16\n" +
+	"\x06remark\x18\x03 \x01(\tR\x06remark\"F\n" +
+	"\n" +
+	"AcqRemarks\x128\n" +
+	"\n" +
+	"acqRemarks\x18\x01 \x03(\v2\x18.Communication.AcqRemarkR\n" +
+	"acqRemarks2\xb3\b\n" +
 	"\rCommunication\x12I\n" +
 	"\x0fGetServerStatus\x12\x17.Communication.ClientID\x1a\x1b.Communication.ServerStatus0\x01\x12N\n" +
 	"\rIsWhitelisted\x12\x17.Communication.ClientID\x1a$.Communication.IsWhitelistedResponse\x12I\n" +
@@ -879,7 +1252,14 @@ const file_communication_proto_rawDesc = "" +
 	"\x05Login\x12\x1b.Communication.LoginRequest\x1a\x1c.Communication.LoginResponse\x12Y\n" +
 	"\x18GetAcquisitionParameters\x12\x17.Communication.ClientID\x1a$.Communication.AcquisitionParameters\x12K\n" +
 	"\fGetDASStatus\x12\x1f.Communication.DASStatusRequest\x1a\x18.Communication.DASStatus0\x01\x12a\n" +
-	"\x1cGetFileAcquisitionParameters\x12\x17.Communication.ClientID\x1a(.Communication.FileAcquisitionParametersB\x1cZ\x1acsrsp/server/communicationb\x06proto3"
+	"\x1cGetFileAcquisitionParameters\x12\x17.Communication.ClientID\x1a(.Communication.FileAcquisitionParameters\x12F\n" +
+	"\x10GetAllTestPhases\x12\x17.Communication.ClientID\x1a\x19.Communication.TestPhases\x12C\n" +
+	"\fAddTestPhase\x12\x1f.Communication.TestPhaseRequest\x1a\x12.Communication.Ack\x12F\n" +
+	"\x0fSelectTestPhase\x12\x1f.Communication.TestPhaseRequest\x1a\x12.Communication.Ack\x12K\n" +
+	"\x11GetDASIPAddresses\x12\x17.Communication.ClientID\x1a\x1d.Communication.DASIPAddresses\x12E\n" +
+	"\x12ChangeDASIPAddress\x12\x1b.Communication.DASIPAddress\x1a\x12.Communication.Ack\x12C\n" +
+	"\rGetAcqRemarks\x12\x17.Communication.ClientID\x1a\x19.Communication.AcqRemarks\x12?\n" +
+	"\x0fChangeAcqRemark\x12\x18.Communication.AcqRemark\x1a\x12.Communication.AckB\x1cZ\x1acsrsp/server/communicationb\x06proto3"
 
 var (
 	file_communication_proto_rawDescOnce sync.Once
@@ -893,47 +1273,70 @@ func file_communication_proto_rawDescGZIP() []byte {
 	return file_communication_proto_rawDescData
 }
 
-var file_communication_proto_msgTypes = make([]protoimpl.MessageInfo, 14)
+var file_communication_proto_msgTypes = make([]protoimpl.MessageInfo, 21)
 var file_communication_proto_goTypes = []any{
 	(*ClientID)(nil),                  // 0: Communication.ClientID
-	(*ServerStatus)(nil),              // 1: Communication.ServerStatus
-	(*IsWhitelistedResponse)(nil),     // 2: Communication.IsWhitelistedResponse
-	(*ServerDetails)(nil),             // 3: Communication.ServerDetails
-	(*LoginRequest)(nil),              // 4: Communication.LoginRequest
-	(*LoginResponse)(nil),             // 5: Communication.LoginResponse
-	(*AcqDASMap)(nil),                 // 6: Communication.AcqDASMap
-	(*AcqDasDetails)(nil),             // 7: Communication.AcqDasDetails
-	(*DASStatus)(nil),                 // 8: Communication.DASStatus
-	(*DASStatusResponse)(nil),         // 9: Communication.DASStatusResponse
-	(*DASStatusRequest)(nil),          // 10: Communication.DASStatusRequest
-	(*AcquisitionParameters)(nil),     // 11: Communication.AcquisitionParameters
-	(*FileAcquisitionParameters)(nil), // 12: Communication.FileAcquisitionParameters
-	(*FrameTypeMap)(nil),              // 13: Communication.FrameTypeMap
+	(*Ack)(nil),                       // 1: Communication.Ack
+	(*ServerStatus)(nil),              // 2: Communication.ServerStatus
+	(*IsWhitelistedResponse)(nil),     // 3: Communication.IsWhitelistedResponse
+	(*ServerDetails)(nil),             // 4: Communication.ServerDetails
+	(*LoginRequest)(nil),              // 5: Communication.LoginRequest
+	(*LoginResponse)(nil),             // 6: Communication.LoginResponse
+	(*AcqDASMap)(nil),                 // 7: Communication.AcqDASMap
+	(*AcqDasDetails)(nil),             // 8: Communication.AcqDasDetails
+	(*DASStatus)(nil),                 // 9: Communication.DASStatus
+	(*DASStatusResponse)(nil),         // 10: Communication.DASStatusResponse
+	(*DASStatusRequest)(nil),          // 11: Communication.DASStatusRequest
+	(*AcquisitionParameters)(nil),     // 12: Communication.AcquisitionParameters
+	(*FileAcquisitionParameters)(nil), // 13: Communication.FileAcquisitionParameters
+	(*FrameTypeMap)(nil),              // 14: Communication.FrameTypeMap
+	(*TestPhases)(nil),                // 15: Communication.TestPhases
+	(*TestPhaseRequest)(nil),          // 16: Communication.TestPhaseRequest
+	(*DASIPAddresses)(nil),            // 17: Communication.DASIPAddresses
+	(*DASIPAddress)(nil),              // 18: Communication.DASIPAddress
+	(*AcqRemark)(nil),                 // 19: Communication.AcqRemark
+	(*AcqRemarks)(nil),                // 20: Communication.AcqRemarks
 }
 var file_communication_proto_depIdxs = []int32{
-	7,  // 0: Communication.AcqDASMap.dasDetails:type_name -> Communication.AcqDasDetails
-	9,  // 1: Communication.DASStatus.dasStatus:type_name -> Communication.DASStatusResponse
-	6,  // 2: Communication.AcquisitionParameters.dasMap:type_name -> Communication.AcqDASMap
-	13, // 3: Communication.FileAcquisitionParameters.frameTypeMap:type_name -> Communication.FrameTypeMap
-	0,  // 4: Communication.Communication.GetServerStatus:input_type -> Communication.ClientID
-	0,  // 5: Communication.Communication.IsWhitelisted:input_type -> Communication.ClientID
-	0,  // 6: Communication.Communication.GetServerDetails:input_type -> Communication.ClientID
-	4,  // 7: Communication.Communication.Login:input_type -> Communication.LoginRequest
-	0,  // 8: Communication.Communication.GetAcquisitionParameters:input_type -> Communication.ClientID
-	10, // 9: Communication.Communication.GetDASStatus:input_type -> Communication.DASStatusRequest
-	0,  // 10: Communication.Communication.GetFileAcquisitionParameters:input_type -> Communication.ClientID
-	1,  // 11: Communication.Communication.GetServerStatus:output_type -> Communication.ServerStatus
-	2,  // 12: Communication.Communication.IsWhitelisted:output_type -> Communication.IsWhitelistedResponse
-	3,  // 13: Communication.Communication.GetServerDetails:output_type -> Communication.ServerDetails
-	5,  // 14: Communication.Communication.Login:output_type -> Communication.LoginResponse
-	11, // 15: Communication.Communication.GetAcquisitionParameters:output_type -> Communication.AcquisitionParameters
-	8,  // 16: Communication.Communication.GetDASStatus:output_type -> Communication.DASStatus
-	12, // 17: Communication.Communication.GetFileAcquisitionParameters:output_type -> Communication.FileAcquisitionParameters
-	11, // [11:18] is the sub-list for method output_type
-	4,  // [4:11] is the sub-list for method input_type
-	4,  // [4:4] is the sub-list for extension type_name
-	4,  // [4:4] is the sub-list for extension extendee
-	0,  // [0:4] is the sub-list for field type_name
+	8,  // 0: Communication.AcqDASMap.dasDetails:type_name -> Communication.AcqDasDetails
+	10, // 1: Communication.DASStatus.dasStatus:type_name -> Communication.DASStatusResponse
+	7,  // 2: Communication.AcquisitionParameters.dasMap:type_name -> Communication.AcqDASMap
+	14, // 3: Communication.FileAcquisitionParameters.frameTypeMap:type_name -> Communication.FrameTypeMap
+	18, // 4: Communication.DASIPAddresses.dasIPAddresses:type_name -> Communication.DASIPAddress
+	19, // 5: Communication.AcqRemarks.acqRemarks:type_name -> Communication.AcqRemark
+	0,  // 6: Communication.Communication.GetServerStatus:input_type -> Communication.ClientID
+	0,  // 7: Communication.Communication.IsWhitelisted:input_type -> Communication.ClientID
+	0,  // 8: Communication.Communication.GetServerDetails:input_type -> Communication.ClientID
+	5,  // 9: Communication.Communication.Login:input_type -> Communication.LoginRequest
+	0,  // 10: Communication.Communication.GetAcquisitionParameters:input_type -> Communication.ClientID
+	11, // 11: Communication.Communication.GetDASStatus:input_type -> Communication.DASStatusRequest
+	0,  // 12: Communication.Communication.GetFileAcquisitionParameters:input_type -> Communication.ClientID
+	0,  // 13: Communication.Communication.GetAllTestPhases:input_type -> Communication.ClientID
+	16, // 14: Communication.Communication.AddTestPhase:input_type -> Communication.TestPhaseRequest
+	16, // 15: Communication.Communication.SelectTestPhase:input_type -> Communication.TestPhaseRequest
+	0,  // 16: Communication.Communication.GetDASIPAddresses:input_type -> Communication.ClientID
+	18, // 17: Communication.Communication.ChangeDASIPAddress:input_type -> Communication.DASIPAddress
+	0,  // 18: Communication.Communication.GetAcqRemarks:input_type -> Communication.ClientID
+	19, // 19: Communication.Communication.ChangeAcqRemark:input_type -> Communication.AcqRemark
+	2,  // 20: Communication.Communication.GetServerStatus:output_type -> Communication.ServerStatus
+	3,  // 21: Communication.Communication.IsWhitelisted:output_type -> Communication.IsWhitelistedResponse
+	4,  // 22: Communication.Communication.GetServerDetails:output_type -> Communication.ServerDetails
+	6,  // 23: Communication.Communication.Login:output_type -> Communication.LoginResponse
+	12, // 24: Communication.Communication.GetAcquisitionParameters:output_type -> Communication.AcquisitionParameters
+	9,  // 25: Communication.Communication.GetDASStatus:output_type -> Communication.DASStatus
+	13, // 26: Communication.Communication.GetFileAcquisitionParameters:output_type -> Communication.FileAcquisitionParameters
+	15, // 27: Communication.Communication.GetAllTestPhases:output_type -> Communication.TestPhases
+	1,  // 28: Communication.Communication.AddTestPhase:output_type -> Communication.Ack
+	1,  // 29: Communication.Communication.SelectTestPhase:output_type -> Communication.Ack
+	17, // 30: Communication.Communication.GetDASIPAddresses:output_type -> Communication.DASIPAddresses
+	1,  // 31: Communication.Communication.ChangeDASIPAddress:output_type -> Communication.Ack
+	20, // 32: Communication.Communication.GetAcqRemarks:output_type -> Communication.AcqRemarks
+	1,  // 33: Communication.Communication.ChangeAcqRemark:output_type -> Communication.Ack
+	20, // [20:34] is the sub-list for method output_type
+	6,  // [6:20] is the sub-list for method input_type
+	6,  // [6:6] is the sub-list for extension type_name
+	6,  // [6:6] is the sub-list for extension extendee
+	0,  // [0:6] is the sub-list for field type_name
 }
 
 func init() { file_communication_proto_init() }
@@ -947,7 +1350,7 @@ func file_communication_proto_init() {
 			GoPackagePath: reflect.TypeOf(x{}).PkgPath(),
 			RawDescriptor: unsafe.Slice(unsafe.StringData(file_communication_proto_rawDesc), len(file_communication_proto_rawDesc)),
 			NumEnums:      0,
-			NumMessages:   14,
+			NumMessages:   21,
 			NumExtensions: 0,
 			NumServices:   1,
 		},

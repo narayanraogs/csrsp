@@ -88,6 +88,55 @@ class CommunicationClient extends $grpc.Client {
         options: options);
   }
 
+  $grpc.ResponseFuture<$0.TestPhases> getAllTestPhases(
+    $0.ClientID request, {
+    $grpc.CallOptions? options,
+  }) {
+    return $createUnaryCall(_$getAllTestPhases, request, options: options);
+  }
+
+  $grpc.ResponseFuture<$0.Ack> addTestPhase(
+    $0.TestPhaseRequest request, {
+    $grpc.CallOptions? options,
+  }) {
+    return $createUnaryCall(_$addTestPhase, request, options: options);
+  }
+
+  $grpc.ResponseFuture<$0.Ack> selectTestPhase(
+    $0.TestPhaseRequest request, {
+    $grpc.CallOptions? options,
+  }) {
+    return $createUnaryCall(_$selectTestPhase, request, options: options);
+  }
+
+  $grpc.ResponseFuture<$0.DASIPAddresses> getDASIPAddresses(
+    $0.ClientID request, {
+    $grpc.CallOptions? options,
+  }) {
+    return $createUnaryCall(_$getDASIPAddresses, request, options: options);
+  }
+
+  $grpc.ResponseFuture<$0.Ack> changeDASIPAddress(
+    $0.DASIPAddress request, {
+    $grpc.CallOptions? options,
+  }) {
+    return $createUnaryCall(_$changeDASIPAddress, request, options: options);
+  }
+
+  $grpc.ResponseFuture<$0.AcqRemarks> getAcqRemarks(
+    $0.ClientID request, {
+    $grpc.CallOptions? options,
+  }) {
+    return $createUnaryCall(_$getAcqRemarks, request, options: options);
+  }
+
+  $grpc.ResponseFuture<$0.Ack> changeAcqRemark(
+    $0.AcqRemark request, {
+    $grpc.CallOptions? options,
+  }) {
+    return $createUnaryCall(_$changeAcqRemark, request, options: options);
+  }
+
   // method descriptors
 
   static final _$getServerStatus =
@@ -124,6 +173,38 @@ class CommunicationClient extends $grpc.Client {
           '/Communication.Communication/GetFileAcquisitionParameters',
           ($0.ClientID value) => value.writeToBuffer(),
           $0.FileAcquisitionParameters.fromBuffer);
+  static final _$getAllTestPhases =
+      $grpc.ClientMethod<$0.ClientID, $0.TestPhases>(
+          '/Communication.Communication/GetAllTestPhases',
+          ($0.ClientID value) => value.writeToBuffer(),
+          $0.TestPhases.fromBuffer);
+  static final _$addTestPhase = $grpc.ClientMethod<$0.TestPhaseRequest, $0.Ack>(
+      '/Communication.Communication/AddTestPhase',
+      ($0.TestPhaseRequest value) => value.writeToBuffer(),
+      $0.Ack.fromBuffer);
+  static final _$selectTestPhase =
+      $grpc.ClientMethod<$0.TestPhaseRequest, $0.Ack>(
+          '/Communication.Communication/SelectTestPhase',
+          ($0.TestPhaseRequest value) => value.writeToBuffer(),
+          $0.Ack.fromBuffer);
+  static final _$getDASIPAddresses =
+      $grpc.ClientMethod<$0.ClientID, $0.DASIPAddresses>(
+          '/Communication.Communication/GetDASIPAddresses',
+          ($0.ClientID value) => value.writeToBuffer(),
+          $0.DASIPAddresses.fromBuffer);
+  static final _$changeDASIPAddress =
+      $grpc.ClientMethod<$0.DASIPAddress, $0.Ack>(
+          '/Communication.Communication/ChangeDASIPAddress',
+          ($0.DASIPAddress value) => value.writeToBuffer(),
+          $0.Ack.fromBuffer);
+  static final _$getAcqRemarks = $grpc.ClientMethod<$0.ClientID, $0.AcqRemarks>(
+      '/Communication.Communication/GetAcqRemarks',
+      ($0.ClientID value) => value.writeToBuffer(),
+      $0.AcqRemarks.fromBuffer);
+  static final _$changeAcqRemark = $grpc.ClientMethod<$0.AcqRemark, $0.Ack>(
+      '/Communication.Communication/ChangeAcqRemark',
+      ($0.AcqRemark value) => value.writeToBuffer(),
+      $0.Ack.fromBuffer);
 }
 
 @$pb.GrpcServiceName('Communication.Communication')
@@ -180,6 +261,55 @@ abstract class CommunicationServiceBase extends $grpc.Service {
         false,
         ($core.List<$core.int> value) => $0.ClientID.fromBuffer(value),
         ($0.FileAcquisitionParameters value) => value.writeToBuffer()));
+    $addMethod($grpc.ServiceMethod<$0.ClientID, $0.TestPhases>(
+        'GetAllTestPhases',
+        getAllTestPhases_Pre,
+        false,
+        false,
+        ($core.List<$core.int> value) => $0.ClientID.fromBuffer(value),
+        ($0.TestPhases value) => value.writeToBuffer()));
+    $addMethod($grpc.ServiceMethod<$0.TestPhaseRequest, $0.Ack>(
+        'AddTestPhase',
+        addTestPhase_Pre,
+        false,
+        false,
+        ($core.List<$core.int> value) => $0.TestPhaseRequest.fromBuffer(value),
+        ($0.Ack value) => value.writeToBuffer()));
+    $addMethod($grpc.ServiceMethod<$0.TestPhaseRequest, $0.Ack>(
+        'SelectTestPhase',
+        selectTestPhase_Pre,
+        false,
+        false,
+        ($core.List<$core.int> value) => $0.TestPhaseRequest.fromBuffer(value),
+        ($0.Ack value) => value.writeToBuffer()));
+    $addMethod($grpc.ServiceMethod<$0.ClientID, $0.DASIPAddresses>(
+        'GetDASIPAddresses',
+        getDASIPAddresses_Pre,
+        false,
+        false,
+        ($core.List<$core.int> value) => $0.ClientID.fromBuffer(value),
+        ($0.DASIPAddresses value) => value.writeToBuffer()));
+    $addMethod($grpc.ServiceMethod<$0.DASIPAddress, $0.Ack>(
+        'ChangeDASIPAddress',
+        changeDASIPAddress_Pre,
+        false,
+        false,
+        ($core.List<$core.int> value) => $0.DASIPAddress.fromBuffer(value),
+        ($0.Ack value) => value.writeToBuffer()));
+    $addMethod($grpc.ServiceMethod<$0.ClientID, $0.AcqRemarks>(
+        'GetAcqRemarks',
+        getAcqRemarks_Pre,
+        false,
+        false,
+        ($core.List<$core.int> value) => $0.ClientID.fromBuffer(value),
+        ($0.AcqRemarks value) => value.writeToBuffer()));
+    $addMethod($grpc.ServiceMethod<$0.AcqRemark, $0.Ack>(
+        'ChangeAcqRemark',
+        changeAcqRemark_Pre,
+        false,
+        false,
+        ($core.List<$core.int> value) => $0.AcqRemark.fromBuffer(value),
+        ($0.Ack value) => value.writeToBuffer()));
   }
 
   $async.Stream<$0.ServerStatus> getServerStatus_Pre(
@@ -237,4 +367,60 @@ abstract class CommunicationServiceBase extends $grpc.Service {
 
   $async.Future<$0.FileAcquisitionParameters> getFileAcquisitionParameters(
       $grpc.ServiceCall call, $0.ClientID request);
+
+  $async.Future<$0.TestPhases> getAllTestPhases_Pre(
+      $grpc.ServiceCall $call, $async.Future<$0.ClientID> $request) async {
+    return getAllTestPhases($call, await $request);
+  }
+
+  $async.Future<$0.TestPhases> getAllTestPhases(
+      $grpc.ServiceCall call, $0.ClientID request);
+
+  $async.Future<$0.Ack> addTestPhase_Pre($grpc.ServiceCall $call,
+      $async.Future<$0.TestPhaseRequest> $request) async {
+    return addTestPhase($call, await $request);
+  }
+
+  $async.Future<$0.Ack> addTestPhase(
+      $grpc.ServiceCall call, $0.TestPhaseRequest request);
+
+  $async.Future<$0.Ack> selectTestPhase_Pre($grpc.ServiceCall $call,
+      $async.Future<$0.TestPhaseRequest> $request) async {
+    return selectTestPhase($call, await $request);
+  }
+
+  $async.Future<$0.Ack> selectTestPhase(
+      $grpc.ServiceCall call, $0.TestPhaseRequest request);
+
+  $async.Future<$0.DASIPAddresses> getDASIPAddresses_Pre(
+      $grpc.ServiceCall $call, $async.Future<$0.ClientID> $request) async {
+    return getDASIPAddresses($call, await $request);
+  }
+
+  $async.Future<$0.DASIPAddresses> getDASIPAddresses(
+      $grpc.ServiceCall call, $0.ClientID request);
+
+  $async.Future<$0.Ack> changeDASIPAddress_Pre(
+      $grpc.ServiceCall $call, $async.Future<$0.DASIPAddress> $request) async {
+    return changeDASIPAddress($call, await $request);
+  }
+
+  $async.Future<$0.Ack> changeDASIPAddress(
+      $grpc.ServiceCall call, $0.DASIPAddress request);
+
+  $async.Future<$0.AcqRemarks> getAcqRemarks_Pre(
+      $grpc.ServiceCall $call, $async.Future<$0.ClientID> $request) async {
+    return getAcqRemarks($call, await $request);
+  }
+
+  $async.Future<$0.AcqRemarks> getAcqRemarks(
+      $grpc.ServiceCall call, $0.ClientID request);
+
+  $async.Future<$0.Ack> changeAcqRemark_Pre(
+      $grpc.ServiceCall $call, $async.Future<$0.AcqRemark> $request) async {
+    return changeAcqRemark($call, await $request);
+  }
+
+  $async.Future<$0.Ack> changeAcqRemark(
+      $grpc.ServiceCall call, $0.AcqRemark request);
 }

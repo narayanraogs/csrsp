@@ -26,6 +26,13 @@ const (
 	Communication_GetAcquisitionParameters_FullMethodName     = "/Communication.Communication/GetAcquisitionParameters"
 	Communication_GetDASStatus_FullMethodName                 = "/Communication.Communication/GetDASStatus"
 	Communication_GetFileAcquisitionParameters_FullMethodName = "/Communication.Communication/GetFileAcquisitionParameters"
+	Communication_GetAllTestPhases_FullMethodName             = "/Communication.Communication/GetAllTestPhases"
+	Communication_AddTestPhase_FullMethodName                 = "/Communication.Communication/AddTestPhase"
+	Communication_SelectTestPhase_FullMethodName              = "/Communication.Communication/SelectTestPhase"
+	Communication_GetDASIPAddresses_FullMethodName            = "/Communication.Communication/GetDASIPAddresses"
+	Communication_ChangeDASIPAddress_FullMethodName           = "/Communication.Communication/ChangeDASIPAddress"
+	Communication_GetAcqRemarks_FullMethodName                = "/Communication.Communication/GetAcqRemarks"
+	Communication_ChangeAcqRemark_FullMethodName              = "/Communication.Communication/ChangeAcqRemark"
 )
 
 // CommunicationClient is the client API for Communication service.
@@ -39,6 +46,13 @@ type CommunicationClient interface {
 	GetAcquisitionParameters(ctx context.Context, in *ClientID, opts ...grpc.CallOption) (*AcquisitionParameters, error)
 	GetDASStatus(ctx context.Context, in *DASStatusRequest, opts ...grpc.CallOption) (grpc.ServerStreamingClient[DASStatus], error)
 	GetFileAcquisitionParameters(ctx context.Context, in *ClientID, opts ...grpc.CallOption) (*FileAcquisitionParameters, error)
+	GetAllTestPhases(ctx context.Context, in *ClientID, opts ...grpc.CallOption) (*TestPhases, error)
+	AddTestPhase(ctx context.Context, in *TestPhaseRequest, opts ...grpc.CallOption) (*Ack, error)
+	SelectTestPhase(ctx context.Context, in *TestPhaseRequest, opts ...grpc.CallOption) (*Ack, error)
+	GetDASIPAddresses(ctx context.Context, in *ClientID, opts ...grpc.CallOption) (*DASIPAddresses, error)
+	ChangeDASIPAddress(ctx context.Context, in *DASIPAddress, opts ...grpc.CallOption) (*Ack, error)
+	GetAcqRemarks(ctx context.Context, in *ClientID, opts ...grpc.CallOption) (*AcqRemarks, error)
+	ChangeAcqRemark(ctx context.Context, in *AcqRemark, opts ...grpc.CallOption) (*Ack, error)
 }
 
 type communicationClient struct {
@@ -137,6 +151,76 @@ func (c *communicationClient) GetFileAcquisitionParameters(ctx context.Context, 
 	return out, nil
 }
 
+func (c *communicationClient) GetAllTestPhases(ctx context.Context, in *ClientID, opts ...grpc.CallOption) (*TestPhases, error) {
+	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
+	out := new(TestPhases)
+	err := c.cc.Invoke(ctx, Communication_GetAllTestPhases_FullMethodName, in, out, cOpts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *communicationClient) AddTestPhase(ctx context.Context, in *TestPhaseRequest, opts ...grpc.CallOption) (*Ack, error) {
+	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
+	out := new(Ack)
+	err := c.cc.Invoke(ctx, Communication_AddTestPhase_FullMethodName, in, out, cOpts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *communicationClient) SelectTestPhase(ctx context.Context, in *TestPhaseRequest, opts ...grpc.CallOption) (*Ack, error) {
+	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
+	out := new(Ack)
+	err := c.cc.Invoke(ctx, Communication_SelectTestPhase_FullMethodName, in, out, cOpts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *communicationClient) GetDASIPAddresses(ctx context.Context, in *ClientID, opts ...grpc.CallOption) (*DASIPAddresses, error) {
+	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
+	out := new(DASIPAddresses)
+	err := c.cc.Invoke(ctx, Communication_GetDASIPAddresses_FullMethodName, in, out, cOpts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *communicationClient) ChangeDASIPAddress(ctx context.Context, in *DASIPAddress, opts ...grpc.CallOption) (*Ack, error) {
+	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
+	out := new(Ack)
+	err := c.cc.Invoke(ctx, Communication_ChangeDASIPAddress_FullMethodName, in, out, cOpts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *communicationClient) GetAcqRemarks(ctx context.Context, in *ClientID, opts ...grpc.CallOption) (*AcqRemarks, error) {
+	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
+	out := new(AcqRemarks)
+	err := c.cc.Invoke(ctx, Communication_GetAcqRemarks_FullMethodName, in, out, cOpts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *communicationClient) ChangeAcqRemark(ctx context.Context, in *AcqRemark, opts ...grpc.CallOption) (*Ack, error) {
+	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
+	out := new(Ack)
+	err := c.cc.Invoke(ctx, Communication_ChangeAcqRemark_FullMethodName, in, out, cOpts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 // CommunicationServer is the server API for Communication service.
 // All implementations must embed UnimplementedCommunicationServer
 // for forward compatibility.
@@ -148,6 +232,13 @@ type CommunicationServer interface {
 	GetAcquisitionParameters(context.Context, *ClientID) (*AcquisitionParameters, error)
 	GetDASStatus(*DASStatusRequest, grpc.ServerStreamingServer[DASStatus]) error
 	GetFileAcquisitionParameters(context.Context, *ClientID) (*FileAcquisitionParameters, error)
+	GetAllTestPhases(context.Context, *ClientID) (*TestPhases, error)
+	AddTestPhase(context.Context, *TestPhaseRequest) (*Ack, error)
+	SelectTestPhase(context.Context, *TestPhaseRequest) (*Ack, error)
+	GetDASIPAddresses(context.Context, *ClientID) (*DASIPAddresses, error)
+	ChangeDASIPAddress(context.Context, *DASIPAddress) (*Ack, error)
+	GetAcqRemarks(context.Context, *ClientID) (*AcqRemarks, error)
+	ChangeAcqRemark(context.Context, *AcqRemark) (*Ack, error)
 	mustEmbedUnimplementedCommunicationServer()
 }
 
@@ -178,6 +269,27 @@ func (UnimplementedCommunicationServer) GetDASStatus(*DASStatusRequest, grpc.Ser
 }
 func (UnimplementedCommunicationServer) GetFileAcquisitionParameters(context.Context, *ClientID) (*FileAcquisitionParameters, error) {
 	return nil, status.Error(codes.Unimplemented, "method GetFileAcquisitionParameters not implemented")
+}
+func (UnimplementedCommunicationServer) GetAllTestPhases(context.Context, *ClientID) (*TestPhases, error) {
+	return nil, status.Error(codes.Unimplemented, "method GetAllTestPhases not implemented")
+}
+func (UnimplementedCommunicationServer) AddTestPhase(context.Context, *TestPhaseRequest) (*Ack, error) {
+	return nil, status.Error(codes.Unimplemented, "method AddTestPhase not implemented")
+}
+func (UnimplementedCommunicationServer) SelectTestPhase(context.Context, *TestPhaseRequest) (*Ack, error) {
+	return nil, status.Error(codes.Unimplemented, "method SelectTestPhase not implemented")
+}
+func (UnimplementedCommunicationServer) GetDASIPAddresses(context.Context, *ClientID) (*DASIPAddresses, error) {
+	return nil, status.Error(codes.Unimplemented, "method GetDASIPAddresses not implemented")
+}
+func (UnimplementedCommunicationServer) ChangeDASIPAddress(context.Context, *DASIPAddress) (*Ack, error) {
+	return nil, status.Error(codes.Unimplemented, "method ChangeDASIPAddress not implemented")
+}
+func (UnimplementedCommunicationServer) GetAcqRemarks(context.Context, *ClientID) (*AcqRemarks, error) {
+	return nil, status.Error(codes.Unimplemented, "method GetAcqRemarks not implemented")
+}
+func (UnimplementedCommunicationServer) ChangeAcqRemark(context.Context, *AcqRemark) (*Ack, error) {
+	return nil, status.Error(codes.Unimplemented, "method ChangeAcqRemark not implemented")
 }
 func (UnimplementedCommunicationServer) mustEmbedUnimplementedCommunicationServer() {}
 func (UnimplementedCommunicationServer) testEmbeddedByValue()                       {}
@@ -312,6 +424,132 @@ func _Communication_GetFileAcquisitionParameters_Handler(srv interface{}, ctx co
 	return interceptor(ctx, in, info, handler)
 }
 
+func _Communication_GetAllTestPhases_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(ClientID)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(CommunicationServer).GetAllTestPhases(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: Communication_GetAllTestPhases_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(CommunicationServer).GetAllTestPhases(ctx, req.(*ClientID))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _Communication_AddTestPhase_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(TestPhaseRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(CommunicationServer).AddTestPhase(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: Communication_AddTestPhase_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(CommunicationServer).AddTestPhase(ctx, req.(*TestPhaseRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _Communication_SelectTestPhase_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(TestPhaseRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(CommunicationServer).SelectTestPhase(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: Communication_SelectTestPhase_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(CommunicationServer).SelectTestPhase(ctx, req.(*TestPhaseRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _Communication_GetDASIPAddresses_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(ClientID)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(CommunicationServer).GetDASIPAddresses(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: Communication_GetDASIPAddresses_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(CommunicationServer).GetDASIPAddresses(ctx, req.(*ClientID))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _Communication_ChangeDASIPAddress_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(DASIPAddress)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(CommunicationServer).ChangeDASIPAddress(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: Communication_ChangeDASIPAddress_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(CommunicationServer).ChangeDASIPAddress(ctx, req.(*DASIPAddress))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _Communication_GetAcqRemarks_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(ClientID)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(CommunicationServer).GetAcqRemarks(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: Communication_GetAcqRemarks_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(CommunicationServer).GetAcqRemarks(ctx, req.(*ClientID))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _Communication_ChangeAcqRemark_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(AcqRemark)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(CommunicationServer).ChangeAcqRemark(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: Communication_ChangeAcqRemark_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(CommunicationServer).ChangeAcqRemark(ctx, req.(*AcqRemark))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
 // Communication_ServiceDesc is the grpc.ServiceDesc for Communication service.
 // It's only intended for direct use with grpc.RegisterService,
 // and not to be introspected or modified (even as a copy)
@@ -338,6 +576,34 @@ var Communication_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "GetFileAcquisitionParameters",
 			Handler:    _Communication_GetFileAcquisitionParameters_Handler,
+		},
+		{
+			MethodName: "GetAllTestPhases",
+			Handler:    _Communication_GetAllTestPhases_Handler,
+		},
+		{
+			MethodName: "AddTestPhase",
+			Handler:    _Communication_AddTestPhase_Handler,
+		},
+		{
+			MethodName: "SelectTestPhase",
+			Handler:    _Communication_SelectTestPhase_Handler,
+		},
+		{
+			MethodName: "GetDASIPAddresses",
+			Handler:    _Communication_GetDASIPAddresses_Handler,
+		},
+		{
+			MethodName: "ChangeDASIPAddress",
+			Handler:    _Communication_ChangeDASIPAddress_Handler,
+		},
+		{
+			MethodName: "GetAcqRemarks",
+			Handler:    _Communication_GetAcqRemarks_Handler,
+		},
+		{
+			MethodName: "ChangeAcqRemark",
+			Handler:    _Communication_ChangeAcqRemark_Handler,
 		},
 	},
 	Streams: []grpc.StreamDesc{

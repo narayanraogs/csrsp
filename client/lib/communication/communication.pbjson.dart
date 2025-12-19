@@ -27,6 +27,19 @@ const ClientID$json = {
 final $typed_data.Uint8List clientIDDescriptor =
     $convert.base64Decode('CghDbGllbnRJRBIOCgJpZBgBIAEoCVICaWQ=');
 
+@$core.Deprecated('Use ackDescriptor instead')
+const Ack$json = {
+  '1': 'Ack',
+  '2': [
+    {'1': 'ok', '3': 1, '4': 1, '5': 8, '10': 'ok'},
+    {'1': 'message', '3': 2, '4': 1, '5': 9, '10': 'message'},
+  ],
+};
+
+/// Descriptor for `Ack`. Decode as a `google.protobuf.DescriptorProto`.
+final $typed_data.Uint8List ackDescriptor = $convert.base64Decode(
+    'CgNBY2sSDgoCb2sYASABKAhSAm9rEhgKB21lc3NhZ2UYAiABKAlSB21lc3NhZ2U=');
+
 @$core.Deprecated('Use serverStatusDescriptor instead')
 const ServerStatus$json = {
   '1': 'ServerStatus',
@@ -252,3 +265,98 @@ const FrameTypeMap$json = {
 final $typed_data.Uint8List frameTypeMapDescriptor = $convert.base64Decode(
     'CgxGcmFtZVR5cGVNYXASHAoJZnJhbWVUeXBlGAEgASgJUglmcmFtZVR5cGUSKgoQZnJhbWVJZG'
     'VudGlmaWVycxgCIAMoCVIQZnJhbWVJZGVudGlmaWVycw==');
+
+@$core.Deprecated('Use testPhasesDescriptor instead')
+const TestPhases$json = {
+  '1': 'TestPhases',
+  '2': [
+    {'1': 'testPhases', '3': 1, '4': 3, '5': 9, '10': 'testPhases'},
+  ],
+};
+
+/// Descriptor for `TestPhases`. Decode as a `google.protobuf.DescriptorProto`.
+final $typed_data.Uint8List testPhasesDescriptor = $convert.base64Decode(
+    'CgpUZXN0UGhhc2VzEh4KCnRlc3RQaGFzZXMYASADKAlSCnRlc3RQaGFzZXM=');
+
+@$core.Deprecated('Use testPhaseRequestDescriptor instead')
+const TestPhaseRequest$json = {
+  '1': 'TestPhaseRequest',
+  '2': [
+    {'1': 'id', '3': 1, '4': 1, '5': 9, '10': 'id'},
+    {'1': 'testPhase', '3': 2, '4': 1, '5': 9, '10': 'testPhase'},
+  ],
+};
+
+/// Descriptor for `TestPhaseRequest`. Decode as a `google.protobuf.DescriptorProto`.
+final $typed_data.Uint8List testPhaseRequestDescriptor = $convert.base64Decode(
+    'ChBUZXN0UGhhc2VSZXF1ZXN0Eg4KAmlkGAEgASgJUgJpZBIcCgl0ZXN0UGhhc2UYAiABKAlSCX'
+    'Rlc3RQaGFzZQ==');
+
+@$core.Deprecated('Use dASIPAddressesDescriptor instead')
+const DASIPAddresses$json = {
+  '1': 'DASIPAddresses',
+  '2': [
+    {
+      '1': 'dasIPAddresses',
+      '3': 1,
+      '4': 3,
+      '5': 11,
+      '6': '.Communication.DASIPAddress',
+      '10': 'dasIPAddresses'
+    },
+  ],
+};
+
+/// Descriptor for `DASIPAddresses`. Decode as a `google.protobuf.DescriptorProto`.
+final $typed_data.Uint8List dASIPAddressesDescriptor = $convert.base64Decode(
+    'Cg5EQVNJUEFkZHJlc3NlcxJDCg5kYXNJUEFkZHJlc3NlcxgBIAMoCzIbLkNvbW11bmljYXRpb2'
+    '4uREFTSVBBZGRyZXNzUg5kYXNJUEFkZHJlc3Nlcw==');
+
+@$core.Deprecated('Use dASIPAddressDescriptor instead')
+const DASIPAddress$json = {
+  '1': 'DASIPAddress',
+  '2': [
+    {'1': 'name', '3': 1, '4': 1, '5': 9, '10': 'name'},
+    {'1': 'ipAddress', '3': 2, '4': 1, '5': 9, '10': 'ipAddress'},
+  ],
+};
+
+/// Descriptor for `DASIPAddress`. Decode as a `google.protobuf.DescriptorProto`.
+final $typed_data.Uint8List dASIPAddressDescriptor = $convert.base64Decode(
+    'CgxEQVNJUEFkZHJlc3MSEgoEbmFtZRgBIAEoCVIEbmFtZRIcCglpcEFkZHJlc3MYAiABKAlSCW'
+    'lwQWRkcmVzcw==');
+
+@$core.Deprecated('Use acqRemarkDescriptor instead')
+const AcqRemark$json = {
+  '1': 'AcqRemark',
+  '2': [
+    {'1': 'date', '3': 1, '4': 1, '5': 9, '10': 'date'},
+    {'1': 'time', '3': 2, '4': 1, '5': 9, '10': 'time'},
+    {'1': 'remark', '3': 3, '4': 1, '5': 9, '10': 'remark'},
+  ],
+};
+
+/// Descriptor for `AcqRemark`. Decode as a `google.protobuf.DescriptorProto`.
+final $typed_data.Uint8List acqRemarkDescriptor = $convert.base64Decode(
+    'CglBY3FSZW1hcmsSEgoEZGF0ZRgBIAEoCVIEZGF0ZRISCgR0aW1lGAIgASgJUgR0aW1lEhYKBn'
+    'JlbWFyaxgDIAEoCVIGcmVtYXJr');
+
+@$core.Deprecated('Use acqRemarksDescriptor instead')
+const AcqRemarks$json = {
+  '1': 'AcqRemarks',
+  '2': [
+    {
+      '1': 'acqRemarks',
+      '3': 1,
+      '4': 3,
+      '5': 11,
+      '6': '.Communication.AcqRemark',
+      '10': 'acqRemarks'
+    },
+  ],
+};
+
+/// Descriptor for `AcqRemarks`. Decode as a `google.protobuf.DescriptorProto`.
+final $typed_data.Uint8List acqRemarksDescriptor = $convert.base64Decode(
+    'CgpBY3FSZW1hcmtzEjgKCmFjcVJlbWFya3MYASADKAsyGC5Db21tdW5pY2F0aW9uLkFjcVJlbW'
+    'Fya1IKYWNxUmVtYXJrcw==');
