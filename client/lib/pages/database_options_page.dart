@@ -560,22 +560,58 @@ class _RemarksTab extends StatefulWidget {
 }
 
 class _RemarksTabState extends State<_RemarksTab> {
-  List<AcqRemark> _acquisitions = [];
-  AcqRemark? _selectedAcq;
-  late TextEditingController _remarkController;
+  List<AcqRemark> _allRemarks = [];
+  List<AcqRemark> _filteredRemarks = [];
   bool _isLoading = false;
+
+  final TextEditingController _phaseFilterCtrl = TextEditingController();
+  final TextEditingController _acqModeFilterCtrl = TextEditingController();
+  final TextEditingController _configFilterCtrl = TextEditingController();
+  final TextEditingController _dateFilterCtrl = TextEditingController();
+  final TextEditingController _timeFilterCtrl = TextEditingController();
+  final TextEditingController _remarkFilterCtrl = TextEditingController();
 
   @override
   void initState() {
     super.initState();
-    _remarkController = TextEditingController();
     _fetchRemarks();
+    _phaseFilterCtrl.addListener(_onFilterChanged);
+    _acqModeFilterCtrl.addListener(_onFilterChanged);
+    _configFilterCtrl.addListener(_onFilterChanged);
+    _dateFilterCtrl.addListener(_onFilterChanged);
+    _timeFilterCtrl.addListener(_onFilterChanged);
+    _remarkFilterCtrl.addListener(_onFilterChanged);
   }
 
   @override
   void dispose() {
-    _remarkController.dispose();
+    _phaseFilterCtrl.dispose();
+    _acqModeFilterCtrl.dispose();
+    _configFilterCtrl.dispose();
+    _dateFilterCtrl.dispose();
+    _timeFilterCtrl.dispose();
+    _remarkFilterCtrl.dispose();
     super.dispose();
+  }
+
+  void _onFilterChanged() {
+    final phaseQuery = _phaseFilterCtrl.text.toLowerCase();
+    final acqModeQuery = _acqModeFilterCtrl.text.toLowerCase();
+    final configQuery = _configFilterCtrl.text.toLowerCase();
+    final dateQuery = _dateFilterCtrl.text.toLowerCase();
+    final timeQuery = _timeFilterCtrl.text.toLowerCase();
+    final remarkQuery = _remarkFilterCtrl.text.toLowerCase();
+
+    setState(() {
+      _filteredRemarks = _allRemarks.where((remark) {
+        return remark.phase.toLowerCase().contains(phaseQuery) &&
+            remark.acqMode.toLowerCase().contains(acqModeQuery) &&
+            remark.config.toLowerCase().contains(configQuery) &&
+            remark.date.toLowerCase().contains(dateQuery) &&
+            remark.time.toLowerCase().contains(timeQuery) &&
+            remark.remark.toLowerCase().contains(remarkQuery);
+      }).toList();
+    });
   }
 
   Future<void> _fetchRemarks() async {
@@ -595,9 +631,11 @@ class _RemarksTabState extends State<_RemarksTab> {
 
       if (mounted) {
         setState(() {
-          _acquisitions = response.acqRemarks;
+          _allRemarks = response.acqRemarks;
+          _filteredRemarks = List.from(_allRemarks);
           _isLoading = false;
         });
+        _onFilterChanged();
       }
     } catch (e) {
       debugPrint('Error fetching remarks: $e');
@@ -612,20 +650,7 @@ class _RemarksTabState extends State<_RemarksTab> {
     }
   }
 
-  void _onAcquisitionChanged(AcqRemark? newValue) {
-    setState(() {
-      _selectedAcq = newValue;
-      _remarkController.text = newValue?.remark ?? '';
-    });
-  }
-
-  Future<void> _saveRemark() async {
-    if (_selectedAcq == null) return;
-
-    setState(() {
-      _isLoading = true;
-    });
-
+  Future<void> _saveRemark(AcqRemark remarkObj, String newRemarkText) async {
     try {
       final globalState = context.read<GlobalState>();
       final channel = GrpcWebClientChannel.xhr(
@@ -633,11 +658,13 @@ class _RemarksTabState extends State<_RemarksTab> {
       );
       final client = CommunicationClient(channel);
 
-      // Create a request object with updated remark
       final request = AcqRemark()
-        ..date = _selectedAcq!.date
-        ..time = _selectedAcq!.time
-        ..remark = _remarkController.text;
+        ..phase = remarkObj.phase
+        ..acqMode = remarkObj.acqMode
+        ..config = remarkObj.config
+        ..date = remarkObj.date
+        ..time = remarkObj.time
+        ..remark = newRemarkText;
 
       final response = await client.changeAcqRemark(request);
 
@@ -654,9 +681,8 @@ class _RemarksTabState extends State<_RemarksTab> {
         );
 
         if (response.ok) {
-          // Update local state
           setState(() {
-            _selectedAcq!.remark = _remarkController.text;
+            remarkObj.remark = newRemarkText;
           });
         }
       }
@@ -667,133 +693,190 @@ class _RemarksTabState extends State<_RemarksTab> {
           SnackBar(content: Text('Error: $e'), backgroundColor: Colors.red),
         );
       }
-    } finally {
-      if (mounted) {
-        setState(() {
-          _isLoading = false;
-        });
-      }
     }
   }
 
   @override
   Widget build(BuildContext context) {
-    if (_isLoading && _acquisitions.isEmpty) {
+    if (_isLoading && _allRemarks.isEmpty) {
       return const Center(child: CircularProgressIndicator());
     }
 
-    if (_acquisitions.isEmpty) {
-      return const Center(child: Text("No acquisitions found."));
-    }
+    final dataSource = _RemarksDataSource(
+      remarks: _filteredRemarks,
+      onSave: _saveRemark,
+      context: context,
+    );
 
     return SingleChildScrollView(
       padding: const EdgeInsets.all(24.0),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [
+          // Filter Section
           Card(
-            elevation: 4,
-            shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(12),
-            ),
+            margin: const EdgeInsets.only(bottom: 16),
             child: Padding(
               padding: const EdgeInsets.all(16.0),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
+              child: ExpansionTile(
+                title: const Text(
+                  'Filters',
+                  style: TextStyle(fontWeight: FontWeight.bold),
+                ),
+                initiallyExpanded: false,
                 children: [
-                  const Text(
-                    'Select Acquisition',
-                    style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
-                  ),
                   const SizedBox(height: 16),
-                  DropdownButtonFormField<AcqRemark>(
-                    value: _selectedAcq,
-                    decoration: const InputDecoration(
-                      labelText: 'Acquisition Date/Time',
-                      border: OutlineInputBorder(),
-                      prefixIcon: Icon(Icons.calendar_today),
-                    ),
-                    items: _acquisitions.map((acq) {
-                      return DropdownMenuItem(
-                        value: acq,
-                        child: Text('${acq.date} ${acq.time}'),
-                      );
-                    }).toList(),
-                    onChanged: _onAcquisitionChanged,
+                  Wrap(
+                    spacing: 16,
+                    runSpacing: 16,
+                    children: [
+                      _buildFilterField('Phase', _phaseFilterCtrl),
+                      _buildFilterField('Acq Mode', _acqModeFilterCtrl),
+                      _buildFilterField('Config', _configFilterCtrl),
+                      _buildFilterField('Date', _dateFilterCtrl),
+                      _buildFilterField('Time', _timeFilterCtrl),
+                      _buildFilterField('Remark', _remarkFilterCtrl),
+                    ],
                   ),
                 ],
               ),
             ),
           ),
-          const SizedBox(height: 24),
-          if (_selectedAcq != null)
-            Card(
-              elevation: 4,
-              shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(12),
-              ),
-              child: Padding(
-                padding: const EdgeInsets.all(16.0),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    const Text(
-                      'Edit Remark',
-                      style: TextStyle(
-                        fontSize: 18,
-                        fontWeight: FontWeight.bold,
-                      ),
-                    ),
-                    const SizedBox(height: 16),
-                    TextField(
-                      controller: _remarkController,
-                      maxLines: 5,
-                      decoration: const InputDecoration(
-                        labelText: 'Remarks',
-                        alignLabelWithHint: true,
-                        border: OutlineInputBorder(),
-                        hintText: 'Enter observation details here...',
-                      ),
-                    ),
-                    const SizedBox(height: 16),
-                    Align(
-                      alignment: Alignment.centerRight,
-                      child: ElevatedButton.icon(
-                        onPressed: _isLoading ? null : _saveRemark,
-                        icon: const Icon(Icons.save),
-                        label: _isLoading
-                            ? const SizedBox(
-                                width: 16,
-                                height: 16,
-                                child: CircularProgressIndicator(
-                                  strokeWidth: 2,
-                                  color: Colors.white,
-                                ),
-                              )
-                            : const Text('Save Remark'),
-                        style: ElevatedButton.styleFrom(
-                          padding: const EdgeInsets.symmetric(
-                            horizontal: 32,
-                            vertical: 12,
-                          ),
-                        ),
-                      ),
-                    ),
-                  ],
-                ),
-              ),
-            )
-          else
-            const Center(
-              child: Padding(
-                padding: EdgeInsets.only(top: 48.0),
-                child: Text(
-                  'Please select an acquisition to view or edit remarks.',
-                  style: TextStyle(color: Colors.grey, fontSize: 16),
-                ),
-              ),
-            ),
+
+          PaginatedDataTable(
+            header: const Text('Acquisition Remarks'),
+            columns: const [
+              DataColumn(label: Text('Phase')),
+              DataColumn(label: Text('Acq Mode')),
+              DataColumn(label: Text('Config')),
+              DataColumn(label: Text('Date')),
+              DataColumn(label: Text('Time')),
+              DataColumn(label: Text('Remark')),
+              DataColumn(label: Text('Action')),
+            ],
+            source: dataSource,
+            rowsPerPage: 10,
+            showFirstLastButtons: true,
+            columnSpacing: 20,
+          ),
         ],
+      ),
+    );
+  }
+
+  Widget _buildFilterField(String label, TextEditingController controller) {
+    return SizedBox(
+      width: 200,
+      child: TextField(
+        controller: controller,
+        decoration: InputDecoration(
+          labelText: label,
+          isDense: true,
+          border: const OutlineInputBorder(),
+          prefixIcon: const Icon(Icons.filter_alt, size: 16),
+        ),
+      ),
+    );
+  }
+}
+
+class _RemarksDataSource extends DataTableSource {
+  final List<AcqRemark> remarks;
+  final Future<void> Function(AcqRemark, String) onSave;
+  final BuildContext context;
+
+  _RemarksDataSource({
+    required this.remarks,
+    required this.onSave,
+    required this.context,
+  });
+
+  @override
+  DataRow? getRow(int index) {
+    if (index >= remarks.length) return null;
+    final acq = remarks[index];
+
+    return DataRow.byIndex(
+      index: index,
+      cells: [
+        DataCell(Text(acq.phase)),
+        DataCell(Text(acq.acqMode)),
+        DataCell(Text(acq.config)),
+        DataCell(Text(acq.date)),
+        DataCell(Text(acq.time)),
+        DataCell(
+          SizedBox(
+            width: 300,
+            child: _EditableRemarkCell(
+              key: ObjectKey(acq),
+              initialValue: acq.remark,
+              onChanged: (val) {
+                acq.remark = val;
+              },
+            ),
+          ),
+        ),
+        DataCell(
+          IconButton(
+            icon: const Icon(Icons.save, color: Colors.blue),
+            tooltip: 'Save Remark',
+            onPressed: () {
+              onSave(acq, acq.remark);
+            },
+          ),
+        ),
+      ],
+    );
+  }
+
+  @override
+  bool get isRowCountApproximate => false;
+
+  @override
+  int get rowCount => remarks.length;
+
+  @override
+  int get selectedRowCount => 0;
+}
+
+class _EditableRemarkCell extends StatefulWidget {
+  final String initialValue;
+  final ValueChanged<String> onChanged;
+
+  const _EditableRemarkCell({
+    required Key key,
+    required this.initialValue,
+    required this.onChanged,
+  }) : super(key: key);
+
+  @override
+  State<_EditableRemarkCell> createState() => _EditableRemarkCellState();
+}
+
+class _EditableRemarkCellState extends State<_EditableRemarkCell> {
+  late TextEditingController _controller;
+
+  @override
+  void initState() {
+    super.initState();
+    _controller = TextEditingController(text: widget.initialValue);
+  }
+
+  @override
+  void dispose() {
+    _controller.dispose();
+    super.dispose();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return TextField(
+      controller: _controller,
+      onChanged: widget.onChanged,
+      decoration: const InputDecoration(
+        border: UnderlineInputBorder(),
+        hintText: 'Enter remark',
+        isDense: true,
       ),
     );
   }

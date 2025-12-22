@@ -137,6 +137,20 @@ class CommunicationClient extends $grpc.Client {
     return $createUnaryCall(_$changeAcqRemark, request, options: options);
   }
 
+  $grpc.ResponseFuture<$0.DeveloperOptions> getDeveloperOptions(
+    $0.ClientID request, {
+    $grpc.CallOptions? options,
+  }) {
+    return $createUnaryCall(_$getDeveloperOptions, request, options: options);
+  }
+
+  $grpc.ResponseFuture<$0.Ack> setDeveloperOptions(
+    $0.DeveloperOptions request, {
+    $grpc.CallOptions? options,
+  }) {
+    return $createUnaryCall(_$setDeveloperOptions, request, options: options);
+  }
+
   // method descriptors
 
   static final _$getServerStatus =
@@ -205,6 +219,16 @@ class CommunicationClient extends $grpc.Client {
       '/Communication.Communication/ChangeAcqRemark',
       ($0.AcqRemark value) => value.writeToBuffer(),
       $0.Ack.fromBuffer);
+  static final _$getDeveloperOptions =
+      $grpc.ClientMethod<$0.ClientID, $0.DeveloperOptions>(
+          '/Communication.Communication/GetDeveloperOptions',
+          ($0.ClientID value) => value.writeToBuffer(),
+          $0.DeveloperOptions.fromBuffer);
+  static final _$setDeveloperOptions =
+      $grpc.ClientMethod<$0.DeveloperOptions, $0.Ack>(
+          '/Communication.Communication/SetDeveloperOptions',
+          ($0.DeveloperOptions value) => value.writeToBuffer(),
+          $0.Ack.fromBuffer);
 }
 
 @$pb.GrpcServiceName('Communication.Communication')
@@ -309,6 +333,20 @@ abstract class CommunicationServiceBase extends $grpc.Service {
         false,
         false,
         ($core.List<$core.int> value) => $0.AcqRemark.fromBuffer(value),
+        ($0.Ack value) => value.writeToBuffer()));
+    $addMethod($grpc.ServiceMethod<$0.ClientID, $0.DeveloperOptions>(
+        'GetDeveloperOptions',
+        getDeveloperOptions_Pre,
+        false,
+        false,
+        ($core.List<$core.int> value) => $0.ClientID.fromBuffer(value),
+        ($0.DeveloperOptions value) => value.writeToBuffer()));
+    $addMethod($grpc.ServiceMethod<$0.DeveloperOptions, $0.Ack>(
+        'SetDeveloperOptions',
+        setDeveloperOptions_Pre,
+        false,
+        false,
+        ($core.List<$core.int> value) => $0.DeveloperOptions.fromBuffer(value),
         ($0.Ack value) => value.writeToBuffer()));
   }
 
@@ -423,4 +461,20 @@ abstract class CommunicationServiceBase extends $grpc.Service {
 
   $async.Future<$0.Ack> changeAcqRemark(
       $grpc.ServiceCall call, $0.AcqRemark request);
+
+  $async.Future<$0.DeveloperOptions> getDeveloperOptions_Pre(
+      $grpc.ServiceCall $call, $async.Future<$0.ClientID> $request) async {
+    return getDeveloperOptions($call, await $request);
+  }
+
+  $async.Future<$0.DeveloperOptions> getDeveloperOptions(
+      $grpc.ServiceCall call, $0.ClientID request);
+
+  $async.Future<$0.Ack> setDeveloperOptions_Pre($grpc.ServiceCall $call,
+      $async.Future<$0.DeveloperOptions> $request) async {
+    return setDeveloperOptions($call, await $request);
+  }
+
+  $async.Future<$0.Ack> setDeveloperOptions(
+      $grpc.ServiceCall call, $0.DeveloperOptions request);
 }

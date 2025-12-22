@@ -105,12 +105,12 @@ type HDRParams struct {
 // DeveloperOptions holds configuration settings that are primarily for development and debugging.
 type DeveloperOptions struct {
 	AutomaticArchival  bool   `json:"automaticArchival"`
-	FilterConfigName   bool   `json:"filterConfigName"`
 	LogLevel           string `json:"logLevel"`
 	ParallelProcessing bool   `json:"parallelProcessing"`
 	EncryptionMode     string `json:"encryptionMode"`
-	EndProcessID       string `json:"endProcessID"`
-	BERPlotRealTime    bool   `json:"berPlotRealTime"`
+	EndProcessID       int32  `json:"endProcessID"`
+	MaxThreads         int32  `json:"maxThreads"`
+	BufferLength       int32  `json:"bufferLength"`
 }
 
 func (do *DeveloperOptions) Save(path string) error {
@@ -124,4 +124,41 @@ func (do *DeveloperOptions) Save(path string) error {
 	}
 
 	return nil
+}
+
+// LoadDeveloperOptions reads the Developer options from the specified path.
+// If the file doesn't exist, it saves defaults to that path and loads them.
+func LoadDeveloperOptions(path string) (*DeveloperOptions, error) {
+	if _, err := os.Stat(path); os.IsNotExist(err) {
+		// Define defaults
+		defaults := &DeveloperOptions{
+			AutomaticArchival:  false,
+			LogLevel:           "INFO",
+			ParallelProcessing: false,
+			EncryptionMode:     "NONE",
+			EndProcessID:       -1,
+			MaxThreads:         100000,
+			BufferLength:       100000,
+		}
+
+		// Save defaults to the file
+		if err := defaults.Save(path); err != nil {
+			return nil, fmt.Errorf("failed to save default developer options: %w", err)
+		}
+
+		return defaults, nil
+	}
+
+	// Read existing file
+	data, err := os.ReadFile(path)
+	if err != nil {
+		return nil, fmt.Errorf("failed to read developer options file: %w", err)
+	}
+
+	var options DeveloperOptions
+	if err := json.Unmarshal(data, &options); err != nil {
+		return nil, fmt.Errorf("failed to unmarshal developer options: %w", err)
+	}
+
+	return &options, nil
 }

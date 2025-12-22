@@ -70,6 +70,7 @@ type State struct {
 var App struct {
 	Config
 	State
+	DeveloperOptions
 }
 
 // Init initializes the global App object. This should be called once at startup.
@@ -177,4 +178,8 @@ func (s *State) SetChainLockStatus(newStatus map[string]string) {
 	s.mu.Lock()
 	defer s.mu.Unlock()
 	s.ChainLockStatus = newStatus
+}
+
+func SetDeveloperOptions(options DeveloperOptions) {
+	App.DeveloperOptions = options
 }

@@ -71,6 +71,9 @@ func main() {
 	}
 	global.Init(cfg)
 
+	dev, _ := global.LoadDeveloperOptions(cfg.DevOpsPath)
+	global.SetDeveloperOptions(*dev)
+
 	// Setup logging immediately after config load
 	setupLogger()
 

@@ -1059,9 +1059,12 @@ func (x *DASIPAddress) GetIpAddress() string {
 
 type AcqRemark struct {
 	state         protoimpl.MessageState `protogen:"open.v1"`
-	Date          string                 `protobuf:"bytes,1,opt,name=date,proto3" json:"date,omitempty"`
-	Time          string                 `protobuf:"bytes,2,opt,name=time,proto3" json:"time,omitempty"`
-	Remark        string                 `protobuf:"bytes,3,opt,name=remark,proto3" json:"remark,omitempty"`
+	Phase         string                 `protobuf:"bytes,1,opt,name=phase,proto3" json:"phase,omitempty"`
+	AcqMode       string                 `protobuf:"bytes,2,opt,name=acqMode,proto3" json:"acqMode,omitempty"`
+	Config        string                 `protobuf:"bytes,3,opt,name=config,proto3" json:"config,omitempty"`
+	Date          string                 `protobuf:"bytes,4,opt,name=date,proto3" json:"date,omitempty"`
+	Time          string                 `protobuf:"bytes,5,opt,name=time,proto3" json:"time,omitempty"`
+	Remark        string                 `protobuf:"bytes,6,opt,name=remark,proto3" json:"remark,omitempty"`
 	unknownFields protoimpl.UnknownFields
 	sizeCache     protoimpl.SizeCache
 }
@@ -1094,6 +1097,27 @@ func (x *AcqRemark) ProtoReflect() protoreflect.Message {
 // Deprecated: Use AcqRemark.ProtoReflect.Descriptor instead.
 func (*AcqRemark) Descriptor() ([]byte, []int) {
 	return file_communication_proto_rawDescGZIP(), []int{19}
+}
+
+func (x *AcqRemark) GetPhase() string {
+	if x != nil {
+		return x.Phase
+	}
+	return ""
+}
+
+func (x *AcqRemark) GetAcqMode() string {
+	if x != nil {
+		return x.AcqMode
+	}
+	return ""
+}
+
+func (x *AcqRemark) GetConfig() string {
+	if x != nil {
+		return x.Config
+	}
+	return ""
 }
 
 func (x *AcqRemark) GetDate() string {
@@ -1159,6 +1183,98 @@ func (x *AcqRemarks) GetAcqRemarks() []*AcqRemark {
 		return x.AcqRemarks
 	}
 	return nil
+}
+
+type DeveloperOptions struct {
+	state                    protoimpl.MessageState `protogen:"open.v1"`
+	AutoArchival             bool                   `protobuf:"varint,1,opt,name=autoArchival,proto3" json:"autoArchival,omitempty"`
+	EnableParallelProcessing bool                   `protobuf:"varint,2,opt,name=enableParallelProcessing,proto3" json:"enableParallelProcessing,omitempty"`
+	EncryptionMode           string                 `protobuf:"bytes,3,opt,name=encryptionMode,proto3" json:"encryptionMode,omitempty"`
+	LogLevel                 string                 `protobuf:"bytes,4,opt,name=logLevel,proto3" json:"logLevel,omitempty"`
+	EndProcessID             int32                  `protobuf:"varint,5,opt,name=endProcessID,proto3" json:"endProcessID,omitempty"`
+	MaxThreads               int32                  `protobuf:"varint,6,opt,name=maxThreads,proto3" json:"maxThreads,omitempty"`
+	BufferLength             int32                  `protobuf:"varint,7,opt,name=bufferLength,proto3" json:"bufferLength,omitempty"`
+	unknownFields            protoimpl.UnknownFields
+	sizeCache                protoimpl.SizeCache
+}
+
+func (x *DeveloperOptions) Reset() {
+	*x = DeveloperOptions{}
+	mi := &file_communication_proto_msgTypes[21]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *DeveloperOptions) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*DeveloperOptions) ProtoMessage() {}
+
+func (x *DeveloperOptions) ProtoReflect() protoreflect.Message {
+	mi := &file_communication_proto_msgTypes[21]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use DeveloperOptions.ProtoReflect.Descriptor instead.
+func (*DeveloperOptions) Descriptor() ([]byte, []int) {
+	return file_communication_proto_rawDescGZIP(), []int{21}
+}
+
+func (x *DeveloperOptions) GetAutoArchival() bool {
+	if x != nil {
+		return x.AutoArchival
+	}
+	return false
+}
+
+func (x *DeveloperOptions) GetEnableParallelProcessing() bool {
+	if x != nil {
+		return x.EnableParallelProcessing
+	}
+	return false
+}
+
+func (x *DeveloperOptions) GetEncryptionMode() string {
+	if x != nil {
+		return x.EncryptionMode
+	}
+	return ""
+}
+
+func (x *DeveloperOptions) GetLogLevel() string {
+	if x != nil {
+		return x.LogLevel
+	}
+	return ""
+}
+
+func (x *DeveloperOptions) GetEndProcessID() int32 {
+	if x != nil {
+		return x.EndProcessID
+	}
+	return 0
+}
+
+func (x *DeveloperOptions) GetMaxThreads() int32 {
+	if x != nil {
+		return x.MaxThreads
+	}
+	return 0
+}
+
+func (x *DeveloperOptions) GetBufferLength() int32 {
+	if x != nil {
+		return x.BufferLength
+	}
+	return 0
 }
 
 var File_communication_proto protoreflect.FileDescriptor
@@ -1235,16 +1351,29 @@ const file_communication_proto_rawDesc = "" +
 	"\x0edasIPAddresses\x18\x01 \x03(\v2\x1b.Communication.DASIPAddressR\x0edasIPAddresses\"@\n" +
 	"\fDASIPAddress\x12\x12\n" +
 	"\x04name\x18\x01 \x01(\tR\x04name\x12\x1c\n" +
-	"\tipAddress\x18\x02 \x01(\tR\tipAddress\"K\n" +
-	"\tAcqRemark\x12\x12\n" +
-	"\x04date\x18\x01 \x01(\tR\x04date\x12\x12\n" +
-	"\x04time\x18\x02 \x01(\tR\x04time\x12\x16\n" +
-	"\x06remark\x18\x03 \x01(\tR\x06remark\"F\n" +
+	"\tipAddress\x18\x02 \x01(\tR\tipAddress\"\x93\x01\n" +
+	"\tAcqRemark\x12\x14\n" +
+	"\x05phase\x18\x01 \x01(\tR\x05phase\x12\x18\n" +
+	"\aacqMode\x18\x02 \x01(\tR\aacqMode\x12\x16\n" +
+	"\x06config\x18\x03 \x01(\tR\x06config\x12\x12\n" +
+	"\x04date\x18\x04 \x01(\tR\x04date\x12\x12\n" +
+	"\x04time\x18\x05 \x01(\tR\x04time\x12\x16\n" +
+	"\x06remark\x18\x06 \x01(\tR\x06remark\"F\n" +
 	"\n" +
 	"AcqRemarks\x128\n" +
 	"\n" +
 	"acqRemarks\x18\x01 \x03(\v2\x18.Communication.AcqRemarkR\n" +
-	"acqRemarks2\xb3\b\n" +
+	"acqRemarks\"\x9e\x02\n" +
+	"\x10DeveloperOptions\x12\"\n" +
+	"\fautoArchival\x18\x01 \x01(\bR\fautoArchival\x12:\n" +
+	"\x18enableParallelProcessing\x18\x02 \x01(\bR\x18enableParallelProcessing\x12&\n" +
+	"\x0eencryptionMode\x18\x03 \x01(\tR\x0eencryptionMode\x12\x1a\n" +
+	"\blogLevel\x18\x04 \x01(\tR\blogLevel\x12\"\n" +
+	"\fendProcessID\x18\x05 \x01(\x05R\fendProcessID\x12\x1e\n" +
+	"\n" +
+	"maxThreads\x18\x06 \x01(\x05R\n" +
+	"maxThreads\x12\"\n" +
+	"\fbufferLength\x18\a \x01(\x05R\fbufferLength2\xd0\t\n" +
 	"\rCommunication\x12I\n" +
 	"\x0fGetServerStatus\x12\x17.Communication.ClientID\x1a\x1b.Communication.ServerStatus0\x01\x12N\n" +
 	"\rIsWhitelisted\x12\x17.Communication.ClientID\x1a$.Communication.IsWhitelistedResponse\x12I\n" +
@@ -1259,7 +1388,9 @@ const file_communication_proto_rawDesc = "" +
 	"\x11GetDASIPAddresses\x12\x17.Communication.ClientID\x1a\x1d.Communication.DASIPAddresses\x12E\n" +
 	"\x12ChangeDASIPAddress\x12\x1b.Communication.DASIPAddress\x1a\x12.Communication.Ack\x12C\n" +
 	"\rGetAcqRemarks\x12\x17.Communication.ClientID\x1a\x19.Communication.AcqRemarks\x12?\n" +
-	"\x0fChangeAcqRemark\x12\x18.Communication.AcqRemark\x1a\x12.Communication.AckB\x1cZ\x1acsrsp/server/communicationb\x06proto3"
+	"\x0fChangeAcqRemark\x12\x18.Communication.AcqRemark\x1a\x12.Communication.Ack\x12O\n" +
+	"\x13GetDeveloperOptions\x12\x17.Communication.ClientID\x1a\x1f.Communication.DeveloperOptions\x12J\n" +
+	"\x13SetDeveloperOptions\x12\x1f.Communication.DeveloperOptions\x1a\x12.Communication.AckB\x1cZ\x1acsrsp/server/communicationb\x06proto3"
 
 var (
 	file_communication_proto_rawDescOnce sync.Once
@@ -1273,7 +1404,7 @@ func file_communication_proto_rawDescGZIP() []byte {
 	return file_communication_proto_rawDescData
 }
 
-var file_communication_proto_msgTypes = make([]protoimpl.MessageInfo, 21)
+var file_communication_proto_msgTypes = make([]protoimpl.MessageInfo, 22)
 var file_communication_proto_goTypes = []any{
 	(*ClientID)(nil),                  // 0: Communication.ClientID
 	(*Ack)(nil),                       // 1: Communication.Ack
@@ -1296,6 +1427,7 @@ var file_communication_proto_goTypes = []any{
 	(*DASIPAddress)(nil),              // 18: Communication.DASIPAddress
 	(*AcqRemark)(nil),                 // 19: Communication.AcqRemark
 	(*AcqRemarks)(nil),                // 20: Communication.AcqRemarks
+	(*DeveloperOptions)(nil),          // 21: Communication.DeveloperOptions
 }
 var file_communication_proto_depIdxs = []int32{
 	8,  // 0: Communication.AcqDASMap.dasDetails:type_name -> Communication.AcqDasDetails
@@ -1318,22 +1450,26 @@ var file_communication_proto_depIdxs = []int32{
 	18, // 17: Communication.Communication.ChangeDASIPAddress:input_type -> Communication.DASIPAddress
 	0,  // 18: Communication.Communication.GetAcqRemarks:input_type -> Communication.ClientID
 	19, // 19: Communication.Communication.ChangeAcqRemark:input_type -> Communication.AcqRemark
-	2,  // 20: Communication.Communication.GetServerStatus:output_type -> Communication.ServerStatus
-	3,  // 21: Communication.Communication.IsWhitelisted:output_type -> Communication.IsWhitelistedResponse
-	4,  // 22: Communication.Communication.GetServerDetails:output_type -> Communication.ServerDetails
-	6,  // 23: Communication.Communication.Login:output_type -> Communication.LoginResponse
-	12, // 24: Communication.Communication.GetAcquisitionParameters:output_type -> Communication.AcquisitionParameters
-	9,  // 25: Communication.Communication.GetDASStatus:output_type -> Communication.DASStatus
-	13, // 26: Communication.Communication.GetFileAcquisitionParameters:output_type -> Communication.FileAcquisitionParameters
-	15, // 27: Communication.Communication.GetAllTestPhases:output_type -> Communication.TestPhases
-	1,  // 28: Communication.Communication.AddTestPhase:output_type -> Communication.Ack
-	1,  // 29: Communication.Communication.SelectTestPhase:output_type -> Communication.Ack
-	17, // 30: Communication.Communication.GetDASIPAddresses:output_type -> Communication.DASIPAddresses
-	1,  // 31: Communication.Communication.ChangeDASIPAddress:output_type -> Communication.Ack
-	20, // 32: Communication.Communication.GetAcqRemarks:output_type -> Communication.AcqRemarks
-	1,  // 33: Communication.Communication.ChangeAcqRemark:output_type -> Communication.Ack
-	20, // [20:34] is the sub-list for method output_type
-	6,  // [6:20] is the sub-list for method input_type
+	0,  // 20: Communication.Communication.GetDeveloperOptions:input_type -> Communication.ClientID
+	21, // 21: Communication.Communication.SetDeveloperOptions:input_type -> Communication.DeveloperOptions
+	2,  // 22: Communication.Communication.GetServerStatus:output_type -> Communication.ServerStatus
+	3,  // 23: Communication.Communication.IsWhitelisted:output_type -> Communication.IsWhitelistedResponse
+	4,  // 24: Communication.Communication.GetServerDetails:output_type -> Communication.ServerDetails
+	6,  // 25: Communication.Communication.Login:output_type -> Communication.LoginResponse
+	12, // 26: Communication.Communication.GetAcquisitionParameters:output_type -> Communication.AcquisitionParameters
+	9,  // 27: Communication.Communication.GetDASStatus:output_type -> Communication.DASStatus
+	13, // 28: Communication.Communication.GetFileAcquisitionParameters:output_type -> Communication.FileAcquisitionParameters
+	15, // 29: Communication.Communication.GetAllTestPhases:output_type -> Communication.TestPhases
+	1,  // 30: Communication.Communication.AddTestPhase:output_type -> Communication.Ack
+	1,  // 31: Communication.Communication.SelectTestPhase:output_type -> Communication.Ack
+	17, // 32: Communication.Communication.GetDASIPAddresses:output_type -> Communication.DASIPAddresses
+	1,  // 33: Communication.Communication.ChangeDASIPAddress:output_type -> Communication.Ack
+	20, // 34: Communication.Communication.GetAcqRemarks:output_type -> Communication.AcqRemarks
+	1,  // 35: Communication.Communication.ChangeAcqRemark:output_type -> Communication.Ack
+	21, // 36: Communication.Communication.GetDeveloperOptions:output_type -> Communication.DeveloperOptions
+	1,  // 37: Communication.Communication.SetDeveloperOptions:output_type -> Communication.Ack
+	22, // [22:38] is the sub-list for method output_type
+	6,  // [6:22] is the sub-list for method input_type
 	6,  // [6:6] is the sub-list for extension type_name
 	6,  // [6:6] is the sub-list for extension extendee
 	0,  // [0:6] is the sub-list for field type_name
@@ -1350,7 +1486,7 @@ func file_communication_proto_init() {
 			GoPackagePath: reflect.TypeOf(x{}).PkgPath(),
 			RawDescriptor: unsafe.Slice(unsafe.StringData(file_communication_proto_rawDesc), len(file_communication_proto_rawDesc)),
 			NumEnums:      0,
-			NumMessages:   21,
+			NumMessages:   22,
 			NumExtensions: 0,
 			NumServices:   1,
 		},

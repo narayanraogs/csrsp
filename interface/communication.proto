@@ -107,13 +107,26 @@ message DASIPAddress{
 }
 
 message AcqRemark{
-    string date = 1;
-    string time = 2;
-    string remark = 3;
+    string phase = 1;
+    string acqMode = 2;
+    string config = 3;
+    string date = 4;
+    string time = 5;
+    string remark = 6;
 }
 
 message AcqRemarks{
     repeated AcqRemark acqRemarks = 1;
+}
+
+message DeveloperOptions{
+    bool autoArchival = 1;
+    bool enableParallelProcessing = 2;
+    string encryptionMode = 3;
+    string logLevel = 4;
+    int32 endProcessID = 5;
+    int32 maxThreads = 6;
+    int32 bufferLength = 7;
 }
 
 
@@ -132,4 +145,6 @@ service Communication{
     rpc ChangeDASIPAddress(DASIPAddress) returns (Ack);
     rpc GetAcqRemarks(ClientID) returns (AcqRemarks);
     rpc ChangeAcqRemark(AcqRemark) returns (Ack);
+    rpc GetDeveloperOptions(ClientID) returns (DeveloperOptions);
+    rpc SetDeveloperOptions(DeveloperOptions) returns (Ack);
 }

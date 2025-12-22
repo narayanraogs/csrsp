@@ -78,6 +78,9 @@ func (s *CommunicationServer) GetAcqRemarks(ctx context.Context, req *pb.ClientI
 	}
 	for _, acq := range acqDetail {
 		var acqRemark pb.AcqRemark
+		acqRemark.Phase = acq.Testphase
+		acqRemark.AcqMode = acq.Acqmode
+		acqRemark.Config = acq.Configname
 		acqRemark.Date = acq.Date
 		acqRemark.Time = acq.Time
 		acqRemark.Remark = acq.Remark

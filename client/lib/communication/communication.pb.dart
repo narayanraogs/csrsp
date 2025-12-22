@@ -1243,11 +1243,17 @@ class DASIPAddress extends $pb.GeneratedMessage {
 
 class AcqRemark extends $pb.GeneratedMessage {
   factory AcqRemark({
+    $core.String? phase,
+    $core.String? acqMode,
+    $core.String? config,
     $core.String? date,
     $core.String? time,
     $core.String? remark,
   }) {
     final result = create();
+    if (phase != null) result.phase = phase;
+    if (acqMode != null) result.acqMode = acqMode;
+    if (config != null) result.config = config;
     if (date != null) result.date = date;
     if (time != null) result.time = time;
     if (remark != null) result.remark = remark;
@@ -1267,9 +1273,12 @@ class AcqRemark extends $pb.GeneratedMessage {
       _omitMessageNames ? '' : 'AcqRemark',
       package: const $pb.PackageName(_omitMessageNames ? '' : 'Communication'),
       createEmptyInstance: create)
-    ..aOS(1, _omitFieldNames ? '' : 'date')
-    ..aOS(2, _omitFieldNames ? '' : 'time')
-    ..aOS(3, _omitFieldNames ? '' : 'remark')
+    ..aOS(1, _omitFieldNames ? '' : 'phase')
+    ..aOS(2, _omitFieldNames ? '' : 'acqMode', protoName: 'acqMode')
+    ..aOS(3, _omitFieldNames ? '' : 'config')
+    ..aOS(4, _omitFieldNames ? '' : 'date')
+    ..aOS(5, _omitFieldNames ? '' : 'time')
+    ..aOS(6, _omitFieldNames ? '' : 'remark')
     ..hasRequiredFields = false;
 
   @$core.Deprecated('See https://github.com/google/protobuf.dart/issues/998.')
@@ -1291,31 +1300,58 @@ class AcqRemark extends $pb.GeneratedMessage {
   static AcqRemark? _defaultInstance;
 
   @$pb.TagNumber(1)
-  $core.String get date => $_getSZ(0);
+  $core.String get phase => $_getSZ(0);
   @$pb.TagNumber(1)
-  set date($core.String value) => $_setString(0, value);
+  set phase($core.String value) => $_setString(0, value);
   @$pb.TagNumber(1)
-  $core.bool hasDate() => $_has(0);
+  $core.bool hasPhase() => $_has(0);
   @$pb.TagNumber(1)
-  void clearDate() => $_clearField(1);
+  void clearPhase() => $_clearField(1);
 
   @$pb.TagNumber(2)
-  $core.String get time => $_getSZ(1);
+  $core.String get acqMode => $_getSZ(1);
   @$pb.TagNumber(2)
-  set time($core.String value) => $_setString(1, value);
+  set acqMode($core.String value) => $_setString(1, value);
   @$pb.TagNumber(2)
-  $core.bool hasTime() => $_has(1);
+  $core.bool hasAcqMode() => $_has(1);
   @$pb.TagNumber(2)
-  void clearTime() => $_clearField(2);
+  void clearAcqMode() => $_clearField(2);
 
   @$pb.TagNumber(3)
-  $core.String get remark => $_getSZ(2);
+  $core.String get config => $_getSZ(2);
   @$pb.TagNumber(3)
-  set remark($core.String value) => $_setString(2, value);
+  set config($core.String value) => $_setString(2, value);
   @$pb.TagNumber(3)
-  $core.bool hasRemark() => $_has(2);
+  $core.bool hasConfig() => $_has(2);
   @$pb.TagNumber(3)
-  void clearRemark() => $_clearField(3);
+  void clearConfig() => $_clearField(3);
+
+  @$pb.TagNumber(4)
+  $core.String get date => $_getSZ(3);
+  @$pb.TagNumber(4)
+  set date($core.String value) => $_setString(3, value);
+  @$pb.TagNumber(4)
+  $core.bool hasDate() => $_has(3);
+  @$pb.TagNumber(4)
+  void clearDate() => $_clearField(4);
+
+  @$pb.TagNumber(5)
+  $core.String get time => $_getSZ(4);
+  @$pb.TagNumber(5)
+  set time($core.String value) => $_setString(4, value);
+  @$pb.TagNumber(5)
+  $core.bool hasTime() => $_has(4);
+  @$pb.TagNumber(5)
+  void clearTime() => $_clearField(5);
+
+  @$pb.TagNumber(6)
+  $core.String get remark => $_getSZ(5);
+  @$pb.TagNumber(6)
+  set remark($core.String value) => $_setString(5, value);
+  @$pb.TagNumber(6)
+  $core.bool hasRemark() => $_has(5);
+  @$pb.TagNumber(6)
+  void clearRemark() => $_clearField(6);
 }
 
 class AcqRemarks extends $pb.GeneratedMessage {
@@ -1364,6 +1400,135 @@ class AcqRemarks extends $pb.GeneratedMessage {
 
   @$pb.TagNumber(1)
   $pb.PbList<AcqRemark> get acqRemarks => $_getList(0);
+}
+
+class DeveloperOptions extends $pb.GeneratedMessage {
+  factory DeveloperOptions({
+    $core.bool? autoArchival,
+    $core.bool? enableParallelProcessing,
+    $core.String? encryptionMode,
+    $core.String? logLevel,
+    $core.int? endProcessID,
+    $core.int? maxThreads,
+    $core.int? bufferLength,
+  }) {
+    final result = create();
+    if (autoArchival != null) result.autoArchival = autoArchival;
+    if (enableParallelProcessing != null)
+      result.enableParallelProcessing = enableParallelProcessing;
+    if (encryptionMode != null) result.encryptionMode = encryptionMode;
+    if (logLevel != null) result.logLevel = logLevel;
+    if (endProcessID != null) result.endProcessID = endProcessID;
+    if (maxThreads != null) result.maxThreads = maxThreads;
+    if (bufferLength != null) result.bufferLength = bufferLength;
+    return result;
+  }
+
+  DeveloperOptions._();
+
+  factory DeveloperOptions.fromBuffer($core.List<$core.int> data,
+          [$pb.ExtensionRegistry registry = $pb.ExtensionRegistry.EMPTY]) =>
+      create()..mergeFromBuffer(data, registry);
+  factory DeveloperOptions.fromJson($core.String json,
+          [$pb.ExtensionRegistry registry = $pb.ExtensionRegistry.EMPTY]) =>
+      create()..mergeFromJson(json, registry);
+
+  static final $pb.BuilderInfo _i = $pb.BuilderInfo(
+      _omitMessageNames ? '' : 'DeveloperOptions',
+      package: const $pb.PackageName(_omitMessageNames ? '' : 'Communication'),
+      createEmptyInstance: create)
+    ..aOB(1, _omitFieldNames ? '' : 'autoArchival', protoName: 'autoArchival')
+    ..aOB(2, _omitFieldNames ? '' : 'enableParallelProcessing',
+        protoName: 'enableParallelProcessing')
+    ..aOS(3, _omitFieldNames ? '' : 'encryptionMode',
+        protoName: 'encryptionMode')
+    ..aOS(4, _omitFieldNames ? '' : 'logLevel', protoName: 'logLevel')
+    ..aI(5, _omitFieldNames ? '' : 'endProcessID', protoName: 'endProcessID')
+    ..aI(6, _omitFieldNames ? '' : 'maxThreads', protoName: 'maxThreads')
+    ..aI(7, _omitFieldNames ? '' : 'bufferLength', protoName: 'bufferLength')
+    ..hasRequiredFields = false;
+
+  @$core.Deprecated('See https://github.com/google/protobuf.dart/issues/998.')
+  DeveloperOptions clone() => deepCopy();
+  @$core.Deprecated('See https://github.com/google/protobuf.dart/issues/998.')
+  DeveloperOptions copyWith(void Function(DeveloperOptions) updates) =>
+      super.copyWith((message) => updates(message as DeveloperOptions))
+          as DeveloperOptions;
+
+  @$core.override
+  $pb.BuilderInfo get info_ => _i;
+
+  @$core.pragma('dart2js:noInline')
+  static DeveloperOptions create() => DeveloperOptions._();
+  @$core.override
+  DeveloperOptions createEmptyInstance() => create();
+  @$core.pragma('dart2js:noInline')
+  static DeveloperOptions getDefault() => _defaultInstance ??=
+      $pb.GeneratedMessage.$_defaultFor<DeveloperOptions>(create);
+  static DeveloperOptions? _defaultInstance;
+
+  @$pb.TagNumber(1)
+  $core.bool get autoArchival => $_getBF(0);
+  @$pb.TagNumber(1)
+  set autoArchival($core.bool value) => $_setBool(0, value);
+  @$pb.TagNumber(1)
+  $core.bool hasAutoArchival() => $_has(0);
+  @$pb.TagNumber(1)
+  void clearAutoArchival() => $_clearField(1);
+
+  @$pb.TagNumber(2)
+  $core.bool get enableParallelProcessing => $_getBF(1);
+  @$pb.TagNumber(2)
+  set enableParallelProcessing($core.bool value) => $_setBool(1, value);
+  @$pb.TagNumber(2)
+  $core.bool hasEnableParallelProcessing() => $_has(1);
+  @$pb.TagNumber(2)
+  void clearEnableParallelProcessing() => $_clearField(2);
+
+  @$pb.TagNumber(3)
+  $core.String get encryptionMode => $_getSZ(2);
+  @$pb.TagNumber(3)
+  set encryptionMode($core.String value) => $_setString(2, value);
+  @$pb.TagNumber(3)
+  $core.bool hasEncryptionMode() => $_has(2);
+  @$pb.TagNumber(3)
+  void clearEncryptionMode() => $_clearField(3);
+
+  @$pb.TagNumber(4)
+  $core.String get logLevel => $_getSZ(3);
+  @$pb.TagNumber(4)
+  set logLevel($core.String value) => $_setString(3, value);
+  @$pb.TagNumber(4)
+  $core.bool hasLogLevel() => $_has(3);
+  @$pb.TagNumber(4)
+  void clearLogLevel() => $_clearField(4);
+
+  @$pb.TagNumber(5)
+  $core.int get endProcessID => $_getIZ(4);
+  @$pb.TagNumber(5)
+  set endProcessID($core.int value) => $_setSignedInt32(4, value);
+  @$pb.TagNumber(5)
+  $core.bool hasEndProcessID() => $_has(4);
+  @$pb.TagNumber(5)
+  void clearEndProcessID() => $_clearField(5);
+
+  @$pb.TagNumber(6)
+  $core.int get maxThreads => $_getIZ(5);
+  @$pb.TagNumber(6)
+  set maxThreads($core.int value) => $_setSignedInt32(5, value);
+  @$pb.TagNumber(6)
+  $core.bool hasMaxThreads() => $_has(5);
+  @$pb.TagNumber(6)
+  void clearMaxThreads() => $_clearField(6);
+
+  @$pb.TagNumber(7)
+  $core.int get bufferLength => $_getIZ(6);
+  @$pb.TagNumber(7)
+  set bufferLength($core.int value) => $_setSignedInt32(6, value);
+  @$pb.TagNumber(7)
+  $core.bool hasBufferLength() => $_has(6);
+  @$pb.TagNumber(7)
+  void clearBufferLength() => $_clearField(7);
 }
 
 const $core.bool _omitFieldNames =

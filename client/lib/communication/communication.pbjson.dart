@@ -330,16 +330,20 @@ final $typed_data.Uint8List dASIPAddressDescriptor = $convert.base64Decode(
 const AcqRemark$json = {
   '1': 'AcqRemark',
   '2': [
-    {'1': 'date', '3': 1, '4': 1, '5': 9, '10': 'date'},
-    {'1': 'time', '3': 2, '4': 1, '5': 9, '10': 'time'},
-    {'1': 'remark', '3': 3, '4': 1, '5': 9, '10': 'remark'},
+    {'1': 'phase', '3': 1, '4': 1, '5': 9, '10': 'phase'},
+    {'1': 'acqMode', '3': 2, '4': 1, '5': 9, '10': 'acqMode'},
+    {'1': 'config', '3': 3, '4': 1, '5': 9, '10': 'config'},
+    {'1': 'date', '3': 4, '4': 1, '5': 9, '10': 'date'},
+    {'1': 'time', '3': 5, '4': 1, '5': 9, '10': 'time'},
+    {'1': 'remark', '3': 6, '4': 1, '5': 9, '10': 'remark'},
   ],
 };
 
 /// Descriptor for `AcqRemark`. Decode as a `google.protobuf.DescriptorProto`.
 final $typed_data.Uint8List acqRemarkDescriptor = $convert.base64Decode(
-    'CglBY3FSZW1hcmsSEgoEZGF0ZRgBIAEoCVIEZGF0ZRISCgR0aW1lGAIgASgJUgR0aW1lEhYKBn'
-    'JlbWFyaxgDIAEoCVIGcmVtYXJr');
+    'CglBY3FSZW1hcmsSFAoFcGhhc2UYASABKAlSBXBoYXNlEhgKB2FjcU1vZGUYAiABKAlSB2FjcU'
+    '1vZGUSFgoGY29uZmlnGAMgASgJUgZjb25maWcSEgoEZGF0ZRgEIAEoCVIEZGF0ZRISCgR0aW1l'
+    'GAUgASgJUgR0aW1lEhYKBnJlbWFyaxgGIAEoCVIGcmVtYXJr');
 
 @$core.Deprecated('Use acqRemarksDescriptor instead')
 const AcqRemarks$json = {
@@ -360,3 +364,32 @@ const AcqRemarks$json = {
 final $typed_data.Uint8List acqRemarksDescriptor = $convert.base64Decode(
     'CgpBY3FSZW1hcmtzEjgKCmFjcVJlbWFya3MYASADKAsyGC5Db21tdW5pY2F0aW9uLkFjcVJlbW'
     'Fya1IKYWNxUmVtYXJrcw==');
+
+@$core.Deprecated('Use developerOptionsDescriptor instead')
+const DeveloperOptions$json = {
+  '1': 'DeveloperOptions',
+  '2': [
+    {'1': 'autoArchival', '3': 1, '4': 1, '5': 8, '10': 'autoArchival'},
+    {
+      '1': 'enableParallelProcessing',
+      '3': 2,
+      '4': 1,
+      '5': 8,
+      '10': 'enableParallelProcessing'
+    },
+    {'1': 'encryptionMode', '3': 3, '4': 1, '5': 9, '10': 'encryptionMode'},
+    {'1': 'logLevel', '3': 4, '4': 1, '5': 9, '10': 'logLevel'},
+    {'1': 'endProcessID', '3': 5, '4': 1, '5': 5, '10': 'endProcessID'},
+    {'1': 'maxThreads', '3': 6, '4': 1, '5': 5, '10': 'maxThreads'},
+    {'1': 'bufferLength', '3': 7, '4': 1, '5': 5, '10': 'bufferLength'},
+  ],
+};
+
+/// Descriptor for `DeveloperOptions`. Decode as a `google.protobuf.DescriptorProto`.
+final $typed_data.Uint8List developerOptionsDescriptor = $convert.base64Decode(
+    'ChBEZXZlbG9wZXJPcHRpb25zEiIKDGF1dG9BcmNoaXZhbBgBIAEoCFIMYXV0b0FyY2hpdmFsEj'
+    'oKGGVuYWJsZVBhcmFsbGVsUHJvY2Vzc2luZxgCIAEoCFIYZW5hYmxlUGFyYWxsZWxQcm9jZXNz'
+    'aW5nEiYKDmVuY3J5cHRpb25Nb2RlGAMgASgJUg5lbmNyeXB0aW9uTW9kZRIaCghsb2dMZXZlbB'
+    'gEIAEoCVIIbG9nTGV2ZWwSIgoMZW5kUHJvY2Vzc0lEGAUgASgFUgxlbmRQcm9jZXNzSUQSHgoK'
+    'bWF4VGhyZWFkcxgGIAEoBVIKbWF4VGhyZWFkcxIiCgxidWZmZXJMZW5ndGgYByABKAVSDGJ1Zm'
+    'Zlckxlbmd0aA==');

@@ -33,6 +33,8 @@ const (
 	Communication_ChangeDASIPAddress_FullMethodName           = "/Communication.Communication/ChangeDASIPAddress"
 	Communication_GetAcqRemarks_FullMethodName                = "/Communication.Communication/GetAcqRemarks"
 	Communication_ChangeAcqRemark_FullMethodName              = "/Communication.Communication/ChangeAcqRemark"
+	Communication_GetDeveloperOptions_FullMethodName          = "/Communication.Communication/GetDeveloperOptions"
+	Communication_SetDeveloperOptions_FullMethodName          = "/Communication.Communication/SetDeveloperOptions"
 )
 
 // CommunicationClient is the client API for Communication service.
@@ -53,6 +55,8 @@ type CommunicationClient interface {
 	ChangeDASIPAddress(ctx context.Context, in *DASIPAddress, opts ...grpc.CallOption) (*Ack, error)
 	GetAcqRemarks(ctx context.Context, in *ClientID, opts ...grpc.CallOption) (*AcqRemarks, error)
 	ChangeAcqRemark(ctx context.Context, in *AcqRemark, opts ...grpc.CallOption) (*Ack, error)
+	GetDeveloperOptions(ctx context.Context, in *ClientID, opts ...grpc.CallOption) (*DeveloperOptions, error)
+	SetDeveloperOptions(ctx context.Context, in *DeveloperOptions, opts ...grpc.CallOption) (*Ack, error)
 }
 
 type communicationClient struct {
@@ -221,6 +225,26 @@ func (c *communicationClient) ChangeAcqRemark(ctx context.Context, in *AcqRemark
 	return out, nil
 }
 
+func (c *communicationClient) GetDeveloperOptions(ctx context.Context, in *ClientID, opts ...grpc.CallOption) (*DeveloperOptions, error) {
+	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
+	out := new(DeveloperOptions)
+	err := c.cc.Invoke(ctx, Communication_GetDeveloperOptions_FullMethodName, in, out, cOpts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *communicationClient) SetDeveloperOptions(ctx context.Context, in *DeveloperOptions, opts ...grpc.CallOption) (*Ack, error) {
+	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
+	out := new(Ack)
+	err := c.cc.Invoke(ctx, Communication_SetDeveloperOptions_FullMethodName, in, out, cOpts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 // CommunicationServer is the server API for Communication service.
 // All implementations must embed UnimplementedCommunicationServer
 // for forward compatibility.
@@ -239,6 +263,8 @@ type CommunicationServer interface {
 	ChangeDASIPAddress(context.Context, *DASIPAddress) (*Ack, error)
 	GetAcqRemarks(context.Context, *ClientID) (*AcqRemarks, error)
 	ChangeAcqRemark(context.Context, *AcqRemark) (*Ack, error)
+	GetDeveloperOptions(context.Context, *ClientID) (*DeveloperOptions, error)
+	SetDeveloperOptions(context.Context, *DeveloperOptions) (*Ack, error)
 	mustEmbedUnimplementedCommunicationServer()
 }
 
@@ -290,6 +316,12 @@ func (UnimplementedCommunicationServer) GetAcqRemarks(context.Context, *ClientID
 }
 func (UnimplementedCommunicationServer) ChangeAcqRemark(context.Context, *AcqRemark) (*Ack, error) {
 	return nil, status.Error(codes.Unimplemented, "method ChangeAcqRemark not implemented")
+}
+func (UnimplementedCommunicationServer) GetDeveloperOptions(context.Context, *ClientID) (*DeveloperOptions, error) {
+	return nil, status.Error(codes.Unimplemented, "method GetDeveloperOptions not implemented")
+}
+func (UnimplementedCommunicationServer) SetDeveloperOptions(context.Context, *DeveloperOptions) (*Ack, error) {
+	return nil, status.Error(codes.Unimplemented, "method SetDeveloperOptions not implemented")
 }
 func (UnimplementedCommunicationServer) mustEmbedUnimplementedCommunicationServer() {}
 func (UnimplementedCommunicationServer) testEmbeddedByValue()                       {}
@@ -550,6 +582,42 @@ func _Communication_ChangeAcqRemark_Handler(srv interface{}, ctx context.Context
 	return interceptor(ctx, in, info, handler)
 }
 
+func _Communication_GetDeveloperOptions_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(ClientID)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(CommunicationServer).GetDeveloperOptions(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: Communication_GetDeveloperOptions_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(CommunicationServer).GetDeveloperOptions(ctx, req.(*ClientID))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _Communication_SetDeveloperOptions_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(DeveloperOptions)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(CommunicationServer).SetDeveloperOptions(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: Communication_SetDeveloperOptions_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(CommunicationServer).SetDeveloperOptions(ctx, req.(*DeveloperOptions))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
 // Communication_ServiceDesc is the grpc.ServiceDesc for Communication service.
 // It's only intended for direct use with grpc.RegisterService,
 // and not to be introspected or modified (even as a copy)
@@ -604,6 +672,14 @@ var Communication_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "ChangeAcqRemark",
 			Handler:    _Communication_ChangeAcqRemark_Handler,
+		},
+		{
+			MethodName: "GetDeveloperOptions",
+			Handler:    _Communication_GetDeveloperOptions_Handler,
+		},
+		{
+			MethodName: "SetDeveloperOptions",
+			Handler:    _Communication_SetDeveloperOptions_Handler,
 		},
 	},
 	Streams: []grpc.StreamDesc{
