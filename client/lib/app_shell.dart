@@ -4,12 +4,14 @@ import 'dart:math';
 import 'package:client/pages/home_page.dart';
 import 'package:client/pages/login_view.dart';
 import 'package:client/widgets/app_drawer.dart';
+import 'package:client/widgets/logs_sheet.dart';
 import 'package:client/widgets/status_bar.dart';
 import 'package:flutter/material.dart';
 
 import 'package:grpc/grpc_web.dart';
 import 'package:client/communication/communication.pbgrpc.dart';
 import 'package:client/state/global_state.dart';
+import 'package:client/state/log_state.dart';
 import 'package:provider/provider.dart';
 
 class AppShell extends StatefulWidget {
@@ -34,7 +36,11 @@ class _AppShellState extends State<AppShell> {
   // State for the status bar
   bool _isConnected = false;
   double _memoryUsage = 0.0;
+
   double _cpuUsage = 0.0;
+
+  // State for Logs Sheet
+  bool _showLogs = false;
 
   // gRPC
   GrpcWebClientChannel? _channel;
@@ -225,6 +231,7 @@ class _AppShellState extends State<AppShell> {
       ),
     );
     Future.delayed(const Duration(seconds: 2), () {
+      if (!mounted) return;
       setState(() {
         _isConnected = Random().nextDouble() > 0.2;
       });
@@ -237,6 +244,15 @@ class _AppShellState extends State<AppShell> {
         ),
       );
     });
+  }
+
+  void _toggleLogs() {
+    setState(() {
+      _showLogs = !_showLogs;
+    });
+    if (_showLogs) {
+      context.read<LogState>().markAllRead();
+    }
   }
 
   @override
@@ -264,7 +280,10 @@ class _AppShellState extends State<AppShell> {
         memoryUsage: _memoryUsage,
         cpuUsage: _cpuUsage,
         onReconnect: _reconnect,
+        onToggleLogs: _toggleLogs,
+        unreadLogCount: context.watch<LogState>().unreadCount,
       ),
+      bottomSheet: _showLogs ? LogsSheet(onClose: _toggleLogs) : null,
     );
   }
 

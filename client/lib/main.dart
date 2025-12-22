@@ -3,12 +3,16 @@ import 'package:client/theme/theme.dart';
 import 'package:flutter/material.dart';
 
 import 'package:client/state/global_state.dart';
+import 'package:client/state/log_state.dart';
 import 'package:provider/provider.dart';
 
 void main() {
   runApp(
-    ChangeNotifierProvider(
-      create: (context) => GlobalState(),
+    MultiProvider(
+      providers: [
+        ChangeNotifierProvider(create: (_) => GlobalState()),
+        ChangeNotifierProvider(create: (_) => LogState()),
+      ],
       child: const MyApp(),
     ),
   );

@@ -6,6 +6,7 @@ class StatusBar extends StatelessWidget {
   final double memoryUsage;
   final double cpuUsage;
   final VoidCallback onReconnect;
+  final VoidCallback onToggleLogs;
 
   const StatusBar({
     super.key,
@@ -13,7 +14,12 @@ class StatusBar extends StatelessWidget {
     required this.memoryUsage,
     required this.cpuUsage,
     required this.onReconnect,
+
+    required this.onToggleLogs,
+    this.unreadLogCount = 0,
   });
+
+  final int unreadLogCount;
 
   @override
   Widget build(BuildContext context) {
@@ -28,10 +34,22 @@ class StatusBar extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
           _buildStatusIndicator(textColor),
-          _buildUsageIndicator(
-              'MEM', memoryUsage, 'MB', textColor),
-          _buildUsageIndicator(
-              'CPU', cpuUsage, '%', textColor),
+          _buildUsageIndicator('MEM', memoryUsage, 'MB', textColor),
+          _buildUsageIndicator('CPU', cpuUsage, '%', textColor),
+          IconButton(
+            icon: unreadLogCount > 0
+                ? Badge(
+                    label: Text('$unreadLogCount'),
+                    child: const Icon(Icons.list_alt),
+                  )
+                : const Icon(Icons.list_alt),
+            onPressed: onToggleLogs,
+            tooltip: 'Toggle Logs',
+            color: textColor,
+            iconSize: 20,
+            constraints: const BoxConstraints(),
+            padding: const EdgeInsets.only(left: 8),
+          ),
         ],
       ),
     );
@@ -40,10 +58,7 @@ class StatusBar extends StatelessWidget {
   Widget _buildStatusIndicator(Color? textColor) {
     return Row(
       children: [
-        Text(
-          'Server:',
-          style: TextStyle(color: textColor, fontSize: 12),
-        ),
+        Text('Server:', style: TextStyle(color: textColor, fontSize: 12)),
         const SizedBox(width: 8),
         Icon(
           isConnected ? Icons.check_circle : Icons.error,
@@ -54,7 +69,10 @@ class StatusBar extends StatelessWidget {
         Text(
           isConnected ? 'Connected' : 'Offline',
           style: TextStyle(
-              color: textColor, fontSize: 12, fontWeight: FontWeight.bold),
+            color: textColor,
+            fontSize: 12,
+            fontWeight: FontWeight.bold,
+          ),
         ),
         const SizedBox(width: 8),
         SizedBox(
@@ -79,19 +97,23 @@ class StatusBar extends StatelessWidget {
   }
 
   Widget _buildUsageIndicator(
-      String label, double value, String unit, Color? textColor) {
+    String label,
+    double value,
+    String unit,
+    Color? textColor,
+  ) {
     return Row(
       mainAxisSize: MainAxisSize.min,
       children: [
-        Text(
-          '$label:',
-          style: TextStyle(color: textColor, fontSize: 12),
-        ),
+        Text('$label:', style: TextStyle(color: textColor, fontSize: 12)),
         const SizedBox(width: 4),
         Text(
           '${value.toStringAsFixed(2)} $unit',
           style: TextStyle(
-              color: textColor, fontSize: 12, fontWeight: FontWeight.bold),
+            color: textColor,
+            fontSize: 12,
+            fontWeight: FontWeight.bold,
+          ),
         ),
       ],
     );

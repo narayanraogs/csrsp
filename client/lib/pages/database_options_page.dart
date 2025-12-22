@@ -1,5 +1,6 @@
 import 'package:client/communication/communication.pbgrpc.dart';
 import 'package:client/state/global_state.dart';
+import 'package:client/state/log_state.dart';
 import 'package:flutter/material.dart';
 import 'package:grpc/grpc_web.dart';
 import 'package:provider/provider.dart';
@@ -138,13 +139,20 @@ class _TestPhaseTabState extends State<_TestPhaseTab> {
         if (response.ok) {
           _newPhaseController.clear();
           await _fetchTestPhases(); // Refresh list
-          ScaffoldMessenger.of(
-            context,
-          ).showSnackBar(SnackBar(content: Text(response.message)));
+          await _fetchTestPhases(); // Refresh list
+          context.read<LogState>().addLog(
+            response.message,
+            type: LogType.success,
+            showSnackbar: true,
+            context: context,
+          );
         } else {
-          ScaffoldMessenger.of(
-            context,
-          ).showSnackBar(SnackBar(content: Text('Error: ${response.message}')));
+          context.read<LogState>().addLog(
+            'Error: ${response.message}',
+            type: LogType.error,
+            showSnackbar: true,
+            context: context,
+          );
         }
       }
     } catch (e) {
@@ -184,15 +192,13 @@ class _TestPhaseTabState extends State<_TestPhaseTab> {
       final response = await client.selectTestPhase(request);
 
       if (mounted) {
-        ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(
-            content: Text(
-              response.ok
-                  ? response.message
-                  : 'Failed to update phase: ${response.message}',
-            ),
-            backgroundColor: response.ok ? Colors.green : Colors.red,
-          ),
+        context.read<LogState>().addLog(
+          response.ok
+              ? response.message
+              : 'Failed to update phase: ${response.message}',
+          type: response.ok ? LogType.success : LogType.error,
+          showSnackbar: true,
+          context: context,
         );
       }
     } catch (e) {
